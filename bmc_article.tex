@@ -116,7 +116,7 @@
 %%                                          %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{A sample article title}
+\title{The Chemistry Development Kit (CDK). 3. Atom typing, ...}
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                          %%
@@ -132,15 +132,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\author{Charles A Darwin\correspondingauthor$^{1,2}$%
-       \email{Charles A Darwin\correspondingauthor - charles@londonzoo.co.uk}%
-      \and
-         Jane E Doe\correspondingauthor$^2$%
-         \email{Jane E Doe\correspondingauthor - jane.e.doe@cambridge.co.uk}
-       and 
-         John RS Smith$^3$%
-         \email{John RS Smith - john.RS.Smith@cambridge.co.uk}%
-      }
+\author{
+  Egon L Willighagen\correspondingauthor$^{1}$%
+  \email{Egon L Willighagen\correspondingauthor - egon.willighagen@gmail.com}
+\and
+  Christoph Steinbeck\correspondingauthor$^2$%
+  \email{Christoph Steinbeck\correspondingauthor - steinbeck@ebi.ac.uk}
+}
       
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -149,13 +147,11 @@
 %%                                          %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\address{%
-    \iid(1)Life Sciences Department, Kings College London, Cornwall House,%
+\address{
+    \iid(1)Life Sciences Department, Kings College London, Cornwall House,
         Waterloo Road, London, UK\\
-    \iid(2)Department of Zoology, Cambridge, Waterloo Road, London, UK\\
-    \iid(3)Marine Ecology Department, Institute of Marine Sciences Kiel, %
-        D\"{u}sternbrooker Weg 20, 24105 Kiel, Germany
-}%
+    \iid(2)Department of Zoology, Cambridge, Waterloo Road, London, UK
+}
 
 \maketitle
 
@@ -224,49 +220,42 @@
 %% Background %%
 %%
 \section*{Background}
- Text for this section.\cite{koon,oreg,khar,zvai,xjon,schn,pond,smith,marg,hunn,advi,koha,mouse}
 
+Open Source cheminformatics state \ldots (EGON)
+
+Adoption of the CDK ... Cinfony~\cite{OBoyle2008}, and other bindings \ldots ...
+
+Recent prominent use cases of the CDK~\cite{Steinbeck2003,Steinbeck2006} \ldots (EGON)
 
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Results and Discussion %%
 %%
 \section*{Results and Discussion}
-  \subsection*{Results sub-heading}
-    \subsubsection*{This is a sub-sub-heading}
-      Sub-sub-sub-headings are made with the \textsl{\\subsubsection} command. \pb
-      pb at end of lines ensures correct paragraph spacing.\pb
-	  Text for this sub-sub-section \ldots
-    \subsubsection*{Another sub-sub-sub-heading}
-      Text for this sub-sub-section \ldots
 
-  \subsection*{Another results sub-heading}
-    Text for this sub-section \ldots
+\subsection*{New Functionality}
 
-  \subsection*{Yet another results sub-heading}
-    Text for this sub-section.  More results \ldots
+Everyone is invited to contribute and write up the functionality they contributed;
+only requirement: the code must have been incorporated into the main CDK library by the
+time of submission of this paper.
 
-
-    
+  \subsubsection*{Atom Typing}
+  
+  The CDK has adopted a new atom typing algorithm \ldots (EGON)
+  
+\subsection*{Improved Coding Standards}
 
 %%%%%%%%%%%%%%%%%%%%%%
 \section*{Conclusions}
   Text for this section \ldots
-
-
   
 %%%%%%%%%%%%%%%%%%
 \section*{Methods}
-  \subsection*{Methods sub-heading for this section}
-    Text for this sub-section \ldots
-
-  \subsection*{Another methods sub-heading for this section}
-    Text for this sub-section \ldots
-
-  \subsection*{Yet another sub-heading for this section}
-    Text for this sub-section \ldots
-
-
+  \subsection*{Peer Review: Automated}
+    \subsubsection*{PMD}
+    \subsubsection*{JavaDoc Checks}
+  \subsection*{Peer Review: Manual}
+  \subsection*{Unit Testing}
     
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Authors contributions}
@@ -318,13 +307,13 @@
 %%
 %% Do not use \listoffigures as most will included as separate files
 
-\section*{Figures}
-  \subsection*{Figure 1 - Sample figure title}
-      A short description of the figure content
-      should go here.
-
-  \subsection*{Figure 2 - Sample figure title}
-      Figure legend text.
+%\section*{Figures}
+%  \subsection*{Figure 1 - Sample figure title}
+%      A short description of the figure content
+%      should go here.
+%
+%  \subsection*{Figure 2 - Sample figure title}
+%      Figure legend text.
 
 
 
@@ -336,23 +325,23 @@
 
 %% Use of \listoftables is discouraged.
 %%
-\section*{Tables}
-  \subsection*{Table 1 - Sample table title}
-    Here is an example of a \emph{small} table in \LaTeX\ using  
-    \verb|\tabular{...}|. This is where the description of the table 
-    should go. \par \mbox{}
-    \par
-    \mbox{
-      \begin{tabular}{|c|c|c|}
-        \hline \multicolumn{3}{|c|}{My Table}\\ \hline
-        A1 & B2  & C3 \\ \hline
-        A2 & ... & .. \\ \hline
-        A3 & ..  & .  \\ \hline
-      \end{tabular}
-      }
-  \subsection*{Table 2 - Sample table title}
-    Large tables are attached as separate files but should
-    still be described here.
+%\section*{Tables}
+%  \subsection*{Table 1 - Sample table title}
+%    Here is an example of a \emph{small} table in \LaTeX\ using  
+%    \verb|\tabular{...}|. This is where the description of the table 
+%    should go. \par \mbox{}
+%    \par
+%    \mbox{
+%      \begin{tabular}{|c|c|c|}
+%        \hline \multicolumn{3}{|c|}{My Table}\\ \hline
+%        A1 & B2  & C3 \\ \hline
+%        A2 & ... & .. \\ \hline
+%        A3 & ..  & .  \\ \hline
+%      \end{tabular}
+%      }
+%  \subsection*{Table 2 - Sample table title}
+%    Large tables are attached as separate files but should
+%    still be described here.
 
 
 
@@ -362,14 +351,14 @@
 %%                               %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section*{Additional Files}
-  \subsection*{Additional file 1 --- Sample additional file title}
-    Additional file descriptions text (including details of how to
-    view the file, if it is in a non-standard format or the file extension).  This might
-    refer to a multi-page table or a figure.
-
-  \subsection*{Additional file 2 --- Sample additional file title}
-    Additional file descriptions text.
+%\section*{Additional Files}
+%  \subsection*{Additional file 1 --- Sample additional file title}
+%    Additional file descriptions text (including details of how to
+%    view the file, if it is in a non-standard format or the file extension).  This might
+%    refer to a multi-page table or a figure.
+%
+%  \subsection*{Additional file 2 --- Sample additional file title}
+%    Additional file descriptions text.
 
 
 \end{bmcformat}
