@@ -46,7 +46,6 @@
 
 
 % Load packages
-\usepackage{cite} % Make references as [1-4], not [1,2,3,4]
 \usepackage{url}  % Formatting web addresses  
 \usepackage{ifthen}  % Conditional 
 \usepackage{multicol}   %Columns
@@ -54,7 +53,12 @@
 %\usepackage[applemac]{inputenc} %applemac support if unicode package fails
 %\usepackage[latin1]{inputenc} %UNIX support if unicode package fails
 \urlstyle{rm}
- 
+\usepackage[citestyle=numeric-comp]{biblatex}                                                                     
+\setlength{\bibitemsep}{0cm}                                                                                                                
+\renewbibmacro{in:}{%                                                                                                                       
+  \ifentrytype{article}{}{%                                                                                                                 
+  \printtext{\bibstring{in}\intitlepunct}}}                                                                                                 
+\addbibresource{bmc_article.bib}                                                                                                                    
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 %%                                             %%
@@ -286,8 +290,8 @@ time of submission of this paper.
 
 
 {\ifthenelse{\boolean{publ}}{\footnotesize}{\small}
- \bibliographystyle{bmc_article}  % Style BST file
-  \bibliography{bmc_article} }     % Bibliography file (usually '*.bib' ) 
+\printbibliography
+}
 
 %%%%%%%%%%%
 
