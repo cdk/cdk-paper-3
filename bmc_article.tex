@@ -1,49 +1,5 @@
-%% BioMed_Central_Tex_Template_v1.05
-%%                                      %
-%  bmc_article.tex            ver: 1.05 %
-%                                       %
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%                                     %%
-%%  LaTeX template for BioMed Central  %%
-%%     journal article submissions     %%
-%%                                     %%
-%%         <27 January 2006>           %%
-%%                                     %%
-%%                                     %%
-%% Uses:                               %%
-%% cite.sty, url.sty, bmc_article.cls  %%
-%% ifthen.sty. multicol.sty		       %%
-%%									   %%
-%%                                     %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%                                                                 %%	
-%% For instructions on how to fill out this Tex template           %%
-%% document please refer to Readme.pdf and the instructions for    %%
-%% authors page on the biomed central website                      %%
-%% http://www.biomedcentral.com/info/authors/                      %%
-%%                                                                 %%
-%% Please do not use \input{...} to include other tex files.       %%
-%% Submit your LaTeX manuscript as one .tex document.              %%
-%%                                                                 %%
-%% All additional figures and files should be attached             %%
-%% separately and not embedded in the \TeX\ document itself.       %%
-%%                                                                 %%
-%% BioMed Central currently use the MikTex distribution of         %%
-%% TeX for Windows) of TeX and LaTeX.  This is available from      %%
-%% http://www.miktex.org                                           %%
-%%                                                                 %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \documentclass[10pt]{bmc_article}    
-
-
 
 % Load packages
 \usepackage{url}  % Formatting web addresses  
@@ -75,11 +31,8 @@
 %%                                             %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                     
 
-
 \def\includegraphic{}
 \def\includegraphics{}
-
-
 
 \setlength{\topmargin}{0.0cm}
 \setlength{\textheight}{21.5cm}
@@ -89,53 +42,19 @@
 
 \newboolean{publ}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%                                              %%
-%% You may change the following style settings  %%
-%% Should you wish to format your article       %%
-%% in a publication style for printing out and  %%
-%% sharing with colleagues, but ensure that     %%
-%% before submitting to BMC that the style is   %%
-%% returned to the Review style setting.        %%
-%%                                              %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
-
 %Review style settings
 \newenvironment{bmcformat}{\begin{raggedright}\baselineskip20pt\sloppy\setboolean{publ}{false}}{\end{raggedright}\baselineskip20pt\sloppy}
 
 %Publication style settings
 %\newenvironment{bmcformat}{\fussy\setboolean{publ}{true}}{\fussy}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESEARCH PAPER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-% Begin ...
 \begin{document}
 \begin{bmcformat}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%                                          %%
-%% Enter the title of your article here     %%
-%%                                          %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \title{The Chemistry Development Kit (CDK). 3. Atom typing, Rendering, Molecular Formula, ...}
  
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%                                          %%
-%% Enter the authors here                   %%
-%%                                          %%
-%% Ensure \and is entered between all but   %%
-%% the last two authors. This will be       %%
-%% replaced by a comma in the final article %%
-%%                                          %%
-%% Ensure there are no trailing spaces at   %% 
-%% the ends of the lines                    %%     	
-%%                                          %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 \author{
   Egon L Willighagen$^{1}$% // FIXED FIRST AUTHOR
   \email{Egon L Willighagen - egon.willighagen@ki.se}
@@ -156,13 +75,6 @@
   \email{Christoph Steinbeck - steinbeck@ebi.ac.uk}
 }
       
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%                                          %%
-%% Enter the authors' addresses here        %%
-%%                                          %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \address{
     \iid(1)Division of Molecular Toxicology, Institute of Environmental Medicine, Karolinska Institutet, SE-17177 Stockholm, Sweden\\
     \iid(2)Division of Analytical Biosciences, Leiden/Amsterdam Center for Drug Research, Leiden, The Netherlands \\
@@ -174,22 +86,7 @@
 
 \maketitle
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%                                          %%
-%% The Abstract begins here                 %%
-%%                                          %%
-%% The Section headings here are those for  %%
-%% a Research article submitted to a        %%
-%% BMC-Series journal.                      %%  
-%%                                          %%
-%% If your article is not of this type,     %%
-%% then refer to the Instructions for       %%
-%% authors on http://www.biomedcentral.com  %%
-%% and change the section headings          %%
-%% accordingly.                             %%   
-%%                                          %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%% The Abstract begins here
 
 \begin{abstract}
 % Do not use inserted blank lines (ie \\) until main body of text.
@@ -200,7 +97,6 @@ molecular properties are not well-understood yet, and the interaction between
 molecules and larger systems remains a challenge to be modeled. Therefore, the
 development of new data mining and pattern recognition continues to be important
 and the need for access to a cheminformatics library that one can change remains.
-
 \paragraph*{Results:}
 We here report the 1.4 series of the Chemistry Development Kit and outline how
 it evolved since the previous report. We demonstrate the new APIs we introduced
@@ -209,7 +105,6 @@ adopted. New APIs have been introduced for substructure searching, rendering of
 molecules, handling of molecular formulas, atom type perception, and InChI
 support. At a quality control side we have introduced automated building,
 extensive unit and use case testing, and adopted peer review.
-
 \paragraph*{Conclusions:}
 With this paper we have shown the continued effort to provide a free, Open Source
 cheminformatics library, and show that such colleborative projects can survive for
@@ -221,37 +116,6 @@ publishing platform for scientific computating software.
 
 
 \ifthenelse{\boolean{publ}}{\begin{multicols}{2}}{}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%                                          %%
-%% The Main Body begins here                %%
-%%                                          %%
-%% The Section headings here are those for  %%
-%% a Research article submitted to a        %%
-%% BMC-Series journal.                      %%  
-%%                                          %%
-%% If your article is not of this type,     %%
-%% then refer to the instructions for       %%
-%% authors on:                              %%
-%% http://www.biomedcentral.com/info/authors%%
-%% and change the section headings          %%
-%% accordingly.                             %% 
-%%                                          %%
-%% See the Results and Discussion section   %%
-%% for details on how to create sub-sections%%
-%%                                          %%
-%% use \cite{...} to cite references        %%
-%%  \cite{koon} and                         %%
-%%  \cite{oreg,khar,zvai,xjon,schn,pond}    %%
-%%  \nocite{smith,marg,hunn,advi,koha,mouse}%%
-%%                                          %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
 
 %%%%%%%%%%%%%%%%
 %% Background %%
@@ -346,22 +210,6 @@ time of submission of this paper.
   Text for this section \ldots
 
 
- 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%                  The Bibliography                       %%
-%%                                                         %%              
-%%  Bmc_article.bst  will be used to                       %%
-%%  create a .BBL file for submission, which includes      %%
-%%  XML structured for BMC.                                %%
-%%                                                         %%
-%%                                                         %%
-%%  Note that the displayed Bibliography will not          %% 
-%%  necessarily be rendered by Latex exactly as specified  %%
-%%  in the online Instructions for Authors.                %% 
-%%                                                         %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 {\ifthenelse{\boolean{publ}}{\footnotesize}{\small}
 \printbibliography
 }
@@ -371,17 +219,8 @@ time of submission of this paper.
 \ifthenelse{\boolean{publ}}{\end{multicols}}{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%                               %%
 %% Figures                       %%
-%%                               %%
-%% NB: this is for captions and  %%
-%% Titles. All graphics must be  %%
-%% submitted separately and NOT  %%
-%% included in the Tex document  %%
-%%                               %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%
 %% Do not use \listoffigures as most will included as separate files
 
 %\section*{Figures}
@@ -395,10 +234,7 @@ time of submission of this paper.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%                               %%
 %% Tables                        %%
-%%                               %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Use of \listoftables is discouraged.
 %%
@@ -423,10 +259,7 @@ time of submission of this paper.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%                               %%
 %% Additional Files              %%
-%%                               %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %\section*{Additional Files}
 %  \subsection*{Additional file 1 --- Sample additional file title}
