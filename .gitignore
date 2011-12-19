@@ -3,4 +3,5 @@ bmc_article.bbl
 bmc_article.blg
 bmc_article.log
 bmc_article.pdf
-
+bmc_article-blx.bib
+bmc_article.run.xml

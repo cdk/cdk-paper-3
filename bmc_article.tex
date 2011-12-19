@@ -120,7 +120,7 @@
 %%                                          %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{The Chemistry Development Kit (CDK). 3. Atom typing, ...}
+\title{The Chemistry Development Kit (CDK). 3. Atom typing, Rendering, Molecular Formula, ...}
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                          %%
@@ -137,11 +137,23 @@
 
 
 \author{
-  Egon L Willighagen\correspondingauthor$^{1}$%
-  \email{Egon L Willighagen\correspondingauthor - egon.willighagen@gmail.com}
+  Egon L Willighagen$^{1}$% // FIXED FIRST AUTHOR
+  \email{Egon L Willighagen - egon.willighagen@ki.se}
 \and
-  Christoph Steinbeck\correspondingauthor$^2$%
-  \email{Christoph Steinbeck\correspondingauthor - steinbeck@ebi.ac.uk}
+  Miguel Rojas Cherto$^2$%
+  \email{Miguel Rojas Cherto - steinbeck@ebi.ac.uk}
+\and
+  You C B Here$^3$%
+  \email{You C B Here - you.here@example.org}
+\and
+  C D K Project\correspondingauthor$^98$% // FIXED SECOND BUT LAST AUTHOR
+  \email{C D K Project - cdk-devel@lists.sourceforge.net}
+\and
+  Rajarshi Guha$^99$% // FIXED ONE BUT LAST AUTHOR
+  \email{Rajarshi Guha - steinbeck@ebi.ac.uk}
+\and
+  Christoph Steinbeck$^100$% // FIXED LAST AUTHOR
+  \email{Christoph Steinbeck - steinbeck@ebi.ac.uk}
 }
       
 
@@ -152,9 +164,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \address{
-    \iid(1)Life Sciences Department, Kings College London, Cornwall House,
-        Waterloo Road, London, UK\\
-    \iid(2)Department of Zoology, Cambridge, Waterloo Road, London, UK
+    \iid(1)Division of Molecular Toxicology, Institute of Environmental Medicine, Karolinska Institutet, SE-17177 Stockholm, Sweden\\
+    \iid(2)Division of Analytical Biosciences, Leiden/Amsterdam Center for Drug Research, Leiden, The Netherlands \\
+    \iid(3)Example Ltd., Glasgow, UK \\
+    \iid(98)\url{http://cdk.sourceforge.net/} \\
+    \iid(99)NIH Center for Translational Therapeutics, 9800 Medical Center Drive, Rockville, MD 20878, USA \\
+    \iid(100)Chemoinformatics and Metabolism team, European Bioinformatics Institute, Hinxton, UK 
 }
 
 \maketitle
@@ -177,12 +192,30 @@
 
 
 \begin{abstract}
-        % Do not use inserted blank lines (ie \\) until main body of text.
-        \paragraph*{Background:} Text for this section of the abstract. 
-      
-        \paragraph*{Results:} Text for this section of the abstract \ldots
+% Do not use inserted blank lines (ie \\) until main body of text.
+\paragraph*{Background:}
+Cheminformatics is a well-established field with many applications in chemistry,
+drug discovery, and the life sciences. Particularly in the latter field, however,
+molecular properties are not well-understood yet, and the interaction between
+molecules and larger systems remains a challenge to be modeled. Therefore, the
+development of new data mining and pattern recognition continues to be important
+and the need for access to a cheminformatics library that one can change remains.
 
-        \paragraph*{Conclusions:} Text for this section of the abstract \ldots
+\paragraph*{Results:}
+We here report the 1.4 series of the Chemistry Development Kit and outline how
+it evolved since the previous report. We demonstrate the new APIs we introduced
+in this version and discuss the extensive quality control mechanism we have
+adopted. New APIs have been introduced for substructure searching, rendering of
+molecules, handling of molecular formulas, atom type perception, and InChI
+support. At a quality control side we have introduced automated building,
+extensive unit and use case testing, and adopted peer review.
+
+\paragraph*{Conclusions:}
+With this paper we have shown the continued effort to provide a free, Open Source
+cheminformatics library, and show that such colleborative projects can survive for
+a long period. We have taken advantage from the community support, and show
+that an open source cheminformatics project can act as a peer reviewed
+publishing platform for scientific computating software.
 \end{abstract}
 
 
@@ -246,8 +279,48 @@ time of submission of this paper.
   \subsubsection*{Atom Typing}
   
   The CDK has adopted a new atom typing algorithm \ldots (EGON)
+
+  \subsubsection*{Rendering API}
+  
+  Initiated by ...
+  
+  \subsubsection*{Molecular Formula}
+  
+  ....
+
+  \subsubsection*{SMARTS parser}
+  
+  ....
+
+  \subsubsection*{Partial charges and Delocalization}
+  
+  ....
+
+  \subsubsection*{New Builders}
+  
+  ....
+
+  \subsubsection*{InChI integration}
+  
+  .... jni-inchi dep, atom numbering, tautomer generation
   
 \subsection*{Improved Coding Standards}
+
+  \subsubsection*{Peer review}
+
+  \subsubsection*{Modularization}
+
+  \subsubsection*{Documentation}
+
+  Initially done with DocCheck, replaced by OpenJavaDocCheck ...
+  
+  \subsubsection*{Unit testing}
+  
+  \subsubsection*{Code Quality}
+
+  PMD ...
+
+  \subsubsection*{Git, branching, and patches}
 
 %%%%%%%%%%%%%%%%%%%%%%
 \section*{Conclusions}
