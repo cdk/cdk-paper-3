@@ -149,8 +149,31 @@ time of submission of this paper.
   Initiated by ...
   
   \subsubsection*{Molecular Formula}
-  
-  ....
+
+The chemical formula is the basic/simple chemical representation of a compound. It defines the number of atoms/isotopes and type of elements that constitute a chemical compound without describing how atoms are bonded.
+It is also the first step toward the identification of the chemical structure from a unidentified compound.
+
+CDK can handle several concepts related to chemical formulas
+\begin{itemize}
+\item Chemical formula =
+\item Set of chemical formulas =
+\item Range of chemical formulas =
+\item Adducts =
+\item Isotope Container =
+\item Isotopic pattern = 
+\item Rules = Filters in accepting an chemical formula
+\end{itemize}
+
+CDK can
+\begin{itemize}
+\item generate/print the elemental composition from a given IAtomContainer
+\item calculate the isotopic pattern from a given chemical formula
+\item determine the elemental composition from a given mass
+\item validate a chemical formula
+\item calculate the exact mass from a given chemical formula
+\end{itemize}
+
+Where can it be applied?
 
   \subsubsection*{SMARTS parser}
   
@@ -158,7 +181,17 @@ time of submission of this paper.
 
   \subsubsection*{Partial charges and Delocalization}
   
-  ....
+Partial atomic charges is an electronic property of atoms defining the asymmetric distribution of electrons in chemical bonds.
+It is used as a quantitative correlation with certain compound's physical and chemical properties.
+
+CDK can
+\begin{itemize}
+\item generate all resonance structures from a given compound 
+\item calculate the topological and electronic weight value of each of the resonance structures
+\item calculate the partial atomic charge from a given structure 
+\end{itemize}
+
+Where can it be applied?
 
   \subsubsection*{New Builders}
   
