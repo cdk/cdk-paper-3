@@ -53,7 +53,7 @@
 \begin{document}
 \begin{bmcformat}
 
-\title{The Chemistry Development Kit (CDK). 3. Atom typing, Rendering, Molecular Formula, ...}
+\title{The Chemistry Development Kit (CDK). 3. Atom typing, Rendering, Molecular Formula, and Substructure Searching}
  
 \author{
   Egon L Willighagen$^{1}$% // FIXED FIRST AUTHOR
@@ -194,8 +194,44 @@ CDK can
 Where can it be applied?
 
   \subsubsection*{New Builders}
-  
-  ....
+
+Originally, the CDK was developed as a shared library between JChemPaint and Jmol. The former
+used a MVC approach with an event-passing mechanism to update the view when the model was
+changed. This can cause an cascade of change events being passed around. To address,
+interfaces were introduced allowing multiple implementations of the core interfaces.
+% TODO: check if the interfaces have previously been defined
+The IChemObjectBuilders play an important role here, allowing implementations of the
+interfaces to be instantiated without the need of explicitly referencing those implementations.
+
+However, the CDK 1.0 and 1.2 implementations of the IChemObjectBuilder had one method for
+each constructor, resulting in very large interface. Moreover, the API changed whenever
+a new class was introduced, and existing methods changed when constructors were updated.
+To simplify the API, the new IChemObjectBuilder collapsed all methods returning new
+implementations into a single method, which takes as a first parameter the class of the
+interface that is wished to be constructed. All further parameters are passes as
+parameter to the class constructor.
+
+For example, to construct a new atom from its element symbol, one would now write:
+
+\begin{verbatim}
+IChemObjectBuilder builder; // previously defined
+IAtom atom = builder.newInstance(IAtom.class, "C");
+\end{verbatim}
+
+Increasingly, the CDK library is now written against the interfaces, and when new instanced
+are needed, these builders are being used. This allows to run a certain CDK-based
+application with a specific builder, summarized in Table~\ref{tab:builders}.
+
+\begin{table}
+\begin{tabular}{l|l}
+builder & description \\
+\hline
+DefaultChemObjectBuilder & The original builder ... \\
+DataDebugChemObjectBuilder & A builder that creates classes that send debug messages ... \\
+SilentChemObjectBuilder & Classes that are created with this builder will not
+    send around change events. \\
+\end{tabular}
+\end{table}
 
   \subsubsection*{InChI integration}
   
