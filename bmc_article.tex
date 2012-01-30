@@ -239,9 +239,40 @@ SilentChemObjectBuilder & Classes that are created with this builder will not
   
 \subsection*{Improved Coding Standards}
 
-  \subsubsection*{Peer review}
+As the library grew over the years, so did the maintenance become more complex. Increasingly,
+the main branch did not compile, and bug fixing become increasingly difficult, as fixing a bug
+in one part of the code, broke some other code which made the wrong assumption about the first
+code.
+
+To address these issues, we have adopted a number of coding standards. By no means there are
+meant to implement the best practices of source code development; instead, they attempt to find
+a balance between increasing code maintainability and being flexible enough to allow efficient
+code development. However, we appreciate the subjective nature of this statement, and some
+adopted guidelines have been heavily discussed in the community.
+The next sections describe some approaches the project have adopted that allows us to
+maintain the CDK library as it is today. 
 
   \subsubsection*{Modularization}
+  
+One of the key approaches we have adopted, is to make the CDK more modular. The CDK assigns
+every class to a module, and defines dependencies between modules. For example, core modules
+are not allowed to depend on a module holding data classes implementing the CDK interfaces;
+instead, they may only depend on the interfaces themselves. This, for example, is to ensure
+that dependencies are minimized and to make it easier to exclude CDK functionality with
+third-party dependencies that are not needed.
+
+... describe all modules, maybe add graphviz plot ...
+
+  \subsubsection*{Peer review}
+  
+Another big changes since the CDK 1.2 series, is that the project adopted a peer-review
+step in its development. New functionality is now developed independently from the main
+CDK library until it is finished. When it is finished, the new code is send around to
+other developers to be reviewed, very much like how research papers are peer-reviewed
+by journals before publication. Independent developers review the code to check if it 
+meets our community's standards.
+
+
 
   \subsubsection*{Documentation}
 
