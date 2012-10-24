@@ -130,6 +130,7 @@ Open Source cheminformatics state \ldots (EGON)
 Adoption of the CDK ... Cinfony~\cite{OBoyle2008}, and other bindings \ldots ...
 
 Recent prominent use cases of the CDK~\cite{Steinbeck2003,Steinbeck2006} \ldots (EGON)
+AMBIT, ScaffoldHunter, OMG, ...
 
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -145,7 +146,26 @@ time of submission of this paper.
 
   \subsubsection*{Atom Typing}
   
-  The CDK has adopted a new atom typing algorithm \ldots (EGON)
+  The CDK has adopted a new atom typing framework, to split out the perception of atom types
+  from the algorithms that use atom type properties. Previous CDK releases had perception
+  integrated with algorithms, even though there was only one set of defined atom types.
+  This led to alternative but contradiction perception algorithms, which made maintenance
+  of these code bases impractical. For example, adding a new atom type required all alternatives
+  to be updated.
+  To solve this, a single perception class was added, called CDKAtomTypeMatcher. The actual
+  algorithm used is based
+  on heuristic rules, and alternative approach for perception exist. Possibly, in the future
+  alternative algorithms may be implemented, while that would again increase the maintenance
+  burden.
+
+  The new class can perceive the atom type of single atoms, but also for a full atom container.
+  The CDKAtomTypeMatcher class is written to handle various amounts of missing information,
+  and take into account as much information from the input. Perception 
+
+  \subsubsection*{Stereochemistry}
+  
+  CDK 1.4.XXXX [CHECK] introduces a new API for stereochemistry information: the interfaces
+  IStereoChemistryElement was introduced with 
 
   \subsubsection*{Rendering API}
   
@@ -236,10 +256,6 @@ SilentChemObjectBuilder & Classes that are created with this builder will not
 \end{tabular}
 \end{table}
 
-  \subsubsection*{InChI integration}
-  
-  .... jni-inchi dep, atom numbering, tautomer generation
-  
 \subsection*{Improved Coding Standards}
 
 As the library grew over the years, so did the maintenance become more complex. Increasingly,
@@ -288,11 +304,33 @@ meets our community's standards.
   PMD ...
 
   \subsubsection*{Git, branching, and patches}
+  
+\subsection*{Binary distributions}
+
+\subsubsection*{Maven packages}
+
+INVITE NINA
+
+\subsubsection*{OSGi bundles}
+
+INVITE ARVID
+
 
 %%%%%%%%%%%%%%%%%%%%%%
 \section*{Conclusions}
-  Text for this section \ldots
-  
+
+Over the past years since the last CDK publication in 2006, a lot has changed. The functionality
+has seen many additions, and the stability of the development model has significantly improved.
+This paper outlines how peer review and quality control contributed to a much wider adoption
+of our cheminformatics library and seen many new additions. With over 75 contributors,
+the CDK is alive and kicking.
+
+However, there are many unsolved issues. Performance is perhaps one of the most important ones.
+The disadvantage of having an API that supports many data models, is that the API is heavy and
+the interface implementations hard to optimize.
+
+
+
 %%%%%%%%%%%%%%%%%%
 \section*{Methods}
   \subsection*{Peer Review: Automated}
