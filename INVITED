@@ -8,12 +8,13 @@ Syed Asad Rahman <asad@ebi.ac.uk>,
 Mark Rijnbeek <markr@ebi.ac.uk>,
 Ola Spjuth <ola.spjuth@gmail.com>,
 "Jiao, Dazhi" <djiao@indiana.edu>,
+Jonathan Alversson <jonathan.alvarsson@gmail.com>,
 
 NO REPLY
 Niels Out <nielsout@gmail.com>,
 shk3@users.sourceforge.net
 
-POSSIBLE
+POSSIBLE (cdk-1.4.x only)
  3068  Egon Willighagen
  1246  Rajarshi Guha (not gonna try to summarize that)
   189  Miguel Rojasch (MolForm, Gasteiger pi charges, much other)
@@ -32,7 +33,7 @@ POSSIBLE
    21  Kai Hartmann
    15  Paul Turner
    13  Arvid Berg
-    9  Jonathan Alversson
+    9  Jonathan Alversson (Fingerprint API)
     8  Jules Kerssemakers
     6  speleo3
     6  Thomas Kuhn
