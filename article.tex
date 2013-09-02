@@ -6,6 +6,7 @@
 \usepackage{ifthen}  % Conditional 
 \usepackage{multicol}   %Columns
 \usepackage[utf8]{inputenc} %unicode support
+\usepackage{amssymb}
 %\usepackage[applemac]{inputenc} %applemac support if unicode package fails
 %\usepackage[latin1]{inputenc} %UNIX support if unicode package fails
 \urlstyle{rm}
@@ -314,6 +315,23 @@ SilentChemObjectBuilder & Classes that are created with this builder will not
 \end{tabular}
 \end{table}
 
+\subsubsection*{Molecular fingerprints}
+Also the molecular fingerprints in CDK has seen development since the 1.2
+release. Traditionally CDK fingerprints were represented using the
+\textit{BitSet} class shipping with Java. The benefits of the class include
+such things as already implemented methods for modifying bit sets using other
+bit sets. However the class keeps a vector of bits in memory. The solution was
+excellent for hashed, relatively small fingerprints, \textit{e.g.}, 1024 bits,
+\textit{i.e.}, 10 bits indexing space. However implementing a fingerprint
+designed to avoid collisions with, \textit{e.g.} a 32 bit indexing space using
+this approach would be highly memory-inefficient. To allow for multiple
+fingerprint representation implementations a bit fingerprint interface was
+introduced. Also, although fingerprints traditionally are bit vectors a count
+fingerprint was also introduced making fingerprints based on integer vectors
+supported in CDK as well. The fingerprints currently existing in CDK are listed
+in Table~\ref{tab:fingerprints}.
+
+
 \subsection*{Improved Coding Standards}
 
 As the library grew over the years, so did the maintenance become more complex. Increasingly,
@@ -437,8 +455,25 @@ Niels Out and Stefan Kuhn are acknowledged for their contributions to the projec
 
 %% Use of \listoftables is discouraged.
 %%
-%\section*{Tables}
-%  \subsection*{Table 1 - Sample table title}
+\section*{Tables}
+  \subsection*{Table 1 - The molecular fingerprints in CDK}
+    \begin{tabular}{lccrc}
+                             & Bit version  & Count version & Since CDK version & References \\
+  \cline{2-5}
+  Fingerprinter              & $\checkmark$ &               &                   & \\
+  EStateFingerprinter        & $\checkmark$ &               &                   & \\
+  ExtendedFingerprinter      & $\checkmark$ &               &                   & \\
+  GraphOnlyFingerprinter     & $\checkmark$ &               &                   & \\
+  HybridizationFingerprinter & $\checkmark$ &               &                   & \\
+  KlekotaRothFingerprinter   & $\checkmark$ &               &                   & \\
+  LingoFingerprinter         & $\checkmark$ &               &                   & \\
+  MACCSFingerprinter         & $\checkmark$ &               &                   & \\
+  PubchemFingerprinter       & $\checkmark$ &               &                   & \\
+  ShortestPathFingerprinter  & $\checkmark$ &               &                   & \\
+  SignatureFingerprinter     & $\checkmark$ & $\checkmark$  &                   & [pending] \\
+  SubstructureFingerprinter  & $\checkmark$ &               &                   & \\
+    \end{tabular}
+
 %    Here is an example of a \emph{small} table in \LaTeX\ using  
 %    \verb|\tabular{...}|. This is where the description of the table 
 %    should go. \par \mbox{}
