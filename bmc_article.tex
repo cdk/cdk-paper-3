@@ -9,12 +9,7 @@
 %\usepackage[applemac]{inputenc} %applemac support if unicode package fails
 %\usepackage[latin1]{inputenc} %UNIX support if unicode package fails
 \urlstyle{rm}
-\usepackage[backend=bibtex]{biblatex}                                                         
-\setlength{\bibitemsep}{0cm}                                                                                                                
-\renewbibmacro{in:}{%                                                                                                                       
-  \ifentrytype{article}{}{%                                                                                                                 
-  \printtext{\bibstring{in}\intitlepunct}}}                                                                                                 
-\bibliography{bmc_article.bib}                                                                                                                    
+\usepackage{cite}
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 %%                                             %%
@@ -370,7 +365,8 @@ Niels Out and Stefan Kuhn are acknowledged for their contributions to the projec
 
 
 {\ifthenelse{\boolean{publ}}{\footnotesize}{\small}
-\printbibliography
+ \bibliographystyle{bmc_article}  % Style BST file
+  \bibliography{article}
 }
 
 %%%%%%%%%%%
