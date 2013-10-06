@@ -9,12 +9,12 @@
 %\usepackage[applemac]{inputenc} %applemac support if unicode package fails
 %\usepackage[latin1]{inputenc} %UNIX support if unicode package fails
 \urlstyle{rm}
-\usepackage[citestyle=numeric-comp]{biblatex}                                                                     
+\usepackage[backend=bibtex]{biblatex}                                                         
 \setlength{\bibitemsep}{0cm}                                                                                                                
 \renewbibmacro{in:}{%                                                                                                                       
   \ifentrytype{article}{}{%                                                                                                                 
   \printtext{\bibstring{in}\intitlepunct}}}                                                                                                 
-\addbibresource{bmc_article.bib}                                                                                                                    
+\bibliography{bmc_article.bib}                                                                                                                    
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 %%                                             %%
@@ -57,34 +57,54 @@
  
 \author{
   Egon L Willighagen$^{1}$% // FIXED FIRST AUTHOR
-  \email{Egon L Willighagen - egon.willighagen@ki.se}
+  \email{Egon L Willighagen - COMPLETE}
 \and
-  Miguel Rojas Cherto$^2$%
-  \email{Miguel Rojas Cherto - steinbeck@ebi.ac.uk}
+  John May$^2$% // FIXED SECOND AUTHOR
+  \email{John May - COMPLETE@ebi.ac.uk}
+\and
+  Jonathan Alversson$^3$%
+  \email{Jonathan Alversson - COMPLETE}
+\and
+  Arvid Berg$^3$%
+  \email{Arvid Berg - COMPLETE}
+\and
+  Nina Jeliazkova$^4$%
+  \email{Nina Jeliakvova - COMPLETE}
+\and
+  Dazhi Jiao$^5$%
+  \email{Dazhi Jiao - COMPLETE}
+\and
+  Syed Asad Rahman$^6$%
+  \email{Syed Asad Rahman - COMPLETE}
+\and
+  Mark Rijnbeek$^2$%
+  \email{Mark Rijnbeek - COMPLETE}
+\and
+  Miguel Rojas Cherto$^7$%
+  \email{Miguel Rojas Cherto - COMPLETE}
 \and
   Ola Spjuth$^3$%
   \email{Ola Spjuth - ola.spjuth@farmbio.uu.se}
 \and
-  You C B Here$^4$%
-  \email{You C B Here - you.here@example.org}
+  Gilleain Torrance$^5$%
+  \email{Gilleain Torrance - COMPLETE}
 \and
-  C D K Project\correspondingauthor$^98$% // FIXED SECOND BUT LAST AUTHOR
-  \email{C D K Project - cdk-devel@lists.sourceforge.net}
+  Rajarshi Guha$^{8}$% // FIXED ONE BUT LAST AUTHOR
+  \email{Rajarshi Guha - COMPLETE}
 \and
-  Rajarshi Guha$^{99}$% // FIXED ONE BUT LAST AUTHOR
-  \email{Rajarshi Guha - steinbeck@ebi.ac.uk}
-\and
-  Christoph Steinbeck$^{100}$% // FIXED LAST AUTHOR
+  Christoph Steinbeck$^{2}$% // FIXED LAST AUTHOR
   \email{Christoph Steinbeck - steinbeck@ebi.ac.uk}
 }
-      
+     
 \address{
-    \iid(1)Division of Molecular Toxicology, Institute of Environmental Medicine, Karolinska Institutet, SE-17177 Stockholm, Sweden\\
-    \iid(2)Division of Analytical Biosciences, Leiden/Amsterdam Center for Drug Research, Leiden, The Netherlands \\
-    \iid(3)Example Ltd., Glasgow, UK \\
-    \iid(98)\url{http://cdk.sourceforge.net/} \\
-    \iid(99)NIH Center for Translational Therapeutics, 9800 Medical Center Drive, Rockville, MD 20878, USA \\
-    \iid(100)Chemoinformatics and Metabolism team, European Bioinformatics Institute, Hinxton, UK 
+    \iid(1)Department of Bioinformatics - BiGCaT, \\
+    \iid(2)Chemoinformatics and Metabolism team, European Bioinformatics Institute, Hinxton, UK, \\
+    \iid(3)Department of Pharmaceutical Biosciences, Uppsala University, 751 24 Uppsala, Sweden \\
+    \iid(4)Ideaconsult Ltd, A. Kanchev 4, Sofia 1000, Bulgaria \\
+    \iid(5)Example Ltd., Glasgow, UK \\
+    \iid(6)Example Ltd., Glasgow, UK \\
+    \iid(7)Division of Analytical Biosciences, Leiden/Amsterdam Center for Drug Research, Leiden, The Netherlands \\
+    \iid(8)NIH Center for Translational Therapeutics, 9800 Medical Center Drive, Rockville, MD 20878, USA
 }
 
 \maketitle
@@ -101,7 +121,7 @@ molecules and larger systems remains a challenge to be modeled. Therefore, the
 development of new data mining and pattern recognition continues to be important
 and the need for access to a cheminformatics library that one can change remains.
 \paragraph*{Results:}
-We here report the 1.4 series of the Chemistry Development Kit and outline how
+We here report the improvements since the 1.2 series of the Chemistry Development Kit and outline how
 it evolved since the previous report. We demonstrate the new APIs we introduced
 in this version and discuss the extensive quality control mechanism we have
 adopted. New APIs have been introduced for substructure searching, rendering of
@@ -130,7 +150,9 @@ Open Source cheminformatics state \ldots (EGON)
 Adoption of the CDK ... Cinfony~\cite{OBoyle2008}, and other bindings \ldots ...
 
 Recent prominent use cases of the CDK~\cite{Steinbeck2003,Steinbeck2006} \ldots (EGON)
-AMBIT, ScaffoldHunter, OMG, ...
+AMBIT, ScaffoldHunter, OMG, Padel, ...
+
+Plugins for Taverna, KNIME, ...
 
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -165,11 +187,11 @@ time of submission of this paper.
   \subsubsection*{Stereochemistry}
   
   CDK 1.4.XXXX [CHECK] introduces a new API for stereochemistry information: the interfaces
-  IStereoChemistryElement was introduced with 
+  IStereoChemistryElement was introduced with ...
 
   \subsubsection*{Rendering API}
   
-  Initiated by ...
+  Initiated by Niels Out ...
   
   \subsubsection*{Molecular Formula}
 
@@ -198,7 +220,15 @@ CDK can
 
 Where can it be applied?
 
+  \subsubsection*{SMILES parser}
+  
+  ....
+
   \subsubsection*{SMARTS parser}
+  
+  ....
+
+  \subsubsection*{Ring finding}
   
   ....
 
@@ -282,14 +312,6 @@ third-party dependencies that are not needed.
 
 ... describe all modules, maybe add graphviz plot ...
 
-  \subsubsection*{Peer review}
-  
-Another big changes since the CDK 1.2 series, is that the project adopted a peer-review
-step in its development. New functionality is now developed independently from the main
-CDK library until it is finished. When it is finished, the new code is send around to
-other developers to be reviewed, very much like how research papers are peer-reviewed
-by journals before publication. Independent developers review the code to check if it 
-meets our community's standards.
 
 
 
@@ -329,15 +351,6 @@ However, there are many unsolved issues. Performance is perhaps one of the most 
 The disadvantage of having an API that supports many data models, is that the API is heavy and
 the interface implementations hard to optimize.
 
-
-
-%%%%%%%%%%%%%%%%%%
-\section*{Methods}
-  \subsection*{Peer Review: Automated}
-    \subsubsection*{PMD}
-    \subsubsection*{JavaDoc Checks}
-  \subsection*{Peer Review: Manual}
-  \subsection*{Unit Testing}
     
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Authors contributions}
@@ -348,7 +361,7 @@ the interface implementations hard to optimize.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Acknowledgements}
   \ifthenelse{\boolean{publ}}{\small}{}
-  Text for this section \ldots
+Niels Out and Stefan Kuhn are acknowledged for their contributions to the project.
 
 
 {\ifthenelse{\boolean{publ}}{\footnotesize}{\small}
