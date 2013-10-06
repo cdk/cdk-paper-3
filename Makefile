@@ -1,18 +1,18 @@
-all: bmc_article.pdf
+all: article.pdf
 	@echo "********* Latex Summary *********"
-	@grep -i error bmc_article.log || true
-	@grep -i warning bmc_article.log || true
+	@grep -i error article.log || true
+	@grep -i warning article.log || true
 
-update: bmc_article.pdf
+update: article.pdf
 
-bmc_article.bbl: bmc_article.bib
-	pdflatex bmc_article || true
-	bibtex bmc_article || true
+article.bbl: article.bib
+	pdflatex article || true
+	bibtex article || true
 
-bmc_article.pdf: bmc_article.tex bmc_article.bbl
-	pdflatex bmc_article.tex
-	pdflatex bmc_article.tex
-	pdflatex bmc_article.tex
+article.pdf: article.tex article.bbl
+	pdflatex article.tex
+	pdflatex article.tex
+	pdflatex article.tex
 
 distclean: clean
 
