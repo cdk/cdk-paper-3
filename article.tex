@@ -142,19 +142,36 @@ publishing platform for scientific computating software.
 %%
 \section*{Background}
 
-Open Source cheminformatics has made significants steps recently~\cite{OBoyle2011}.
-Development of the Chemistry Development Kit (CDK) has been previously documented~\cite{Steinbeck2003,Steinbeck2006},
-but followed this general trend in open source cheminformatics, and increased in functionality
-and adoption. For example, new tools expose CDK functionality, such as Cinfony~\cite{OBoyle2008},
-rcdk~\cite{}, and workflow plugins for Taverna\cite{Truszkowski2011}, KNIME\cite{Beisken2013}.
+Open Source cheminformatics has made significants steps forward recently~\cite{OBoyle2011}.
+The Chemistry Development Kit (CDK) is one of the tools under the Blue Obelisk wings,
+and previously documented version have been widely adopted~\cite{Steinbeck2003,Steinbeck2006}.
+For example, new tools expose CDK functionality, such as Cinfony~\cite{OBoyle2008},
+rcdk~\cite{}, and workflow plugins for Taverna\cite{Truszkowski2011} and KNIME\cite{Beisken2013}.
 Furthermore, projects with specific functionality have emerged building on the CDK, including
 jCompoundMapper~\cite{Hinselmann2011}, ScaffoldHunter~\cite{wetzel2009interactive}, OMG~\cite{Peironcely2012},
 Padel~\cite{yap2011padel}, AMBIT-SMARTS~\cite{jeliazkova2011ambitsmarts}, AMBIT-Tautomer~\cite{kochev2013ambit},
-SMSD~\cite{}, and FooFromRydberg~\cite{}. Other tools used previous versions already, and follow
+and SMSD~\cite{}. Other tools used previous versions already, and follow
 newer releases of the CDK, such as Bioclipse~\cite{} and AMBIT~\cite{jeliazkova2011ambit}.
 
-Importantly, the CDK has seen independent validation ... of both functionality, quality, and performance...
-... fingerprint results ... performance paper ... Sayle MDL atom type work.
+However, previous version of the CDK were written by a community with specific applications
+in mind, of which structure elucidation was one. It could therefore be rather competitive
+in some cheminformatics domains, such as fingerprinting~\cite{Ekins,Cannon}, in other parts
+it could be inadequate, such in the capturing of stereochemistry.
+
+Continued community development of the CDK in the last few years, however, has shown that
+Open Source software is here to stay. The adoption of automatic build systems and
+quality control methodologies such as unit testing, automated source code validation,
+and peer review by fellow developers have greatly improved the stability of the library,
+At the expense of slowing down the development, it has allowed for cleaning up interdependencies
+between modules of code, and has reset the scalability of the development model,
+allowing for a lot of new functionality in code APIs while maintaining the quality
+of code depending on those core APIs.
+
+This has resulted in important improved functionality, such as a separately published
+InChI functionality~\cite{SpjuthXXXX} and greatly improved ring detection functionality~\cite{MayYYYY},
+but also a core atom type perception module, covering a much wider set of elements than
+previous CDK versions and capturing many more charged and radical atom species,
+a more comprehensive fingerprinting API, many speed and stability improvements, and more.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Results and Discussion %%
