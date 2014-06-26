@@ -180,27 +180,37 @@ a more comprehensive fingerprinting API, many speed and stability improvements, 
 
 \subsection*{New APIs}
 
-Everyone is invited to contribute and write up the functionality they contributed;
-only requirement: the code must have been incorporated into the main CDK library by the
-time of submission of this paper.
+We here outline various new and improved APIs in the CDK library since the two previous
+publications.
 
   \subsubsection*{Atom Typing}
+
+  Atom type perception is a core cheminformations functionality: the atom types describe
+  chemical features of atoms, such as the number of neighbors, possible formal charges,
+  (approximate) hybridization, electron distribution over orbitals, etc. However, the
+  CDK commonly integrated atom type perception into algorithms, resulting in multiple
+  and diverging copies of similar atom type schemes. With the need to add many
+  new atom types for previously uncovered element, but also charged and radical atom
+  types, a new approach was needed.
   
-  The CDK has adopted a new atom typing framework, to split out the perception of atom types
-  from the algorithms that use atom type properties. Previous CDK releases had perception
-  integrated with algorithms, even though there was only one set of defined atom types.
-  This led to alternative but contradiction perception algorithms, which made maintenance
-  of these code bases impractical. For example, adding a new atom type required all alternatives
-  to be updated.
-  To solve this, a single perception class was added, called CDKAtomTypeMatcher. The actual
-  algorithm used is based
-  on heuristic rules, and alternative approach for perception exist. Possibly, in the future
+  This CDK version has isolated a new atom typing framework, removing the perception of
+  atom types from the algorithms, allowing the perception to be properly unit tested.
+  The new code defined the atom type using an atom type ontology based on the XXXXX.
+  
+  A reference perception class, CDKAtomTypeMatcher, has been written that perceives these atom types, and
+  validates the perception automatically against the properties defined by the ontology.
+  This class handles a variety in types of missing information, as commonly resulting
+  from various (file) formats; for example, it can handle undefined hydrogen counts
+  and undefined double bond positions if hybridization information is provided instead.
+  That makes the code complex, and at times slow, but so far shown sufficiently
+  performant for many applications. Possibly, in the future
   alternative algorithms may be implemented, while that would again increase the maintenance
   burden.
 
-  The new class can perceive the atom type of single atoms, but also for a full atom container.
-  The CDKAtomTypeMatcher class is written to handle various amounts of missing information,
-  and take into account as much information from the input. Perception 
+  The new code base defines XXXX atom types for YYYY elements, including ZZZZ radical
+  atom types. A full list of atom types is given in Additional File X.
+  
+  The code is tested by FFFF unit tests, and has been tested against ChEBI and PubChem. REFS
 
   \subsubsection*{Stereochemistry}
   
