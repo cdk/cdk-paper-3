@@ -11,6 +11,8 @@
 %\usepackage[latin1]{inputenc} %UNIX support if unicode package fails
 \urlstyle{rm}
 \usepackage{cite}
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 %%                                             %%
@@ -35,6 +37,7 @@
 \setlength{\oddsidemargin}{0cm} 
 \setlength{\textwidth}{16.5cm}
 \setlength{\columnsep}{0.6cm}
+\definecolor{lightgray}{gray}{0.9}
 
 \newboolean{publ}
 
@@ -457,11 +460,12 @@ Niels Out and Stefan Kuhn are acknowledged for their contributions to the projec
 %%
 \section*{Tables}
   \subsection*{Table 1 - The molecular fingerprints in CDK}
+    \rowcolors{1}{}{lightgray}
     \par
     \mbox{
     \begin{tabular}{lcclrc}
+    \toprule
                              & Bit version  & Count version & CDK version & Default Size & References \\
-  \cline{2-6}\noalign{\smallskip}
   EStateFingerprinter        & $\checkmark$ &               & 1.2.0       & $79$         & \cite{Hall1995}\\
   ExtendedFingerprinter      & $\checkmark$ &               & 1.0         &              & \\
   Fingerprinter              & $\checkmark$ &               & 1.0         &              & \\
@@ -474,6 +478,8 @@ Niels Out and Stefan Kuhn are acknowledged for their contributions to the projec
   ShortestPathFingerprinter  & $\checkmark$ &               & 1.6.0 ?     &              & \\
   SignatureFingerprinter     & $\checkmark$ & $\checkmark$  & 1.6.0 ?     & $2^{32}$     & [pending] \\
   SubstructureFingerprinter  & $\checkmark$ &               & 1.0         &              & \\
+  CirkularFingerprinter      & $\checkmark$ & ?             & ?           & ?            & [pending?] \\
+  \bottomrule
     \end{tabular}}
 
 %    Here is an example of a \emph{small} table in \LaTeX\ using  
