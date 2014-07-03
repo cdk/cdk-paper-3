@@ -6,10 +6,13 @@
 \usepackage{ifthen}  % Conditional 
 \usepackage{multicol}   %Columns
 \usepackage[utf8]{inputenc} %unicode support
+\usepackage{amssymb}
 %\usepackage[applemac]{inputenc} %applemac support if unicode package fails
 %\usepackage[latin1]{inputenc} %UNIX support if unicode package fails
 \urlstyle{rm}
 \usepackage{cite}
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 %%                                             %%
@@ -34,6 +37,7 @@
 \setlength{\oddsidemargin}{0cm} 
 \setlength{\textwidth}{16.5cm}
 \setlength{\columnsep}{0.6cm}
+\definecolor{lightgray}{gray}{0.9}
 
 \newboolean{publ}
 
@@ -57,8 +61,8 @@
   John May$^2$% // FIXED SECOND AUTHOR
   \email{John May - COMPLETE@ebi.ac.uk}
 \and
-  Jonathan Alversson$^3$%
-  \email{Jonathan Alversson - COMPLETE}
+  Jonathan Alvarsson$^3$%
+  \email{Jonathan Alvarsson - COMPLETE}
 \and
   Arvid Berg$^3$%
   \email{Arvid Berg - COMPLETE}
@@ -121,16 +125,16 @@ We here report the improvements of the CDK since the 1.2 release series made
 to accomodate both the increased complexity of the library, as well as
 siginificant improvements of and additions to the functionality of the
 library. We here outline how the CDK evolved since the previous report and
-discuss the quality control approached we have adopted to ensure
-stability. Additionally, new APIs have been introduced for atom type
-perception, substructure searching, rendering of molecules, and handling of
-molecular formulas.
+discuss the quality control approached we have adopted to ensure stability.
+Additionally, new APIs have been introduced for atom type perception,
+substructure searching, molecular fingerprints, rendering of molecules, and
+handling of molecular formulas.
 \paragraph*{Conclusions:}
 With this paper we have shown the continued effort to provide a free, Open Source
 cheminformatics library, and show that such colleborative projects can survive for
 a long period. We have taken advantage from the community support, and show
 that an open source cheminformatics project can act as a peer reviewed
-publishing platform for scientific computating software.
+publishing platform for scientific computing software.
 \end{abstract}
 
 
@@ -151,7 +155,8 @@ Furthermore, projects with specific functionality have emerged building on the C
 jCompoundMapper~\cite{Hinselmann2011}, ScaffoldHunter~\cite{wetzel2009interactive}, OMG~\cite{Peironcely2012},
 Padel~\cite{yap2011padel}, AMBIT-SMARTS~\cite{jeliazkova2011ambitsmarts}, AMBIT-Tautomer~\cite{kochev2013ambit},
 and SMSD~\cite{}. Other tools used previous versions already, and follow
-newer releases of the CDK, such as Bioclipse~\cite{} and AMBIT~\cite{jeliazkova2011ambit}.
+newer releases of the CDK, such as Bioclipse~\cite{spjuth2007bioclipse,
+spjuth2009bioclipse} and AMBIT~\cite{jeliazkova2011ambit}.
 
 However, previous version of the CDK were written by a community with specific applications
 in mind, of which structure elucidation was one. It could therefore be rather competitive
@@ -314,6 +319,23 @@ SilentChemObjectBuilder & Classes that are created with this builder will not
 \end{tabular}
 \end{table}
 
+\subsubsection*{Molecular fingerprints}
+Also the molecular fingerprints in CDK has seen development since the 1.2
+release. Traditionally CDK fingerprints were represented using the
+\textit{BitSet} class shipping with Java. The benefits of that class include
+such things as already implemented methods for modifying bit sets using other
+bit sets. However the class keeps a vector of bits in memory. The solution was
+excellent for hashed, relatively small fingerprints, \textit{e.g.}, 1024 bits,
+\textit{i.e.}, 10 bits indexing space. However implementing a fingerprint
+designed to avoid collisions with, \textit{e.g.} a 32 bit indexing space using
+this approach would be highly memory-inefficient. To allow for multiple
+fingerprint representation implementations a bit fingerprint interface was
+introduced. Also, although fingerprints traditionally are bit vectors a count
+fingerprint was also introduced making fingerprints based on integer vectors
+supported in CDK as well. The fingerprints currently existing in CDK are listed
+in Table~\ref{tab:fingerprints}.
+
+
 \subsection*{Improved Coding Standards}
 
 As the library grew over the years, so did the maintenance become more complex. Increasingly,
@@ -437,8 +459,30 @@ Niels Out and Stefan Kuhn are acknowledged for their contributions to the projec
 
 %% Use of \listoftables is discouraged.
 %%
-%\section*{Tables}
-%  \subsection*{Table 1 - Sample table title}
+\section*{Tables}
+  \subsection*{Table 1 - The molecular fingerprints in CDK}
+    \rowcolors{1}{}{lightgray}
+    \par
+    \mbox{
+    \begin{tabular}{lcclrc}
+    \toprule
+                             & Bit version  & Count version & CDK version & Default Size & References \\
+  CirkularFingerprinter      & $\checkmark$ & ?             & ?           & ?            & [pending?] \\
+  EStateFingerprinter        & $\checkmark$ &               & 1.2.0       & $79$         & \cite{Hall1995}\\
+  ExtendedFingerprinter      & $\checkmark$ &               & 1.0         &              & \\
+  Fingerprinter              & $\checkmark$ &               & 1.0         &              & \\
+  GraphOnlyFingerprinter     & $\checkmark$ &               & 1.0         &              & \\
+  HybridizationFingerprinter & $\checkmark$ &               & 1.4.0       &              & \\
+  KlekotaRothFingerprinter   & $\checkmark$ &               & 1.4.6       & $4\,860$     & \cite{Klekota2008}\\
+  LingoFingerprinter         & $\checkmark$ &               & 1.6.0 ?     &              & \\
+  MACCSFingerprinter         & $\checkmark$ &               & 1.2.0       &              & \\
+  PubchemFingerprinter       & $\checkmark$ &               & 1.4.0       &              & \\
+  ShortestPathFingerprinter  & $\checkmark$ &               & 1.6.0 ?     &              & \\
+  SignatureFingerprinter     & $\checkmark$ & $\checkmark$  & 1.6.0 ?     & $2^{32}$     & [pending] \\
+  SubstructureFingerprinter  & $\checkmark$ &               & 1.0         &              & \\
+  \bottomrule
+    \end{tabular}}
+
 %    Here is an example of a \emph{small} table in \LaTeX\ using  
 %    \verb|\tabular{...}|. This is where the description of the table 
 %    should go. \par \mbox{}
