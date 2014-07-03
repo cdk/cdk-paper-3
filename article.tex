@@ -125,16 +125,16 @@ We here report the improvements of the CDK since the 1.2 release series made
 to accomodate both the increased complexity of the library, as well as
 siginificant improvements of and additions to the functionality of the
 library. We here outline how the CDK evolved since the previous report and
-discuss the quality control approached we have adopted to ensure
-stability. Additionally, new APIs have been introduced for atom type
-perception, substructure searching, rendering of molecules, and handling of
-molecular formulas.
+discuss the quality control approached we have adopted to ensure stability.
+Additionally, new APIs have been introduced for atom type perception,
+substructure searching, molecular fingerprints, rendering of molecules, and
+handling of molecular formulas.
 \paragraph*{Conclusions:}
 With this paper we have shown the continued effort to provide a free, Open Source
 cheminformatics library, and show that such colleborative projects can survive for
 a long period. We have taken advantage from the community support, and show
 that an open source cheminformatics project can act as a peer reviewed
-publishing platform for scientific computating software.
+publishing platform for scientific computing software.
 \end{abstract}
 
 
@@ -155,7 +155,8 @@ Furthermore, projects with specific functionality have emerged building on the C
 jCompoundMapper~\cite{Hinselmann2011}, ScaffoldHunter~\cite{wetzel2009interactive}, OMG~\cite{Peironcely2012},
 Padel~\cite{yap2011padel}, AMBIT-SMARTS~\cite{jeliazkova2011ambitsmarts}, AMBIT-Tautomer~\cite{kochev2013ambit},
 and SMSD~\cite{}. Other tools used previous versions already, and follow
-newer releases of the CDK, such as Bioclipse~\cite{} and AMBIT~\cite{jeliazkova2011ambit}.
+newer releases of the CDK, such as Bioclipse~\cite{spjuth2007bioclipse,
+spjuth2009bioclipse} and AMBIT~\cite{jeliazkova2011ambit}.
 
 However, previous version of the CDK were written by a community with specific applications
 in mind, of which structure elucidation was one. It could therefore be rather competitive
@@ -321,7 +322,7 @@ SilentChemObjectBuilder & Classes that are created with this builder will not
 \subsubsection*{Molecular fingerprints}
 Also the molecular fingerprints in CDK has seen development since the 1.2
 release. Traditionally CDK fingerprints were represented using the
-\textit{BitSet} class shipping with Java. The benefits of the class include
+\textit{BitSet} class shipping with Java. The benefits of that class include
 such things as already implemented methods for modifying bit sets using other
 bit sets. However the class keeps a vector of bits in memory. The solution was
 excellent for hashed, relatively small fingerprints, \textit{e.g.}, 1024 bits,
@@ -466,6 +467,7 @@ Niels Out and Stefan Kuhn are acknowledged for their contributions to the projec
     \begin{tabular}{lcclrc}
     \toprule
                              & Bit version  & Count version & CDK version & Default Size & References \\
+  CirkularFingerprinter      & $\checkmark$ & ?             & ?           & ?            & [pending?] \\
   EStateFingerprinter        & $\checkmark$ &               & 1.2.0       & $79$         & \cite{Hall1995}\\
   ExtendedFingerprinter      & $\checkmark$ &               & 1.0         &              & \\
   Fingerprinter              & $\checkmark$ &               & 1.0         &              & \\
@@ -478,7 +480,6 @@ Niels Out and Stefan Kuhn are acknowledged for their contributions to the projec
   ShortestPathFingerprinter  & $\checkmark$ &               & 1.6.0 ?     &              & \\
   SignatureFingerprinter     & $\checkmark$ & $\checkmark$  & 1.6.0 ?     & $2^{32}$     & [pending] \\
   SubstructureFingerprinter  & $\checkmark$ &               & 1.0         &              & \\
-  CirkularFingerprinter      & $\checkmark$ & ?             & ?           & ?            & [pending?] \\
   \bottomrule
     \end{tabular}}
 
