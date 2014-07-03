@@ -457,22 +457,24 @@ Niels Out and Stefan Kuhn are acknowledged for their contributions to the projec
 %%
 \section*{Tables}
   \subsection*{Table 1 - The molecular fingerprints in CDK}
-    \begin{tabular}{lccrc}
-                             & Bit version  & Count version & Since CDK version & References \\
-  \cline{2-5}
-  Fingerprinter              & $\checkmark$ &               &                   & \\
-  EStateFingerprinter        & $\checkmark$ &               &                   & \\
-  ExtendedFingerprinter      & $\checkmark$ &               &                   & \\
-  GraphOnlyFingerprinter     & $\checkmark$ &               &                   & \\
-  HybridizationFingerprinter & $\checkmark$ &               &                   & \\
-  KlekotaRothFingerprinter   & $\checkmark$ &               &                   & \\
-  LingoFingerprinter         & $\checkmark$ &               &                   & \\
-  MACCSFingerprinter         & $\checkmark$ &               &                   & \\
-  PubchemFingerprinter       & $\checkmark$ &               &                   & \\
-  ShortestPathFingerprinter  & $\checkmark$ &               &                   & \\
-  SignatureFingerprinter     & $\checkmark$ & $\checkmark$  &                   & [pending] \\
-  SubstructureFingerprinter  & $\checkmark$ &               &                   & \\
-    \end{tabular}
+    \par
+    \mbox{
+    \begin{tabular}{lcclrc}
+                             & Bit version  & Count version & CDK version & Default Size & References \\
+  \cline{2-6}\noalign{\smallskip}
+  EStateFingerprinter        & $\checkmark$ &               & 1.2.0       & $79$         & \cite{Hall1995}\\
+  ExtendedFingerprinter      & $\checkmark$ &               & 1.0         &              & \\
+  Fingerprinter              & $\checkmark$ &               & 1.0         &              & \\
+  GraphOnlyFingerprinter     & $\checkmark$ &               & 1.0         &              & \\
+  HybridizationFingerprinter & $\checkmark$ &               & 1.4.0       &              & \\
+  KlekotaRothFingerprinter   & $\checkmark$ &               & 1.4.6       & $4\,860$     & \cite{Klekota2008}\\
+  LingoFingerprinter         & $\checkmark$ &               & 1.6.0 ?     &              & \\
+  MACCSFingerprinter         & $\checkmark$ &               & 1.2.0       &              & \\
+  PubchemFingerprinter       & $\checkmark$ &               & 1.4.0       &              & \\
+  ShortestPathFingerprinter  & $\checkmark$ &               & 1.6.0 ?     &              & \\
+  SignatureFingerprinter     & $\checkmark$ & $\checkmark$  & 1.6.0 ?     & $2^{32}$     & [pending] \\
+  SubstructureFingerprinter  & $\checkmark$ &               & 1.0         &              & \\
+    \end{tabular}}
 
 %    Here is an example of a \emph{small} table in \LaTeX\ using  
 %    \verb|\tabular{...}|. This is where the description of the table 
