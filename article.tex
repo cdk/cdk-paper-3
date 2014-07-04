@@ -453,6 +453,7 @@ Niels Out and Stefan Kuhn are acknowledged for their contributions to the projec
 %      Figure legend text.
 
 
+\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Tables                        %%
@@ -461,27 +462,39 @@ Niels Out and Stefan Kuhn are acknowledged for their contributions to the projec
 %%
 \section*{Tables}
   \subsection*{Table 1 - The molecular fingerprints in CDK}
+  Listed are the currently available molecular fingerprint in CDK with
+  information about whether they come as bit / count versions, what CDK version
+  they appeared in, their default size and where applicable also relevant
+  references.
+  \vskip 1\baselineskip
+
+    \begin{minipage}{1\textwidth}
+    \renewcommand*{\thempfootnote}{\fnsymbol{mpfootnote}}
+    \centering
     \rowcolors{1}{}{lightgray}
-    \par
-    \mbox{
-    \begin{tabular}{lcclrc}
+    \begin{tabular}{lcclcc}
     \toprule
-                             & Bit version  & Count version & CDK version & Default Size & References \\
-  CirkularFingerprinter      & $\checkmark$ & ?             & ?           & ?            & [pending?] \\
-  EStateFingerprinter        & $\checkmark$ &               & 1.2.0       & $79$         & \cite{Hall1995}\\
-  ExtendedFingerprinter      & $\checkmark$ &               & 1.0         &              & \\
-  Fingerprinter              & $\checkmark$ &               & 1.0         &              & \\
-  GraphOnlyFingerprinter     & $\checkmark$ &               & 1.0         &              & \\
-  HybridizationFingerprinter & $\checkmark$ &               & 1.4.0       &              & \\
-  KlekotaRothFingerprinter   & $\checkmark$ &               & 1.4.6       & $4\,860$     & \cite{Klekota2008}\\
-  LingoFingerprinter         & $\checkmark$ &               & 1.6.0 ?     &              & \\
-  MACCSFingerprinter         & $\checkmark$ &               & 1.2.0       &              & \\
-  PubchemFingerprinter       & $\checkmark$ &               & 1.4.0       &              & \\
-  ShortestPathFingerprinter  & $\checkmark$ &               & 1.6.0 ?     &              & \\
-  SignatureFingerprinter     & $\checkmark$ & $\checkmark$  & 1.6.0 ?     & $2^{32}$     & [pending] \\
-  SubstructureFingerprinter  & $\checkmark$ &               & 1.0         &              & \\
+                             & Bit version  & Count version & CDK version & Default Size    & References \\
+  CirkularFingerprinter      & $\checkmark$ & $\checkmark$  & 1.6.0 ?     & $1\,024$ / $2^{32}$%
+\footnote[1]{For the CirkularFingerprinter the bit version is folded to 1024 whereas the count version is unfolded}
+                                                                                            & \cite{rogers2010extended, pending?} \\
+  EStateFingerprinter        & $\checkmark$ &               & 1.2.0       & $79$            & \cite{Hall1995} \\
+  ExtendedFingerprinter      & $\checkmark$ &               & 1.0         & $1\,024$        & \\
+  Fingerprinter              & $\checkmark$ &               & 1.0         & $1\,024$        & \\
+  GraphOnlyFingerprinter     & $\checkmark$ &               & 1.0         & $1\,024$        & \\
+  HybridizationFingerprinter & $\checkmark$ &               & 1.4.0       & $1\,024$        & \\
+  KlekotaRothFingerprinter   & $\checkmark$ &               & 1.4.6       & $4\,860$        & \cite{Klekota2008} \\
+  LingoFingerprinter         & $\checkmark$ &               & 1.6.0 ?     & NA%
+\footnote[2]{The Lingofingerprinter does not have a default size}               
+                                                                                            & \cite{vidal2005lingo} \\
+  MACCSFingerprinter         & $\checkmark$ &               & 1.2.0       & $166$           & \\
+  PubchemFingerprinter       & $\checkmark$ &               & 1.4.0       & $881$           & \cite{pubchemFP} \\
+  ShortestPathFingerprinter  & $\checkmark$ &               & 1.6.0 ?     & $1\,024$        & \\
+  SignatureFingerprinter     & $\checkmark$ & $\checkmark$  & 1.6.0 ?     & $2^{32}$        & [pending] \\
+  SubstructureFingerprinter  & $\checkmark$ &               & 1.0         & $307$           & \\
   \bottomrule
-    \end{tabular}}
+    \end{tabular}
+    \end{minipage}
 
 %    Here is an example of a \emph{small} table in \LaTeX\ using  
 %    \verb|\tabular{...}|. This is where the description of the table 
