@@ -161,7 +161,7 @@ spjuth2009bioclipse} and AMBIT~\cite{jeliazkova2011ambit}.
 
 However, previous version of the CDK were written by a community with specific applications
 in mind, of which structure elucidation was one. It could therefore be rather competitive
-in some cheminformatics domains, such as fingerprinting~\cite{Ekins,Cannon}, in other parts
+in some cheminformatics domains, such as fingerprinting~\cite{Clark2014,Cannon}, in other parts
 it could be inadequate, such in the capturing of stereochemistry.
 
 Continued community development of the CDK in the last few years, however, has shown that
@@ -174,7 +174,7 @@ allowing for a lot of new functionality in code APIs while maintaining the quali
 of code depending on those core APIs.
 
 This has resulted in important improved functionality, such as a separately published
-InChI functionality~\cite{SpjuthXXXX} and greatly improved ring detection functionality~\cite{MayYYYY},
+InChI functionality~\cite{Spjuth2013} and greatly improved ring detection functionality~\cite{May2014},
 but also a core atom type perception module, covering a much wider set of elements than
 previous CDK versions and capturing many more charged and radical atom species,
 a more comprehensive fingerprinting API, many speed and stability improvements, and more.
@@ -220,13 +220,12 @@ publications.
 
   \subsubsection*{Stereochemistry}
 
-  CDK 1.4.XXXX [CHECK] introduces a new API for stereochemistry information: the interfaces
-  IStereoChemistryElement was introduced with ...
+  The new CDK version introduces a new API for stereochemistry information: the interfaces
+  IStereoChemistryElement was introduced with the implementations TetrahedralChirality,
+  for four coordinate compounds like bromo-chloro-fluoro-iodomethane,
+  DoubleBondStereochemistry, for compounds like trans-2-butene, and
+  ExtendedTetrahedral, for compounds like allene.
 
-  New classes include:
-  
-  
-  
   \subsubsection*{Rendering API}
 
   Initiated by Niels Out ...
@@ -241,7 +240,7 @@ The chemical formula is the basic/simple chemical representation of a compound.
 It defines the number of isotopes or elements that constitute a the composition
 of a compound without describing how atoms are bonded. With the rise of metabolomics,
 it has become increasingly relevant to have full support in cheminformatics
-libraries~\cite{RojasChertoXXX}.
+libraries~\cite{RojasCherto2011}.
 It is also the first step
 toward the identification of the chemical structure from a unidentified compound.
 
@@ -277,7 +276,7 @@ Where can it be applied?
 
   \subsubsection*{Ring finding}
   
-  ....
+  .... \cite{May2014}
 
   \subsubsection*{New Builders}
 
@@ -388,7 +387,8 @@ Java package the class is in.
 Another change made over the past years is the move to a Git-based version
 control system. Advantages the projects makes advantage of is the distributed
 nature of Git repositories, and easier branching and making available of
-patches. GitHub has replaced SourceForge as the main source code hosting service
+patches. GitHub (\url{https://github.com/cdk/cdk}) has replaced SourceForge
+as the main source code hosting service
 where we can use novel approaches for commenting on code, pull requests, etc.
 These new features simplify our code review process.
 
@@ -424,9 +424,10 @@ the interface implementations hard to optimize.
 
 \begin{itemize}
 \item \textbf{Project Name}: The Chemistry Development Kit
-\item \textbf{Project home page}: \url{http://cdk.sourceforge.net/}
+\item \textbf{Project home page}: \url{https://github.com/cdk/cdk}
 \item \textbf{Operating system(s)}: Windows, GNU/Linux, OS/X
 \item \textbf{Programming language}: Java
+% FIXME: add appropriate references below
 \item \textbf{Other (optional) requirements}: JNI-InChI, Vecmath, BEAM, Guava, JGraphT, Signatures, CMLDOM, XOM, JavaCC
 \item \textbf{License}: LGPL v2.1 or later
 \item \textbf{Any restrictions to use by non-academics}: None additional
@@ -440,7 +441,6 @@ XX and YY have companies that sell solutions based on the CDK.
 \section*{Authors contributions}
     Text for this section \ldots
 
-    
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Acknowledgements}
@@ -482,6 +482,7 @@ found in the AUTHORS file~\cite{AUTHORS}.
 %%
 \section*{Tables}
   \subsection*{Table 1 - The molecular fingerprints in CDK}
+  \label{tab:fingerprints}
   Listed are the currently available molecular fingerprint in CDK with
   information about whether they come as bit / count versions, what CDK version
   they appeared in, their default size and where applicable also relevant
