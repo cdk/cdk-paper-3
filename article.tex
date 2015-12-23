@@ -121,17 +121,18 @@ in the first five years of the project increased so much in size that
 interdependencies between components grew unmanageable large, resulting
 in unpredictable instabilities.
 \paragraph*{Results:}
-We here report the improvements of the CDK since the 1.2 release series made
+We here report improvements to the CDK since the 1.2 release series made
 to accomodate both the increased complexity of the library, as well as
 siginificant improvements of and additions to the functionality of the
-library. We here outline how the CDK evolved since the previous report and
-discuss the quality control approached we have adopted to ensure stability.
-Additionally, new APIs have been introduced for atom type perception,
-substructure searching, molecular fingerprints, rendering of molecules, and
-handling of molecular formulas.
+library. Second, we outline how the CDK evolved with respect to
+quality control and the approach we have adopted to ensure stability, including
+a peer review mechanism.
+Additionally, a selection of the new APIs that have been introduced will
+be discussed: atom type perception, substructure searching, molecular
+fingerprints, rendering of molecules, and handling of molecular formulas.
 \paragraph*{Conclusions:}
 With this paper we have shown the continued effort to provide a free, Open Source
-cheminformatics library, and show that such colleborative projects can survive for
+cheminformatics library, and show that such colleborative projects can exist over
 a long period. We have taken advantage from the community support, and show
 that an open source cheminformatics project can act as a peer reviewed
 publishing platform for scientific computing software.
@@ -228,8 +229,13 @@ publications.
   
   \subsubsection*{Molecular Formula}
 
-The chemical formula is the basic/simple chemical representation of a compound. It defines the number of atoms/isotopes and type of elements that constitute a chemical compound without describing how atoms are bonded.
-It is also the first step toward the identification of the chemical structure from a unidentified compound.
+The chemical formula is the basic/simple chemical representation of a compound.
+It defines the number of isotopes or elements that constitute a the composition
+of a compound without describing how atoms are bonded. With the rise of metabolomics,
+it has become increasingly relevant to have full support in cheminformatics
+libraries~\cite{RojasChertoXXX}.
+It is also the first step
+toward the identification of the chemical structure from a unidentified compound.
 
 CDK can handle several concepts related to chemical formulas
 \begin{itemize}
@@ -264,20 +270,6 @@ Where can it be applied?
   \subsubsection*{Ring finding}
   
   ....
-
-  \subsubsection*{Partial charges and Delocalization}
-  
-Partial atomic charges is an electronic property of atoms defining the asymmetric distribution of electrons in chemical bonds.
-It is used as a quantitative correlation with certain compound's physical and chemical properties.
-
-CDK can
-\begin{itemize}
-\item generate all resonance structures from a given compound 
-\item calculate the topological and electronic weight value of each of the resonance structures
-\item calculate the partial atomic charge from a given structure 
-\end{itemize}
-
-Where can it be applied?
 
   \subsubsection*{New Builders}
 
@@ -426,8 +418,10 @@ XX and YY have companies that sell solutions based on the CDK.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Acknowledgements}
-  \ifthenelse{\boolean{publ}}{\small}{}
-Niels Out and Stefan Kuhn are acknowledged for their contributions to the project.
+\ifthenelse{\boolean{publ}}{\small}{}
+The authors acknoledge the great number of people who have contributed smaller
+and larger contributions to the CDK library. A full list of contributors is
+found in the AUTHORS file~\cite{AUTHORS}.
 
 
 {\ifthenelse{\boolean{publ}}{\footnotesize}{\small}
