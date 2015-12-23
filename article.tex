@@ -219,14 +219,22 @@ publications.
   The code is tested by FFFF unit tests, and has been tested against ChEBI and PubChem. REFS
 
   \subsubsection*{Stereochemistry}
-  
+
   CDK 1.4.XXXX [CHECK] introduces a new API for stereochemistry information: the interfaces
   IStereoChemistryElement was introduced with ...
 
+  New classes include:
+  
+  
+  
   \subsubsection*{Rendering API}
-  
+
   Initiated by Niels Out ...
-  
+
+  \subsubsection*{Structure Diagram Layout}
+
+  The structure diagram layout ... %FIXME: John, do you want this in?
+
   \subsubsection*{Molecular Formula}
 
 The chemical formula is the basic/simple chemical representation of a compound.
@@ -354,26 +362,44 @@ third-party dependencies that are not needed.
 
 ... describe all modules, maybe add graphviz plot ...
 
-
-
+% FIXME: add dependency plot
 
   \subsubsection*{Documentation}
 
   Initially done with DocCheck, replaced by OpenJavaDocCheck ...
-  
+
   \subsubsection*{Unit testing}
-  
+
+
+
   \subsubsection*{Code Quality}
 
-  PMD ...
+The project continues to use PMD (http://pmd.sf.net/) for code quality checking,
+but deviates from the default rules. For example, we are more liberal with 
+variable name length. Moreover, a number of additional PMD tests have been
+developed specifically for the CDK, that, for example, test if a class uses
+the core interfaces instead of implementations of those interfaces. For example,
+that the code uses IAtom instead of Atom. That said, these tests do generate a
+few false positives, as the tests check the class name only, and not the
+Java package the class is in.
 
   \subsubsection*{Git, branching, and patches}
-  
+
+Another change made over the past years is the move to a Git-based version
+control system. Advantages the projects makes advantage of is the distributed
+nature of Git repositories, and easier branching and making available of
+patches. GitHub has replaced SourceForge as the main source code hosting service
+where we can use novel approaches for commenting on code, pull requests, etc.
+These new features simplify our code review process.
+
 \subsection*{Binary distributions}
 
 \subsubsection*{Maven packages}
 
-INVITE NINA
+Another recent change is the choice of build system: we have moved away from
+Ant to Maven to deal with dependencies and compile the library. 
+
+% FIXME: write more about this, and provide info about Maven Central
 
 \subsubsection*{OSGi bundles}
 
@@ -386,7 +412,7 @@ INVITE ARVID
 Over the past years since the last CDK publication in 2006, a lot has changed. The functionality
 has seen many additions, and the stability of the development model has significantly improved.
 This paper outlines how peer review and quality control contributed to a much wider adoption
-of our cheminformatics library and seen many new additions. With over 75 contributors,
+of our cheminformatics library and seen many new additions. With 93 contributors,
 the CDK is alive and kicking.
 
 However, there are many unsolved issues. Performance is perhaps one of the most important ones.
