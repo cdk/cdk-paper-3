@@ -1,18 +1,16 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\documentclass[10pt]{bmc_article}
+\documentclass[10pt]{bmcart}
+%\documentclass[twocolumn]{bmcart}% uncomment this for twocolumn layout and comment line below
+%%% additional documentclass options:
+%  [doublespacing]
+%  [linenumbers]   - put the line numbers on margins
 
 % Load packages
 \usepackage{url}  % Formatting web addresses  
-\usepackage{ifthen}  % Conditional 
-\usepackage{multicol}   %Columns
+\urlstyle{rm}
 \usepackage[utf8]{inputenc} %unicode support
 \usepackage{amssymb}
-%\usepackage[applemac]{inputenc} %applemac support if unicode package fails
-%\usepackage[latin1]{inputenc} %UNIX support if unicode package fails
-\urlstyle{rm}
-\usepackage{cite}
-\usepackage[table]{xcolor}
-\usepackage{booktabs}
+%\usepackage{cite}
 \usepackage{graphicx}
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
@@ -33,87 +31,116 @@
 %\def\includegraphic{}
 %\def\includegraphics{}
 
-\setlength{\topmargin}{0.0cm}
-\setlength{\textheight}{21.5cm}
-\setlength{\oddsidemargin}{0cm} 
-\setlength{\textwidth}{16.5cm}
-\setlength{\columnsep}{0.6cm}
-\definecolor{lightgray}{gray}{0.9}
+%%% Put your definitions there:
+\startlocaldefs
+\endlocaldefs
 
-\newboolean{publ}
-
-%Review style settings
-\newenvironment{bmcformat}{\begin{raggedright}\baselineskip20pt\sloppy\setboolean{publ}{false}}{\end{raggedright}\baselineskip20pt\sloppy}
-
-%Publication style settings
-%\newenvironment{bmcformat}{\fussy\setboolean{publ}{true}}{\fussy}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% RESEARCH PAPER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
-\begin{bmcformat}
+
+%%% Start of article front matter
+\begin{frontmatter}
+
+\begin{fmbox}
+\dochead{Research}
 
 \title{The Chemistry Development Kit (CDK). 3. Atom typing, Rendering, Molecular Formula, and Substructure Searching}
- 
-\author{
-  Egon L Willighagen$^{1}$% // FIXED FIRST AUTHOR
-  \email{Egon L Willighagen - egon.willighagen@maastrichtuniversity.nl}
-\and
-  John May$^2$% // FIXED SECOND AUTHOR
-  \email{John May - COMPLETE@ebi.ac.uk}
-\and
-  Jonathan Alvarsson$^3$%
-  \email{Jonathan Alvarsson - COMPLETE}
-\and
-  Arvid Berg$^3$%
-  \email{Arvid Berg - COMPLETE}
-\and
-  Nina Jeliazkova$^4$%
-  \email{Nina Jeliakvova - COMPLETE}
-\and
-  Dazhi Jiao$^5$%
-  \email{Dazhi Jiao - COMPLETE}
-\and
-  Syed Asad Rahman$^6$%
-  \email{Syed Asad Rahman - COMPLETE}
-\and
-  Mark Rijnbeek$^2$%
-  \email{Mark Rijnbeek - COMPLETE}
-\and
-  Miguel Rojas Cherto$^7$%
-  \email{Miguel Rojas Cherto - COMPLETE}
-\and
-  Ola Spjuth$^3$%
-  \email{Ola Spjuth - ola.spjuth@farmbio.uu.se}
-\and
-  Gilleain Torrance$^5$%
-  \email{Gilleain Torrance - COMPLETE}
-\and
-  Rajarshi Guha$^{8}$% // FIXED ONE BUT LAST AUTHOR
-  \email{Rajarshi Guha - COMPLETE}
-\and
-  Christoph Steinbeck$^{2}$% // FIXED LAST AUTHOR
-  \email{Christoph Steinbeck - steinbeck@ebi.ac.uk}
+
+% FIXME: finish migrating the author list
+
+\author[
+   addressref={um},                   % id's of addresses, e.g. {aff1,aff2}
+   %corref={aff1},                       % id of corresponding address, if any
+   %noteref={n1},                        % id's of article notes, if any
+   email={egon.willighagen@maastrichtuniversity.nl}   % email address
+]{\inits{ELW}\fnm{Egon L} \snm{Willighagen}}
+\author[
+   addressref={aff2},
+   email={???}
+]{\inits{JWM}\fnm{John W} \snm{May}}
+
+\address[id=um]{%                           % unique id
+  \orgname{Dept of Bioinformatics - BiGCaT, NUTRIM, Maastricht University}, % university, etc
+  %\street{Waterloo Road},                     %
+  \postcode{NL-6200 MD}                                % post or zip code
+  \city{Maastricht},                              % city
+  \cny{NL}                                    % country
 }
-     
-\address{
-    \iid(1)Department of Bioinformatics - BiGCaT, Maastricht University, Maastricht, NL-6200 MD, The Netherlands \\
-    \iid(2)Chemoinformatics and Metabolism team, European Bioinformatics Institute, Hinxton, UK, \\
-    \iid(3)Department of Pharmaceutical Biosciences, Uppsala University, 751 24 Uppsala, Sweden \\
-    \iid(4)Ideaconsult Ltd, A. Kanchev 4, Sofia 1000, Bulgaria \\
-    \iid(5)Example Ltd., Glasgow, UK \\
-    \iid(6)Example Ltd., Glasgow, UK \\
-    \iid(7)Division of Analytical Biosciences, Leiden/Amsterdam Center for Drug Research, Leiden, The Netherlands \\
-    \iid(8)NIH Center for Translational Therapeutics, 9800 Medical Center Drive, Rockville, MD 20878, USA
+\address[id=aff2]{%
+  \orgname{??},
+  %\street{D\"{u}sternbrooker Weg 20},
+  %\postcode{24105}
+  %\city{Kiel},
+  \cny{UK}
 }
 
-\maketitle
+% \author{
+%   Egon L Willighagen$^{1}$% // FIXED FIRST AUTHOR
+%   \email{Egon L Willighagen - }
+% \and
+%   John May$^2$% // FIXED SECOND AUTHOR
+%   \email{John May - COMPLETE@ebi.ac.uk}
+% \and
+%   Jonathan Alvarsson$^3$%
+%   \email{Jonathan Alvarsson - COMPLETE}
+% \and
+%   Arvid Berg$^3$%
+%   \email{Arvid Berg - COMPLETE}
+% \and
+%   Nina Jeliazkova$^4$%
+%   \email{Nina Jeliakvova - COMPLETE}
+% \and
+%   Dazhi Jiao$^5$%
+%   \email{Dazhi Jiao - COMPLETE}
+% \and
+%   Syed Asad Rahman$^6$%
+%   \email{Syed Asad Rahman - COMPLETE}
+% \and
+%   Mark Rijnbeek$^2$%
+%   \email{Mark Rijnbeek - COMPLETE}
+% \and
+%   Miguel Rojas Cherto$^7$%
+%   \email{Miguel Rojas Cherto - COMPLETE}
+% \and
+%   Ola Spjuth$^3$%
+%   \email{Ola Spjuth - ola.spjuth@farmbio.uu.se}
+% \and
+%   Gilleain Torrance$^5$%
+%   \email{Gilleain Torrance - COMPLETE}
+% \and
+%   Rajarshi Guha$^{8}$% // FIXED ONE BUT LAST AUTHOR
+%   \email{Rajarshi Guha - COMPLETE}
+% \and
+%   Christoph Steinbeck$^{2}$% // FIXED LAST AUTHOR
+%   \email{Christoph Steinbeck - steinbeck@ebi.ac.uk}
+% }
+%      
+% \address{
+%     \iid(1) \\
+%     \iid(2)Chemoinformatics and Metabolism team, European Bioinformatics Institute, Hinxton, UK, \\
+%     \iid(3)Department of Pharmaceutical Biosciences, Uppsala University, 751 24 Uppsala, Sweden \\
+%     \iid(4)Ideaconsult Ltd, A. Kanchev 4, Sofia 1000, Bulgaria \\
+%     \iid(5)Example Ltd., Glasgow, UK \\
+%     \iid(6)Example Ltd., Glasgow, UK \\
+%     \iid(7)Division of Analytical Biosciences, Leiden/Amsterdam Center for Drug Research, Leiden, The Netherlands \\
+%     \iid(8)NIH Center for Translational Therapeutics, 9800 Medical Center Drive, Rockville, MD 20878, USA
+% }
+
+%\begin{artnotes}
+%\note{Sample of title note}     % note to the article
+%\note[id=n1]{Equal contributor} % note, connected to author
+%\end{artnotes}
+
+\end{fmbox}% comment this for two column layout
 
 %% The Abstract begins here
+\begin{abstractbox}
 
 \begin{abstract}
 % Do not use inserted blank lines (ie \\) until main body of text.
-\paragraph*{Background:}
+\parttitle{Background}
 Cheminformatics is a well-established field with many applications in chemistry,
 biology, drug discovery, and others. The Chemistry Development Kit (CDK) has
 become a widely used Open Source cheminformatics toolkit, providing various models to represent
@@ -121,7 +148,7 @@ chemical structures, of which the chemical graph is essential. However,
 in the first five years of the project increased so much in size that
 interdependencies between components grew unmanageable large, resulting
 in unpredictable instabilities.
-\paragraph*{Results:}
+\parttitle{Results}
 We here report improvements to the CDK since the 1.2 release series made
 to accomodate both the increased complexity of the library, as well as
 siginificant improvements of and additions to the functionality of the
@@ -131,7 +158,7 @@ a peer review mechanism.
 Additionally, a selection of the new APIs that have been introduced will
 be discussed: atom type perception, substructure searching, molecular
 fingerprints, rendering of molecules, and handling of molecular formulas.
-\paragraph*{Conclusions:}
+\parttitle{Conclusions}
 With this paper we have shown the continued effort to provide a free, Open Source
 cheminformatics library, and show that such colleborative projects can exist over
 a long period. We have taken advantage from the community support, and show
@@ -139,9 +166,25 @@ that an open source cheminformatics project can act as a peer reviewed
 publishing platform for scientific computing software.
 \end{abstract}
 
+\begin{keyword}
+\kwd{Java}
+\kwd{cheminformatics}
+\kwd{bioinformatics}
+\end{keyword}
 
+% MSC classifications codes, if any
+%\begin{keyword}[class=AMS]
+%\kwd[Primary ]{}
+%\kwd{}
+%\kwd[; secondary ]{}
+%\end{keyword}
 
-\ifthenelse{\boolean{publ}}{\begin{multicols}{2}}{}
+\end{abstractbox}
+%
+%\end{fmbox}% uncomment this for twcolumn layout
+
+\end{frontmatter}
+
 
 %%%%%%%%%%%%%%%%
 %% Background %%
@@ -434,6 +477,10 @@ the interface implementations hard to optimize.
 \item \textbf{Any restrictions to use by non-academics}: None additional
 \end{itemize}
 
+%%%%%%%%%%%
+
+\begin{backmatter}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Competing interests}
 XX and YY have companies that sell solutions based on the CDK.
@@ -445,20 +492,12 @@ XX and YY have companies that sell solutions based on the CDK.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Acknowledgements}
-\ifthenelse{\boolean{publ}}{\small}{}
 The authors acknoledge the great number of people who have contributed smaller
 and larger contributions to the CDK library. A full list of contributors is
 found in the AUTHORS file~\cite{AUTHORS}.
 
-
-{\ifthenelse{\boolean{publ}}{\footnotesize}{\small}
- \bibliographystyle{bmc_article}  % Style BST file
-  \bibliography{article}
-}
-
-%%%%%%%%%%%
-
-\ifthenelse{\boolean{publ}}{\end{multicols}}{}
+\bibliographystyle{bmc-mathphys}  % Style BST file
+\bibliography{article}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Figures                       %%
@@ -496,9 +535,7 @@ found in the AUTHORS file~\cite{AUTHORS}.
     \begin{minipage}{1\textwidth}
     \renewcommand*{\thempfootnote}{\fnsymbol{mpfootnote}}
     \centering
-    \rowcolors{1}{}{lightgray}
     \begin{tabular}{lcclcc}
-    \toprule
                              & Bit version  & Count version & CDK version & Default Size    & References \\
   CirkularFingerprinter      & $\checkmark$ & $\checkmark$  & 1.6.0 ?     & $1\,024$ / $2^{32}$%
 \footnote[1]{For the CirkularFingerprinter the bit version is folded to 1024 whereas the count version is unfolded}
@@ -517,7 +554,7 @@ found in the AUTHORS file~\cite{AUTHORS}.
   ShortestPathFingerprinter  & $\checkmark$ &               & 1.6.0 ?     & $1\,024$        & \\
   SignatureFingerprinter     & $\checkmark$ & $\checkmark$  & 1.6.0 ?     & $2^{32}$        & \cite{signaturefingerprints} \\
   SubstructureFingerprinter  & $\checkmark$ &               & 1.0         & $307$           & \\
-  \bottomrule
+
     \end{tabular}
     \end{minipage}
 
@@ -552,7 +589,8 @@ found in the AUTHORS file~\cite{AUTHORS}.
 %    Additional file descriptions text.
 
 
-\end{bmcformat}
+\end{backmatter}
+
 \end{document}
 
 
