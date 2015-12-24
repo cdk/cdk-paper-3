@@ -195,17 +195,20 @@ Open Source cheminformatics has made significants steps forward recently~\cite{O
 The Chemistry Development Kit (CDK) is one of the tools under the Blue Obelisk wings,
 and previously documented version have been widely adopted~\cite{Steinbeck2003,Steinbeck2006}.
 For example, new tools expose CDK functionality, such as Cinfony~\cite{OBoyle2008},
-rcdk~\cite{}, and workflow plugins for Taverna\cite{Truszkowski2011} and KNIME\cite{Beisken2013}.
+rcdk~\cite{Guha2007}, and workflow plugins for Taverna~\cite{Truszkowski2011} and KNIME~\cite{Beisken2013}.
 Furthermore, projects with specific functionality have emerged building on the CDK, including
 jCompoundMapper~\cite{Hinselmann2011}, ScaffoldHunter~\cite{wetzel2009interactive}, OMG~\cite{Peironcely2012},
 Padel~\cite{yap2011padel}, AMBIT-SMARTS~\cite{jeliazkova2011ambitsmarts}, AMBIT-Tautomer~\cite{kochev2013ambit},
-and SMSD~\cite{}. Other tools used previous versions already, and follow
+and SMSD~\cite{Rahman2009,Rahman2014}. Other tools used previous versions already, and follow
 newer releases of the CDK, such as Bioclipse~\cite{spjuth2007bioclipse,
-spjuth2009bioclipse} and AMBIT~\cite{jeliazkova2011ambit}.
+spjuth2009bioclipse} and AMBIT~\cite{jeliazkova2011ambit}. While the above
+tools suggest that the CDK is primarily used to create general tools, it is
+important to note that it is also used to solve specific questions, like finding
+the maximally bridging rings in chemical structures~\cite{Marth2015}.
 
 However, previous version of the CDK were written by a community with specific applications
 in mind, of which structure elucidation was one. It could therefore be rather competitive
-in some cheminformatics domains, such as fingerprinting~\cite{Clark2014,Cannon}, in other parts
+in some cheminformatics domains, such as fingerprinting~\cite{Clark2014,Cannon2006}, in other parts
 it could be inadequate, such in the capturing of stereochemistry.
 
 Continued community development of the CDK in the last few years, however, has shown that
@@ -349,18 +352,14 @@ IAtom atom = builder.newInstance(IAtom.class, "C");
 
 Increasingly, the CDK library is now written against the interfaces, and when new instanced
 are needed, these builders are being used. This allows to run a certain CDK-based
-application with a specific builder, summarized in Table~\ref{tab:builders}.
-
-\begin{table}
-\begin{tabular}{l|l}
-builder & description \\
-\hline
-DefaultChemObjectBuilder & The original builder ... \\
-DataDebugChemObjectBuilder & A builder that creates classes that send debug messages ... \\
-SilentChemObjectBuilder & Classes that are created with this builder will not
-    send around change events. \\
-\end{tabular}
-\end{table}
+application with a specific builder, aimed at a particular use case. The original
+implementation is available via the DefaultChemObjectBuilder, which creates
+classes that pass around change events, just like the original CDK data classes.
+However, a SilentChemObjectBuilder has been introduced that does not pass around
+change events, which makes code run about 10-20\% faster.
+The third builder is the DataDebugChemObjectBuilder which generates debug information
+for all changes to the content of the data classes. This can be useful for
+debugging and other forms of code inspection.
 
 \subsubsection*{Molecular fingerprints}
 Also the molecular fingerprints in CDK has seen development since the 1.2
