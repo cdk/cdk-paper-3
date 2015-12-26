@@ -583,25 +583,24 @@ found in the AUTHORS file~\cite{AUTHORS}.
     \begin{minipage}{1\textwidth}
     \renewcommand*{\thempfootnote}{\fnsymbol{mpfootnote}}
     \centering
-    \begin{tabular}{lcclcc}
-                             & Bit version  & Count version & CDK version & Default Size    & References \\
-  CirkularFingerprinter      & $\checkmark$ & $\checkmark$  & 1.6.0 ?     & $1\,024$ / $2^{32}$%
-\footnote[1]{For the CirkularFingerprinter the bit version is folded to 1024 whereas the count version is unfolded}
-                                                                                            & \cite{rogers2010extended, Clark2014} \\
-  EStateFingerprinter        & $\checkmark$ &               & 1.2.0       & $79$            & \cite{Hall1995} \\
-  ExtendedFingerprinter      & $\checkmark$ &               & 1.0         & $1\,024$        & \\
-  Fingerprinter              & $\checkmark$ &               & 1.0         & $1\,024$        & \\
-  GraphOnlyFingerprinter     & $\checkmark$ &               & 1.0         & $1\,024$        & \\
-  HybridizationFingerprinter & $\checkmark$ &               & 1.4.0       & $1\,024$        & \\
-  KlekotaRothFingerprinter   & $\checkmark$ &               & 1.4.6       & $4\,860$        & \cite{Klekota2008} \\
-  LingoFingerprinter         & $\checkmark$ &               & 1.6.0 ?     & NA%
+    \begin{tabular}{lcclc}
+                             & Bit version  & Count version & CDK version & Default Size    \\
+  CircularFingerprinter~\cite{rogers2010extended, Clark2014}      & $\checkmark$ & $\checkmark$  & 1.6.0 ?     & $1\,024$ / $2^{32}$%
+\footnote[1]{For the CirkularFingerprinter the bit version is folded to 1024 whereas the count version is unfolded} \\
+  EStateFingerprinter~\cite{Hall1995}       & $\checkmark$ &               & 1.2.0       & $79$            \\
+  ExtendedFingerprinter      & $\checkmark$ &               & 1.0         & $1\,024$        \\
+  Fingerprinter              & $\checkmark$ &               & 1.0         & $1\,024$        \\
+  GraphOnlyFingerprinter     & $\checkmark$ &               & 1.0         & $1\,024$        \\
+  HybridizationFingerprinter & $\checkmark$ &               & 1.4.0       & $1\,024$        \\
+  KlekotaRothFingerprinter~\cite{Klekota2008}   & $\checkmark$ &               & 1.4.6       & $4\,860$        \\
+  LingoFingerprinter~\cite{vidal2005lingo}         & $\checkmark$ &               & 1.6.0 ?     & NA%
 \footnote[2]{The Lingofingerprinter does not have a default size}               
-                                                                                            & \cite{vidal2005lingo} \\
-  MACCSFingerprinter         & $\checkmark$ &               & 1.2.0       & $166$           & \\
-  PubchemFingerprinter       & $\checkmark$ &               & 1.4.0       & $881$           & \cite{pubchemFP} \\
-  ShortestPathFingerprinter  & $\checkmark$ &               & 1.6.0 ?     & $1\,024$        & \\
-  SignatureFingerprinter     & $\checkmark$ & $\checkmark$  & 1.6.0 ?     & $2^{32}$        & \cite{signaturefingerprints} \\
-  SubstructureFingerprinter  & $\checkmark$ &               & 1.0         & $307$           & \\
+                                                                                             \\
+  MACCSFingerprinter         & $\checkmark$ &               & 1.2.0       & $166$           \\
+  PubchemFingerprinter~\cite{pubchemFP}       & $\checkmark$ &               & 1.4.0       & $881$            \\
+  ShortestPathFingerprinter  & $\checkmark$ &               & 1.6.0 ?     & $1\,024$        \\
+  SignatureFingerprinter~\cite{signaturefingerprints}     & $\checkmark$ & $\checkmark$  & 1.6.0 ?     & $2^{32}$         \\
+  SubstructureFingerprinter  & $\checkmark$ &               & 1.0         & $307$           \\
 
     \end{tabular}
     \end{minipage}
