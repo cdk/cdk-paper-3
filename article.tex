@@ -408,7 +408,9 @@ third-party dependencies that are not needed.
 
 ... describe all modules, maybe add graphviz plot ...
 
-% FIXME: add dependency plot
+An overview of key modules with description, important changes, and dependencies
+on third-party libraries is given in Table~\ref{tab:modules} and the dependencies
+between the CDK modules are depicted in Figure~\ref{fig:deps}.
 
   \subsubsection*{Documentation}
 
@@ -533,7 +535,44 @@ found in the AUTHORS file~\cite{AUTHORS}.
 %% Use of \listoftables is discouraged.
 %%
 \section*{Tables}
-  \subsection*{Table 1 - The molecular fingerprints in CDK}
+
+  \subsection*{Table 1 - A selection of key CDK modules with major changes.}
+  \label{tab:modules}
+  An overview of a selection of often used CDK modules with description,
+  dependencies on third-party libraries, and the major changes since
+  version~1.2. Depedencies between modules are depicted in Figure~\ref{fig:deps}.
+  \vskip 1\baselineskip
+
+    \begin{minipage}{1\textwidth}
+    \renewcommand*{\thempfootnote}{\fnsymbol{mpfootnote}}
+    \centering
+    \begin{tabular}{llll}
+  Module                     & Description  & Major Changes & Depedencies \\
+  interfaces                 &              & & Vecmath 1.5.2 \\
+  core                       &              & & Google Guava 17.0 \\ % FIXME: how to add https://github.com/google/guava ?
+  standard                   &              & & \\
+  render                     &              & Redesigned to make it more modular and support multiple widget toolkits, like AWT and SWT. & \\
+  isomorphism                &              & & \\
+  atomtype                   &              & Unified approach where atom typing is separated from other algorithms. & \\
+  valencycheck               &              & & \\
+  ioformats                  &              & & \\
+  io                         &              & The MDL molfile reader has been rewritten and supports in atom types defind in the specification. & XPP3 1.1.4c \\
+  iordf                      &              & New. & Jena 2.7.4 \\
+  inchi                      &              & & JNI-InChI 0.8~\cite{Spjuth2013}  \\
+  libiocml                   &              & & XOM 1.2.5, CMLXOM 3.1~\cite{Murray-Rust2011} \\
+  smiles                     &              & SMILES support performance and converage is greatly improved. & Beam 0.9.1 \\ %FIXME add a citation
+  smarts                     &              & & Beam 0.9.1 \\ %FIXME add a citation
+  formula                    &              & New. & \\
+  fingerprint                &              & Many new fingerprint types (see text). & Apache Commons Math 3.1.1 \\
+  qsar                       &              & & XOM 1.2.5, JAMA 1.0.3~\cite{Hicklin2012} \\ % FIXME: find JAMA reference
+  signatures                 &              & & Signatures 1.1 \\ % FIXME: ask Gilleain for the reference
+  qsarmolecular              &              & & \\
+  log4j                      &              & & Log4j 1.2.17 \\
+    \end{tabular}
+    \end{minipage}
+
+
+  \subsection*{Table 1 - The molecular fingerprints in CDK.}
   \label{tab:fingerprints}
   Listed are the currently available molecular fingerprint in CDK with
   information about whether they come as bit / count versions, what CDK version
