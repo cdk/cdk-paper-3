@@ -3,7 +3,7 @@ Christoph Steinbeck <steinbeck@ebi.ac.uk>,
 Rajarshi Guha <rajarshi.guha@gmail.com>,
 Gilleain Torrance <gilleain.torrance@gmail.com>,
 Arvid Berg <berg.arvid@gmail.com>,
-Miguel Rojas Cherto <miguelrojasch@googlemail.com>,
+Miguel Rojas Cherto <miguelrojasch@googlemail.com>, 
 Ola Spjuth <ola.spjuth@gmail.com>,
 Jonathan Alversson <jonathan.alvarsson@gmail.com>,
 John May <john@nextmovesoftware.com>
@@ -19,7 +19,7 @@ shk3@users.sourceforge.net
 
 POSSIBLE (cdk-1.2.10..master): REVIEWERS
    1528  Egon Willighagen 
-    476  Syed Asad Rahman 
+    476  Syed Asad Rahman (SMSD work)
     403  Rajarshi Guha 
     368  John May 
     134  Stephan Beisken
@@ -37,11 +37,11 @@ POSSIBLE (cdk-1.2.10..master): REVIEWERS
 POSSIBLE (cdk-1.2.10..master): AUTHORS
   1674  John May
   1412  Egon Willighagen
-   175  Gilleain Torrance
-   186  Rajarshi Guha
+   175  Gilleain Torrance (CDK-JChemPaint, Signatures)
+   186  Rajarshi Guha (not gonna try to summarize that)
 --------------------------------
-    53  Syed Asad Rahman
-    50  Jonathan Alversson
+    53  Syed Asad Rahman (SMSD)
+    50  Jonathan Alversson (Fingerprint API)
     47  Mark B Vine
     35  Daniel Szisz
     33  Mark Rijnbeek
@@ -53,7 +53,7 @@ POSSIBLE (cdk-1.2.10..master): AUTHORS
     11  Mark Williamson
     10  Jules Kerssemakers
      9  Alex Clark
-     8  Miguel Rojas Cherto
+     8  Miguel Rojas Cherto (MolForm, Gasteiger pi charges, much other)
      8  Ralf Stephan
      6  Klas Jönsson
      6  Krishna Dole
