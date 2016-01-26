@@ -251,9 +251,15 @@ publications.
   types, a new approach was needed.
   
   This CDK version has isolated a new atom typing framework, removing the perception of
-  atom types from the algorithms, allowing the perception to be properly unit tested.
-  The new code defined the atom type using an atom type ontology based on the XXXXX.
-  
+  atom types from various algorithms, allowing the perception to be tested separately.
+  The new code defines the atom types using a list that specifies for each type
+  the element symbol, hybridization, formal charge, number of lone pairs, and
+  an enumeration of the bond orders. This list of properties captures the
+  information needed for the various algorithms in the CDK. For example,
+  hybridization information can be used in certain aromaticity models (see later),
+  and the lone pair information is needed for resonance structure calculation
+  needed, for example, for Gasteiger \pi-charges.
+
   A reference perception class, CDKAtomTypeMatcher, has been written that perceives these atom types, and
   validates the perception automatically against the properties defined by the ontology.
   This class handles a variety in types of missing information, as commonly resulting
@@ -264,11 +270,6 @@ publications.
   alternative algorithms may be implemented, while that would again increase the maintenance
   burden.
 
-  The new code base defines XXXX atom types for YYYY elements, including ZZZZ radical
-  atom types. A full list of atom types is given in Additional File X.
-  
-  The code is tested by FFFF unit tests, and has been tested against ChEBI and PubChem. REFS
-
   \subsubsection*{Stereochemistry}
 
   The new CDK version introduces a new API for stereochemistry information: the interfaces
@@ -278,6 +279,7 @@ publications.
   ExtendedTetrahedral, for compounds like allene.
 
   \subsection*{Signatures}
+
   An implementation has been provided of the Signature structure descriptor for molecules 
   \cite{Faulon2003}. These act as a linear notation - like the SMILES format - 
   for the whole molecule as well as for connected substructures rooted at a single atom. The 
@@ -286,7 +288,19 @@ publications.
 
   \subsubsection*{Rendering API}
 
-  Initiated by Niels Out ...
+  A new rendering API has been introduced to make the rendering code independent
+  from Java widget toolkits. The previous code was tightly linked to the Swing
+  toolkit, but other tools use different widget toolkits. For example, Bioclipse
+  is based on Eclipse which uses the SWT~\cite{spjuth2007bioclipse}. %FIXME: write SWT in full
+  
+  A second new design goal was introduced to balance between size restrictions
+  of some use cases, such as Java applets, and the rendering functionality. In
+  particular, some functionality, even after Modularization, needed considerable
+  parts of the CDK library, making creation if a small-sized applet unfeasible.
+  Therefore, the rendering API was modularized to allow splitting up rendering
+  functionality into modules, with varying CDK dependencies.
+  
+  % DESCRIBE THE CORE APIs
 
   \subsubsection*{Structure Diagram Layout}
 
@@ -532,8 +546,22 @@ found in the AUTHORS file~\cite{AUTHORS}.
 
 \includegraphics[width=\textwidth]{cdkDeps.png}
 
-%  \subsection*{Figure 2 - Sample figure title}
-%      Figure legend text.
+\subsection*{Figure 2 - Atom type information specified for a sp3-hybridized
+carbon.}
+\begin{verbatim}
+  <at:AtomType rdf:ID="C.sp3">
+    <at:categorizedAs rdf:resource="&cdkat;C.tetrahedral"/>
+    <at:hasElement rdf:resource="&elem;C"/>
+    <at:hybridization rdf:resource="&at;sp3"/>
+    <at:formalCharge>0</at:formalCharge>
+    <at:lonePairCount>0</at:lonePairCount>
+    <at:formalBondType rdf:resource="&bo;single"/>
+    <at:formalBondType rdf:resource="&bo;single"/>
+    <at:formalBondType rdf:resource="&bo;single"/>
+    <at:formalBondType rdf:resource="&bo;single"/>
+  </at:AtomType>
+\end{verbatim}
+
 
 
 \newpage
