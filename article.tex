@@ -50,6 +50,7 @@
 
 % FIXME: finish migrating the author list
 % FIXME: add Gilleain
+% FIXME: invite Tomas Pluskal
 
 \author[
    addressref={um},                   % id's of addresses, e.g. {aff1,aff2}
@@ -340,39 +341,63 @@ TODO
 
   The structure diagram layout has been rewritten and the new code solves a
   number of long standing issues. Particularly, collission detection has been
-  greatly improved. Figure~\ref{fig:sdg} shows a ...
+  greatly improved. Figure~\ref{fig:sdg} shows a difference in output between
+  the old code base, with and without overlap resolving, and with the new code.
+  The new code can be used like:
+
+\begin{verbatim}
+TODO
+\end{verbatim}
 
   \subsubsection*{Molecular Formula}
 
 The chemical formula is the basic/simple chemical representation of a compound.
-It defines the number of isotopes or elements that constitute a the composition
-of a compound without describing how atoms are bonded. With the rise of metabolomics,
-it has become increasingly relevant to have full support in cheminformatics
-libraries~\cite{RojasCherto2011}.
-It is also the first step
-toward the identification of the chemical structure from a unidentified compound.
+It defines the number of isotopes or elements that constitute the composition
+of a compound without describing how atoms are bonded. With the rise of
+metabolomics it has become increasingly relevant to have full support for these
+in cheminformatics libraries~\cite{RojasCherto2011}.
 
-CDK can handle several concepts related to chemical formulas
-\begin{itemize}
-\item Chemical formula =
-\item Set of chemical formulas =
-\item Range of chemical formulas =
-\item Adducts =
-\item Isotope Container =
-\item Isotopic pattern = 
-\item Rules = Filters in accepting an chemical formula
-\end{itemize}
+The CDK interfaces can handle several concepts related to chemical formulas:
+the formula itself, sets of formulas, chemical formula ranges, adducts,
+isotope containers and patterns, and rules to filter formula sets. These new
+tools can be used for a number of tasks, including calculate the isotopic
+pattern from a given chemical formula, determining the possible elemental
+compositions for a given mass, and calculate the exact mass from a given
+chemical formula.
 
-CDK can
-\begin{itemize}
-\item generate/print the elemental composition from a given IAtomContainer
-\item calculate the isotopic pattern from a given chemical formula
-\item determine the elemental composition from a given mass
-\item validate a chemical formula
-\item calculate the exact mass from a given chemical formula
-\end{itemize}
+The following code calculates all possible chemical formula for a given
+accurate mass, within some allowed counts for each element:
 
-Where can it be applied?
+\begin{verbatim}
+Isotopes ifac = Isotopes.getInstance();
+MolecularFormulaRange range =
+  new MolecularFormulaRange();
+range.addIsotope( ifac.getMajorIsotope("C"), 8, 20);
+range.addIsotope( ifac.getMajorIsotope("H"), 0, 20);
+range.addIsotope( ifac.getMajorIsotope("O"), 0, 1);
+range.addIsotope( ifac.getMajorIsotope("N"), 0, 1);
+
+MolecularFormulaGenerator tool =
+  new MolecularFormulaGenerator(
+    SilentChemObjectBuilder.getInstance(),
+    133.0, 133.1, range
+  );
+IMolecularFormulaSet mfSet = tool.getAllFormulas();
+for (mf in mfSet) {
+  println MolecularFormulaManipulator.getString(mf) + " " +
+    MolecularFormulaManipulator.getTotalExactMass(mf)
+}
+\end{verbatim}
+
+This gives the following output:
+
+\begin{verbatim}
+C11H 133.007825032
+C9H11N 133.089149352
+C9H9O 133.065339908
+C8H7NO 133.052763844
+\end{verbatim}
+
 
   \subsubsection*{SMILES parser}
 
@@ -714,8 +739,8 @@ parsing functionality.}\label{fig:depiction}
   iordf                      &              & New. & Jena 2.7.4 \\ \hline
   inchi                      &              & & JNI-InChI 0.8~\cite{Spjuth2013}  \\ \hline
   libiocml                   &              & & XOM 1.2.5, CMLXOM 3.1~\cite{Murray-Rust2011} \\ \hline
-  smiles                     &              & SMILES support performance and converage is greatly improved. & Beam 0.9.1~\cite{beam} \\
-  smarts                     &              & & Beam 0.9.1~\cite{beam} \\
+  smiles                     &              & SMILES support performance and converage is greatly improved. & Beam 0.9.1~\cite{Beam} \\
+  smarts                     &              & & Beam 0.9.1~\cite{Beam} \\
   formula                    &              & New. & \\ \hline
   fingerprint                &              & Many new fingerprint types (see text). & Apache Commons Math 3.1.1 \\ \hline
   qsar                       &              & & XOM 1.2.5, JAMA 1.0.3~\cite{Hicklin2012} \\ \hline
