@@ -258,7 +258,7 @@ publications.
   information needed for the various algorithms in the CDK. For example,
   hybridization information can be used in certain aromaticity models (see later),
   and the lone pair information is needed for resonance structure calculation
-  needed, for example, for Gasteiger \pi-charges.
+  needed, for example, for Gasteiger $\pi$-charges.
 
   A reference perception class, CDKAtomTypeMatcher, has been written that perceives these atom types, and
   validates the perception automatically against the properties defined by the ontology.
@@ -304,7 +304,9 @@ publications.
 
   \subsubsection*{Structure Diagram Layout}
 
-  The structure diagram layout ... %FIXME: John, do you want this in?
+  The structure diagram layout has been rewritten and the new code solves a
+  number of long standing issues. Particularly, collission detection has been
+  greatly improved. Figure~\ref{fig:sdg} shows a ...
 
   \subsubsection*{Molecular Formula}
 
@@ -471,14 +473,29 @@ These new features simplify our code review process.
 \subsubsection*{Maven packages}
 
 Another recent change is the choice of build system: we have moved away from
-Ant to Maven to deal with dependencies and compile the library. 
+Ant to Maven to deal with dependencies and compile and test the library.
+To keep the original idea of CDK modules, this move required to split up the
+source code in multiple source folders. Fortunately, modern integrated
+development environments have no trouble handling this, removing the original
+argument to have everything in one source folder.
 
-% FIXME: write more about this, and provide info about Maven Central
+On the other hand, for many modules, the test code is now more closely closely
+linked to the code being tested: both reside in the same folder, though we
+adhere to the Maven custom to have src/main/java and a src/test/java folders.
+For a few modules, however, this solution introduces circular dependencies, in
+which case a separate Maven module is created for the tests.
+
+The Maven packages for the CDK are available from Maven Central, which makes it
+easy for other projects to use. The full library can be included in other
+software by depending on the cdk artifact (\url{http://mvnrepository.com/artifact/org.openscience.cdk/cdk})
+but dependencies can also be defined on individual CDK modules.
 
 \subsubsection*{OSGi bundles}
 
-INVITE ARVID
+OSGi bundles are available for the CDK too, which are used by Bioclipse and
+KNIME.
 
+% ping Arvid
 
 %%%%%%%%%%%%%%%%%%%%%%
 \section*{Conclusions}
@@ -562,7 +579,13 @@ carbon.}
   </at:AtomType>
 \end{verbatim}
 
+\subsection*{Figure 3 - The improved structure diagram generation has improved
+code to solve overlap. The original SDG code used general heuristics (left) and the
+OverlapResolver would fine tune the layout to ensure atoms would not be placed
+at the same location (middle). The new SDG algorithm is able to
+make more rigorous changes, making the final output must more pleasing (right).}
 
+\includegraphics[width=\textwidth]{sdg.png}
 
 \newpage
 
