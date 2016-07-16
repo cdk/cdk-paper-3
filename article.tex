@@ -341,8 +341,12 @@ CDK can
 Where can it be applied?
 
   \subsubsection*{SMILES parser}
-  
-  ....
+
+  The SMILES parsing has been replaced code in the external Beam project~\cite{Beam}.
+  This BSD-licensed SMILES parser is a complete implementation of the SMILES
+  and OpenSMILES specifications by one of the authors, and is independent of
+  the CDK library. The SmilesParser API uses this library underneath, and the
+  Beam API is hidden by this class.
 
   \subsubsection*{SMARTS parser}
   
@@ -353,8 +357,41 @@ Where can it be applied?
   .... \cite{May2014}
 
   \subsubsection*{Aromaticity}
-  
-  ....
+
+  Aromaticity has seen many definitions in the past and for cheminformatics it
+  frequently is algorithmically defined. The outcome of an aromaticity calculation
+  depends on a number of atom type features and heuristics, which in literature
+  often are not well defined. Based on this information several different
+  algorithmic definitions of aromaticity can be defined. Older CDK versions had
+  various models implemented and the code was scattered throughout the library.
+  This was unified resulting in a three models, of which two are based on the
+  CDK atom typer, to provide the number of electrons donated by each atom to
+  the delocalized $\pi$ system. The difference between these two models is
+  how double bonds pointing outwards from a ring are contributing.
+
+  The current CDK version further generalizes the idea that aromaticity is a
+  model, and provides an API that allows you to select out of various options
+  providing greater interoperability with other toolkits. The new
+  Aromaticity class allows to build a custom model by selecting and combining
+  options. For example, to reproduce the functionality of the previous
+  CDKAromaticity class:
+
+\begin{verbatim}
+Aromaticity aromaticity = new Aromaticity(
+  ElectronDonation.cdk(), Cycles.cdkAromaticSet()
+);
+\end{verbatim}
+
+Here, the CDK model for counting donated electrons is used, as the ring systems
+the CDK previously included in aromaticty counting, which was limited in the 
+number of fused rings systems. However, an alternative aromaticity calculator
+that does consider all possible ring systems can now be easily created with:
+
+\begin{verbatim}
+Aromaticity aromaticity = new Aromaticity(
+  ElectronDonation.cdk(), Cycles.all()
+);
+\end{verbatim}
 
   \subsubsection*{New Builders}
 
@@ -441,11 +478,21 @@ between the CDK modules are depicted in Figure~\ref{fig:deps}.
 
   \subsubsection*{Documentation}
 
-  Initially done with DocCheck, replaced by OpenJavaDocCheck ...
+  The quality of JavaDoc of the CDK was originally tested with DocCheck, and
+  later replaced by a custom written tool called OpenJavaDocCheck. With the move
+  to Maven (explained elsewhere) which does not have integration for this tool,
+  we adopted CheckStyle (\url{http://checkstyle.sourceforge.net/}). This tool
+  reports about missing documentation and on documentation which is not properly
+  annotated in the Java source files.
 
-  \subsubsection*{Unit testing}
+  \subsubsection*{Testing}
 
-
+  Years of development of the CDK library has resulted in a large suite of
+  tests of various kinds. This include unit tests, which test core APIs, and
+  functional testing, which test higher level functionality of the CDK. The
+  latter include tests if algorithm implementations calculate the expected
+  values, but also contain integrated tests, which involve more than one
+  algorithms, such as SMILES parsing.
 
   \subsubsection*{Code Quality}
 
