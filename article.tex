@@ -49,6 +49,7 @@
 \title{The Chemistry Development Kit (CDK). 3. Atom typing, Rendering, Molecular Formula, and Substructure Searching}
 
 % FIXME: finish migrating the author list
+% FIXME: add Gilleain
 
 \author[
    addressref={um},                   % id's of addresses, e.g. {aff1,aff2}
@@ -273,18 +274,32 @@ publications.
   \subsubsection*{Stereochemistry}
 
   The new CDK version introduces a new API for stereochemistry information: the interfaces
-  IStereoChemistryElement was introduced with the implementations TetrahedralChirality,
+  IStereoElement was introduced with the implementations TetrahedralChirality,
   for four coordinate compounds like bromo-chloro-fluoro-iodomethane,
   DoubleBondStereochemistry, for compounds like trans-2-butene, and
   ExtendedTetrahedral, for compounds like allene.
 
+  An atom container has a method to iterate over all stereo elements:
+
+\begin{verbatim}
+for (IStereoElement element : container.) {
+  if (element instanceof TetrahedralChirality) {
+    // ...
+  } else if (element instanceof DoubleBondStereochemistry) {
+    // ...
+  } else if (element instanceof ExtendedTetrahedral) {
+    // ...
+  }
+}
+\end{verbatim}
+
   \subsection*{Signatures}
 
-  An implementation has been provided of the Signature structure descriptor for molecules 
-  \cite{Faulon2003}. These act as a linear notation - like the SMILES format - 
+  An implementation has been provided of the Signature structure descriptor for
+  molecules~\cite{Faulon2003}. These act as a linear notation - like the SMILES format - 
   for the whole molecule as well as for connected substructures rooted at a single atom. The 
-  descriptor can also be canonicalized to provide isomorphism-independent representations 
-  \cite{Faulon2004}.
+  descriptor can also be canonicalized to provide isomorphism-independent
+  representations~\cite{Faulon2004}.
 
   \subsubsection*{Rendering API}
 
@@ -301,6 +316,25 @@ publications.
   functionality into modules, with varying CDK dependencies.
   
   % DESCRIBE THE CORE APIs
+  
+  Moreover, a simplified API has been introduced that addresses most of the
+  common rendering needs, with the DepictionGenerator class. To depict benzene
+  the following code can be used:
+
+\begin{verbatim}
+new DepictionGenerator()
+  .withSize(300, 300)
+  .depict(benzene)
+  .writeTo("BenzeneLocalized.png");
+\end{verbatim}
+
+  Many of the rendering options are available as parameters in the core API
+  and as methods on the DepictionGenerator class. This includes subscructure
+  coloring, exemplified with this example reaction (see Fig.~\ref{fig:depiction}):
+
+\begin{verbatim}
+TODO
+\end{verbatim}
 
   \subsubsection*{Structure Diagram Layout}
 
@@ -461,6 +495,12 @@ adopted guidelines have been heavily discussed in the community.
 The next sections describe some approaches the project have adopted that allows us to
 maintain the CDK library as it is today. 
 
+However, perhaps the biggest factor in improved code quality is that we
+instantiated a peer review process where any functionality changing patch is
+required to be reviewed by one indepdent, senior CDK developer for  the development
+branch, and two reviewers for stable branches. This patch development system
+is supported by a number of automated validations steps as outlined below.
+
   \subsubsection*{Modularization}
   
 One of the key approaches we have adopted, is to make the CDK more modular. The CDK assigns
@@ -496,7 +536,7 @@ between the CDK modules are depicted in Figure~\ref{fig:deps}.
 
   \subsubsection*{Code Quality}
 
-The project continues to use PMD (http://pmd.sf.net/) for code quality checking,
+The project continues to use PMD (url{http://pmd.sf.net/}) for code quality checking,
 but deviates from the default rules. For example, we are more liberal with 
 variable name length. Moreover, a number of additional PMD tests have been
 developed specifically for the CDK, that, for example, test if a class uses
@@ -566,7 +606,7 @@ the interface implementations hard to optimize.
 \item \textbf{Operating system(s)}: Windows, GNU/Linux, OS/X
 \item \textbf{Programming language}: Java
 % FIXME: add appropriate references below
-\item \textbf{Other (optional) requirements}: JNI-InChI, Vecmath, BEAM, Guava, JGraphT, Signatures, CMLDOM, XOM, JavaCC
+\item \textbf{Other (optional) requirements}: JNI-InChI, Vecmath, Beam, Guava, JGraphT, Signatures, CMLDOM, XOM, JavaCC
 \item \textbf{License}: LGPL v2.1 or later
 \item \textbf{Any restrictions to use by non-academics}: None additional
 \end{itemize}
@@ -601,8 +641,7 @@ found in the AUTHORS file~\cite{AUTHORS}.
 %% Do not use \listoffigures as most will included as separate files
 
 \section*{Figures}
-  \subsection*{Figure 1 - Dependencies between CDK modules.}
-  \label{fig:deps}
+  \subsection*{Figure 1 - Dependencies between CDK modules.}\label{fig:deps}
       Visualization of the dependencies between CDK modules. For example,
       the cdk-core depends on the cdk-interfaces module. A few higher level
       modules have been left out: cdk-builder3dtools, cdk-legacy, and
@@ -611,7 +650,7 @@ found in the AUTHORS file~\cite{AUTHORS}.
 \includegraphics[width=\textwidth]{cdkDeps.png}
 
 \subsection*{Figure 2 - Atom type information specified for a sp3-hybridized
-carbon.}
+carbon.}\label{fig:atomtype}
 \begin{verbatim}
   <at:AtomType rdf:ID="C.sp3">
     <at:categorizedAs rdf:resource="&cdkat;C.tetrahedral"/>
@@ -630,9 +669,16 @@ carbon.}
 code to solve overlap. The original SDG code used general heuristics (left) and the
 OverlapResolver would fine tune the layout to ensure atoms would not be placed
 at the same location (middle). The new SDG algorithm is able to
-make more rigorous changes, making the final output must more pleasing (right).}
+make more rigorous changes, making the final output must more pleasing
+(right).}\label{fig:sdg}
 
 \includegraphics[width=\textwidth]{sdg.png}
+
+\subsection*{Figure 4 - Integrated example showing the rendering and SMILES
+parsing functionality.}\label{fig:depiction}
+
+\includegraphics[width=\textwidth]{reaction.png}
+
 
 \newpage
 
@@ -645,8 +691,7 @@ make more rigorous changes, making the final output must more pleasing (right).}
 %%
 \section*{Tables}
 
-  \subsection*{Table 1 - A selection of key CDK modules with major changes.}
-  \label{tab:modules}
+  \subsection*{Table 1 - A selection of key CDK modules with major changes.}\label{tab:modules}
   An overview of a selection of often used CDK modules with description,
   dependencies on third-party libraries, and the major changes since
   version~1.2. Depedencies between modules are depicted in Figure~\ref{fig:deps}.
@@ -669,11 +714,11 @@ make more rigorous changes, making the final output must more pleasing (right).}
   iordf                      &              & New. & Jena 2.7.4 \\ \hline
   inchi                      &              & & JNI-InChI 0.8~\cite{Spjuth2013}  \\ \hline
   libiocml                   &              & & XOM 1.2.5, CMLXOM 3.1~\cite{Murray-Rust2011} \\ \hline
-  smiles                     &              & SMILES support performance and converage is greatly improved. & Beam 0.9.1 \\ \hline %FIXME add a citation
-  smarts                     &              & & Beam 0.9.1 \\ \hline %FIXME add a citation
+  smiles                     &              & SMILES support performance and converage is greatly improved. & Beam 0.9.1~\cite{beam} \\
+  smarts                     &              & & Beam 0.9.1~\cite{beam} \\
   formula                    &              & New. & \\ \hline
   fingerprint                &              & Many new fingerprint types (see text). & Apache Commons Math 3.1.1 \\ \hline
-  qsar                       &              & & XOM 1.2.5, JAMA 1.0.3~\cite{Hicklin2012} \\ \hline % FIXME: find JAMA reference
+  qsar                       &              & & XOM 1.2.5, JAMA 1.0.3~\cite{Hicklin2012} \\ \hline
   signatures                 &              & & Signatures 1.1 \\ \hline % FIXME: ask Gilleain for the reference
   qsarmolecular              &              & & \\ \hline
   log4j                      &              & & Log4j 1.2.17 \\ \hline
