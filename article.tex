@@ -74,12 +74,12 @@
 ]{\inits{NJ}\fnm{Nina} \snm{Jeliazkova}}
 \author[
    addressref={???},
-   email={miguelrojasch@googlemail.com}
-]{\inits{MRJ}\fnm{Miguel}~\snm{Rojas-Cherto}}
-\author[
-   addressref={???},
    email={pluskal@wi.mit.edu}
 ]{\inits{TP}\fnm{Tomáš}~\snm{Pluskal}}
+\author[
+   addressref={???},
+   email={miguelrojasch@googlemail.com}
+]{\inits{MRJ}\fnm{Miguel}~\snm{Rojas-Cherto}}
 \author[
    addressref={uppsala},
    email={ola.spjuth@farmbio.uu.se}
@@ -95,7 +95,7 @@
 \author[
    addressref={ebi},
    email={steinbeck@ebi.ac.uk}
-]{\inits{CS}\fnm{Christoph} \snm{Steinbeck}}
+]{\inits{CS}\fnm{Christoph}~\snm{Steinbeck}}
 
 \address[id=um]{
   \orgname{Dept of Bioinformatics - BiGCaT, NUTRIM, Maastricht University}, % university, etc
@@ -262,7 +262,7 @@ publications.
   atom types from various algorithms, allowing the perception to be tested separately.
   The new code defines the atom types using a list that specifies for each type
   the element symbol, hybridization, formal charge, number of lone pairs, and
-  an enumeration of the bond orders. This list of properties captures the
+  an enumeration of the bond orders (see Figure~1). This list of properties captures the
   information needed for the various algorithms in the CDK. For example,
   hybridization information can be used in certain aromaticity models (see later),
   and the lone pair information is needed for resonance structure calculation
@@ -337,7 +337,7 @@ new DepictionGenerator()
 
   Many of the rendering options are available as parameters in the core API
   and as methods on the DepictionGenerator class. This includes substructure
-  coloring, exemplified with this example reaction (see Fig.~\ref{fig:depiction}):
+  coloring, exemplified with this example reaction (see Fig.~2\ref{fig:depiction}):
 
 \begin{verbatim}
 TODO
@@ -347,7 +347,7 @@ TODO
 
   The structure diagram layout has been rewritten and the new code solves a
   number of long standing issues. Particularly, collision detection has been
-  greatly improved. Figure~\ref{fig:sdg} shows a difference in output between
+  greatly improved. Figure~3\ref{fig:sdg} shows a difference in output between
   the old code base, with and without overlap resolving, and with the new code.
   The new code can be used like:
 
@@ -543,7 +543,7 @@ fingerprint representation implementations a bit fingerprint interface was
 introduced. Also, although fingerprints traditionally are bit vectors a count
 fingerprint was also introduced making fingerprints based on integer vectors
 supported in CDK as well. The fingerprints currently existing in CDK are listed
-in Table~\ref{tab:fingerprints}.
+in Table~1\ref{tab:fingerprints}.
 
 
 \subsection*{Improved Coding Standards}
@@ -576,11 +576,9 @@ instead, they may only depend on the interfaces themselves. This, for example, i
 that dependencies are minimized and to make it easier to exclude CDK functionality with
 third-party dependencies that are not needed.
 
-... describe all modules, maybe add graphviz plot ...
-
 An overview of key modules with description, important changes, and dependencies
-on third-party libraries is given in Table~\ref{tab:modules} and the dependencies
-between the CDK modules are depicted in Figure~\ref{fig:deps}.
+on third-party libraries is given in Table~2\ref{tab:modules} and the dependencies
+between the CDK modules are depicted in Figure~4\ref{fig:deps}.
 
   \subsubsection*{Documentation}
 
@@ -706,18 +704,9 @@ found in the AUTHORS file~\cite{AUTHORS}.
 
 \newpage
 
-%% Do not use \listoffigures as most will included as separate files
-
 \section*{Figures}
-  \subsection*{Figure 1 - Dependencies between CDK modules.}\label{fig:deps}
-      Visualization of the dependencies between CDK modules. For example,
-      the cdk-core depends on the cdk-interfaces module. A few higher level
-      modules have been left out: cdk-builder3dtools, cdk-legacy, and
-      cdk-depict.
 
-\includegraphics[width=\textwidth]{cdkDeps.png}
-
-\subsection*{Figure 2 - Atom type information specified for a sp3-hybridized
+\subsection*{Figure 1 - Atom type information specified for a sp3-hybridized
 carbon.}\label{fig:atomtype}
 \begin{verbatim}
   <at:AtomType rdf:ID="C.sp3">
@@ -733,6 +722,11 @@ carbon.}\label{fig:atomtype}
   </at:AtomType>
 \end{verbatim}
 
+\subsection*{Figure 2 - Integrated example showing the rendering and SMILES
+parsing functionality.}\label{fig:depiction}
+
+\includegraphics[width=\textwidth]{reaction.png}
+
 \subsection*{Figure 3 - The improved structure diagram generation has improved
 code to solve overlap. The original SDG code used general heuristics (left) and the
 OverlapResolver would fine tune the layout to ensure atoms would not be placed
@@ -742,10 +736,13 @@ make more rigorous changes, making the final output must more pleasing
 
 \includegraphics[width=\textwidth]{sdg.png}
 
-\subsection*{Figure 4 - Integrated example showing the rendering and SMILES
-parsing functionality.}\label{fig:depiction}
+  \subsection*{Figure 4 - Dependencies between CDK modules.}\label{fig:deps}
+      Visualization of the dependencies between CDK modules. For example,
+      the cdk-core depends on the cdk-interfaces module. A few higher level
+      modules have been left out: cdk-builder3dtools, cdk-legacy, and
+      cdk-depict.
 
-\includegraphics[width=\textwidth]{reaction.png}
+\includegraphics[width=\textwidth]{cdkDeps.png}
 
 
 \newpage
@@ -759,39 +756,6 @@ parsing functionality.}\label{fig:depiction}
 %%
 \section*{Tables}
 
-  \subsection*{Table 1 - A selection of key CDK modules with major changes.}\label{tab:modules}
-  An overview of a selection of often used CDK modules with description,
-  dependencies on third-party libraries, and the major changes since
-  version~1.2. Dependencies between modules are depicted in Figure~\ref{fig:deps}.
-  \vskip 1\baselineskip
-
-    \begin{minipage}{1\textwidth}
-    \renewcommand*{\thempfootnote}{\fnsymbol{mpfootnote}}
-    \centering
-    \begin{tabular}{lp{3cm}p{3cm}l}
-  \textbf{Module}            & \textbf{Description}  & \textbf{Major Changes} & \textbf{Dependencies} \\ \hline
-  interfaces                 &              & & Vecmath 1.5.2 \\ \hline
-  core                       &              & & Google Guava 17.0 \\ \hline % FIXME: how to add https://github.com/google/guava ?
-  standard                   &              & & \\ \hline
-  render                     &              & Redesigned to make it more modular and support multiple widget toolkits, like AWT and SWT. & \\ \hline
-  isomorphism                &              & & \\ \hline
-  atomtype                   &              & Unified approach where atom typing is separated from other algorithms. & \\ \hline
-  valencycheck               &              & & \\ \hline
-  ioformats                  &              & & \\ \hline
-  io                         &              & The MDL molfile reader has been rewritten and supports in atom types defind in the specification. & XPP3 1.1.4c \\ \hline
-  iordf                      &              & New. & Jena 2.7.4 \\ \hline
-  inchi                      &              & & JNI-InChI 0.8~\cite{Spjuth2013}  \\ \hline
-  libiocml                   &              & & XOM 1.2.5, CMLXOM 3.1~\cite{Murray-Rust2011} \\ \hline
-  smiles                     &              & SMILES support performance and converage is greatly improved. & Beam 0.9.1~\cite{Beam} \\
-  smarts                     &              & & Beam 0.9.1~\cite{Beam} \\
-  formula                    &              & New. & \\ \hline
-  fingerprint                &              & Many new fingerprint types (see text). & Apache Commons Math 3.1.1 \\ \hline
-  qsar                       &              & & XOM 1.2.5, JAMA 1.0.3~\cite{Hicklin2012} \\ \hline
-  signatures                 &              & & Signatures 1.1 \\ \hline % FIXME: ask Gilleain for the reference
-  qsarmolecular              &              & & \\ \hline
-  log4j                      &              & & Log4j 1.2.17 \\ \hline
-    \end{tabular}
-    \end{minipage}
 
 
   \subsection*{Table 1 - The molecular fingerprints in CDK.}
@@ -824,6 +788,40 @@ parsing functionality.}\label{fig:depiction}
   SignatureFingerprinter~\cite{signaturefingerprints}     & $\checkmark$ & $\checkmark$  & 1.6.0 ?     & $2^{32}$         \\
   SubstructureFingerprinter  & $\checkmark$ &               & 1.0         & $307$           \\
 
+    \end{tabular}
+    \end{minipage}
+
+      \subsection*{Table 2 - A selection of key CDK modules with major changes.}\label{tab:modules}
+  An overview of a selection of often used CDK modules with description,
+  dependencies on third-party libraries, and the major changes since
+  version~1.2. Dependencies between modules are depicted in Figure~4\ref{fig:deps}.
+  \vskip 1\baselineskip
+
+    \begin{minipage}{1\textwidth}
+    \renewcommand*{\thempfootnote}{\fnsymbol{mpfootnote}}
+    \centering
+    \begin{tabular}{lp{3cm}p{3cm}l}
+  \textbf{Module}            & \textbf{Description}  & \textbf{Major Changes} & \textbf{Dependencies} \\ \hline
+  interfaces                 &              & & Vecmath 1.5.2 \\ \hline
+  core                       &              & & Google Guava 17.0 \\ \hline % FIXME: how to add https://github.com/google/guava ?
+  standard                   &              & & \\ \hline
+  render                     &              & Redesigned to make it more modular and support multiple widget toolkits, like AWT and SWT. & \\ \hline
+  isomorphism                &              & & \\ \hline
+  atomtype                   &              & Unified approach where atom typing is separated from other algorithms. & \\ \hline
+  valencycheck               &              & & \\ \hline
+  ioformats                  &              & & \\ \hline
+  io                         &              & The MDL molfile reader has been rewritten and supports in atom types defind in the specification. & XPP3 1.1.4c \\ \hline
+  iordf                      &              & New. & Jena 2.7.4 \\ \hline
+  inchi                      &              & & JNI-InChI 0.8~\cite{Spjuth2013}  \\ \hline
+  libiocml                   &              & & XOM 1.2.5, CMLXOM 3.1~\cite{Murray-Rust2011} \\ \hline
+  smiles                     &              & SMILES support performance and converage is greatly improved. & Beam 0.9.1~\cite{Beam} \\
+  smarts                     &              & & Beam 0.9.1~\cite{Beam} \\
+  formula                    &              & New. & \\ \hline
+  fingerprint                &              & Many new fingerprint types (see text). & Apache Commons Math 3.1.1 \\ \hline
+  qsar                       &              & & XOM 1.2.5, JAMA 1.0.3~\cite{Hicklin2012} \\ \hline
+  signatures                 &              & & Signatures 1.1 \\ \hline % FIXME: ask Gilleain for the reference
+  qsarmolecular              &              & & \\ \hline
+  log4j                      &              & & Log4j 1.2.17 \\ \hline
     \end{tabular}
     \end{minipage}
 
