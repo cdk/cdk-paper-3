@@ -156,8 +156,8 @@ interdependencies between components grew unmanageable large, resulting
 in unpredictable instabilities.
 \parttitle{Results}
 We here report improvements to the CDK since the 1.2 release series made
-to accomodate both the increased complexity of the library, as well as
-siginificant improvements of and additions to the functionality of the
+to accommodate both the increased complexity of the library, as well as
+significant improvements of and additions to the functionality of the
 library. Second, we outline how the CDK evolved with respect to
 quality control and the approach we have adopted to ensure stability, including
 a peer review mechanism.
@@ -166,7 +166,7 @@ be discussed: atom type perception, substructure searching, molecular
 fingerprints, rendering of molecules, and handling of molecular formulas.
 \parttitle{Conclusions}
 With this paper we have shown the continued effort to provide a free, Open Source
-cheminformatics library, and show that such colleborative projects can exist over
+cheminformatics library, and show that such collaborative projects can exist over
 a long period. We have taken advantage from the community support, and show
 that an open source cheminformatics project can act as a peer reviewed
 publishing platform for scientific computing software.
@@ -197,7 +197,7 @@ publishing platform for scientific computing software.
 %%
 \section*{Background}
 
-Open Source cheminformatics has made significants steps forward recently~\cite{OBoyle2011}.
+Open Source cheminformatics has made significant steps forward recently~\cite{OBoyle2011}.
 The Chemistry Development Kit (CDK) is one of the tools under the Blue Obelisk wings,
 and previously documented version have been widely adopted~\cite{Steinbeck2003,Steinbeck2006}.
 For example, new tools expose CDK functionality, such as Cinfony~\cite{OBoyle2008},
@@ -330,7 +330,7 @@ new DepictionGenerator()
 \end{verbatim}
 
   Many of the rendering options are available as parameters in the core API
-  and as methods on the DepictionGenerator class. This includes subscructure
+  and as methods on the DepictionGenerator class. This includes substructure
   coloring, exemplified with this example reaction (see Fig.~\ref{fig:depiction}):
 
 \begin{verbatim}
@@ -340,7 +340,7 @@ TODO
   \subsubsection*{Structure Diagram Layout}
 
   The structure diagram layout has been rewritten and the new code solves a
-  number of long standing issues. Particularly, collission detection has been
+  number of long standing issues. Particularly, collision detection has been
   greatly improved. Figure~\ref{fig:sdg} shows a difference in output between
   the old code base, with and without overlap resolving, and with the new code.
   The new code can be used like:
@@ -442,7 +442,7 @@ Aromaticity aromaticity = new Aromaticity(
 \end{verbatim}
 
 Here, the CDK model for counting donated electrons is used, as the ring systems
-the CDK previously included in aromaticty counting, which was limited in the 
+the CDK previously included in aromaticity counting, which was limited in the 
 number of fused rings systems. However, an alternative aromaticity calculator
 that does consider all possible ring systems can now be easily created with:
 
@@ -522,7 +522,7 @@ maintain the CDK library as it is today.
 
 However, perhaps the biggest factor in improved code quality is that we
 instantiated a peer review process where any functionality changing patch is
-required to be reviewed by one indepdent, senior CDK developer for  the development
+required to be reviewed by one independent, senior CDK developer for  the development
 branch, and two reviewers for stable branches. This patch development system
 is supported by a number of automated validations steps as outlined below.
 
@@ -719,14 +719,14 @@ parsing functionality.}\label{fig:depiction}
   \subsection*{Table 1 - A selection of key CDK modules with major changes.}\label{tab:modules}
   An overview of a selection of often used CDK modules with description,
   dependencies on third-party libraries, and the major changes since
-  version~1.2. Depedencies between modules are depicted in Figure~\ref{fig:deps}.
+  version~1.2. Dependencies between modules are depicted in Figure~\ref{fig:deps}.
   \vskip 1\baselineskip
 
     \begin{minipage}{1\textwidth}
     \renewcommand*{\thempfootnote}{\fnsymbol{mpfootnote}}
     \centering
     \begin{tabular}{lp{3cm}p{3cm}l}
-  \textbf{Module}            & \textbf{Description}  & \textbf{Major Changes} & \textbf{Depedencies} \\ \hline
+  \textbf{Module}            & \textbf{Description}  & \textbf{Major Changes} & \textbf{Dependencies} \\ \hline
   interfaces                 &              & & Vecmath 1.5.2 \\ \hline
   core                       &              & & Google Guava 17.0 \\ \hline % FIXME: how to add https://github.com/google/guava ?
   standard                   &              & & \\ \hline
