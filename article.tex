@@ -431,13 +431,24 @@ C8H7NO 133.052763844
   smiles2 = atomaticGenerator.createSMILES(mol)
 \end{verbatim}
 
-  \subsubsection*{SMARTS parser}
-  
-  ....
+  % \subsubsection*{SMARTS parser}
 
   \subsubsection*{Ring finding}
-  
-  .... \cite{May2014}
+
+  Ring finding is a key functionality in a cheminformatics library, and the CDK
+  knows a long history of ring finding~\cite{May2014}. Particularly, non-redundant
+  ring sets have seen particular interest, such as the smallest set of smallest
+  rings, for which the CDK implements two classical algorithms~\cite{Figueras1996,Berger2004}.
+  Recent work by one the authors has implemented a new, faster algorithm, allowing
+  searching for various types of (non-redundant) ring sets~\cite{May2014}. These
+  are available via the new Cycles API:
+
+\begin{verbatim}
+  allCycles = Cycles.all(mol)
+  relevantCycles = Cycles.relevant(mol)
+  essentialCycles = Cycles.essential(mol)
+  sssrCycles = Cycles.sssr(mol)
+\end{verbatim}
 
   \subsubsection*{Aromaticity}
 

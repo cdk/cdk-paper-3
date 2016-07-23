@@ -1,3 +1,5 @@
+bmc_template/
+*.bak
 *article.aux
 *article.bbl
 *article.blg
