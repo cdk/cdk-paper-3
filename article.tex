@@ -399,13 +399,37 @@ C8H7NO 133.052763844
 \end{verbatim}
 
 
-  \subsubsection*{SMILES parser}
+  \subsubsection*{SMILES parser and generator}
 
   The SMILES parsing has been replaced code in the external Beam project~\cite{Beam}.
   This BSD-licensed SMILES parser is a complete implementation of the SMILES
-  and OpenSMILES specifications by one of the authors, and is independent of
+  and OpenSMILES (\url{http://opensmiles.org/}) specifications by one of the
+  authors (including stereochemistry), and is independent of
   the CDK library. The SmilesParser API uses this library underneath, and the
-  Beam API is hidden by this class.
+  Beam API is hidden by this class. The most significant change here is that
+  the SMILES parser now automatically locates the positions of double bonds,
+  but this can be turned off:
+
+\begin{verbatim}
+  SmilesParser parser = new SmilesParser(
+    SilentChemObjectBuilder.getInstance()
+  );
+  parser.kekulise(false);
+  mol = parser.parseSmiles(smi);
+\end{verbatim}
+
+  The SMILES generation API has also been simplified and made more flexible.
+  Creating unique SMILES or aromatic SMILES is now done by first creating a
+  SMILES generator instance which can make generic or unique SMILES, and with
+  or without simplifying aromatic rings using the lower case element symbols
+  for the organic subset. This generator can then be repeatedly called:
+
+\begin{verbatim}
+  uniqueGenerator = SmilesGenerator.unique()
+  aromaticGenerator = SmilesGenerator.generic().aromatic()
+  smiles = uniqueGenerator.createSMILES(mol)
+  smiles2 = atomaticGenerator.createSMILES(mol)
+\end{verbatim}
 
   \subsubsection*{SMARTS parser}
   
