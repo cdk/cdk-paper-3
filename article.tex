@@ -377,8 +377,10 @@ pattern from a given chemical formula, determining the possible elemental
 compositions for a given mass, and calculate the exact mass from a given
 chemical formula.
 
-The following code calculates all possible chemical formula for a given
-accurate mass, within some allowed counts for each element:
+The MolecularFormulaGenerator class was originally developed and evaluated 
+as part of the MZmine~2 framework~\cite{Pluskal2012}. The following code
+calculates all possible chemical formula for a given accurate mass, 
+within allowed counts for each element:
 
 \begin{verbatim}
 Isotopes ifac = Isotopes.getInstance();
