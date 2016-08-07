@@ -286,25 +286,50 @@ publications.
 
   \subsubsection*{Stereochemistry}
 
-  The new CDK version introduces a new API for stereochemistry information: the interfaces
-  IStereoElement was introduced with the implementations TetrahedralChirality,
-  for four coordinate compounds like bromo-chloro-fluoro-iodomethane,
-  DoubleBondStereochemistry, for compounds like trans-2-butene, and
-  ExtendedTetrahedral, for compounds like allene.
+  In previous versions of the API, stereochemistry was represented disparately hindering 
+  interconversion between and within file formats. In CDK 1.5.x the core representation 
+  has been standardized upon and procedures updated or added to enable duplicate checking,
+  pattern matching, and interconversion.
 
-  An atom container has a method to iterate over all stereo elements:
+  The preferred representation of stereochemistry is now for it to be stored at the molecule
+  level as a \texttt{\textbf{StereoElement}}. In abstract terms a stereo element describes local
+  geometry using a type, focus, carriers, and configuration (Figure~2\ref{fig:stereodatastructure}).
+  Currently the most common types of stereochemistry are supported: Tetrahedral, Cis-trans isomerism 
+  around a double bond, and Extended Tetrahedral. Rarer types of stereochemistry, such as: Square 
+  Planar, Trigonal Bipyramidal, Octahedral, could easily be incorporated into the chosen description 
+  given sufficient demand from the community.
 
-\begin{verbatim}
-for (IStereoElement element : container.) {
-  if (element instanceof TetrahedralChirality) {
-    // ...
-  } else if (element instanceof DoubleBondStereochemistry) {
-    // ...
-  } else if (element instanceof ExtendedTetrahedral) {
-    // ...
-  }
-}
-\end{verbatim}
+
+  Along with the new stereochemistry representation, algorithms were required in several areas. Generally
+  a user does not need to invoked these procedures explicitly as they are called as needed within existing
+  APIs:
+
+  \begin{itemize}
+   \item Perception from 2D coordinates
+   \item Perception from 3D coordinates
+   \item Wedge assignment
+   \item Graph (sub)isomorphism matching
+   \item SMARTS matching
+   \item Canonicalization
+  \end{itemize}
+
+  The perception from coordinates and wedge assignment algorithms are fundamental for conversion
+  between formats that store stereochemistry implicitly based on coordinates (e.g. Molfile, CML) and 
+  explicitly (e.g. SMILES, CML, InChI). Perception from 2D coordinates can optionally identify
+  perspective projects, specifically: Fischer, Haworth, and Chair projections. With the perception of 
+  perspective projections enabled, database entries currently consider distinct can be merged
+  (Figure~3\ref{fig:stereoprojections}). The perception is based on an algorithm briefly 
+  described by \cite{Karapetyan2015}.
+
+  % ChEMBL 21 ~2281 structures (~11454 TH center) drawn in perspective
+
+  Graph matching of stereochemistry with the described representation is straight forward. Given
+  the atom-atom mapping from a query structure to a target molecule, the focus and carriers of 
+  the query stereochemistry are mapped to the target. Using the permutation parity of this mapping
+  the configurations compared. SMARTS matching requires some special handling for complex cases 
+  \cite{May2014_SMARTS}. For canonicalization, a partial canonical ordering is used to assign an 
+  absolute label which can then be integrated into the ordering. More detailed descriptions of 
+  these algorithms are described in detail in Chapter 6 of \cite{May2015}.
 
   \subsection*{Signatures}
 
@@ -353,7 +378,7 @@ TODO
 
   The structure diagram layout has been rewritten and the new code solves a
   number of long standing issues. Particularly, collision detection has been
-  greatly improved. Figure~3\ref{fig:sdg} shows a difference in output between
+  greatly improved. Figure~5\ref{fig:sdg} shows a difference in output between
   the old code base, with and without overlap resolving, and with the new code.
   The new code can be used like:
 
@@ -586,7 +611,7 @@ third-party dependencies that are not needed.
 
 An overview of key modules with description, important changes, and dependencies
 on third-party libraries is given in Table~2\ref{tab:modules} and the dependencies
-between the CDK modules are depicted in Figure~4\ref{fig:deps}.
+between the CDK modules are depicted in Figure~6\ref{fig:deps}.
 
   \subsubsection*{Documentation}
 
@@ -730,12 +755,20 @@ carbon.}\label{fig:atomtype}
   </at:AtomType>
 \end{verbatim}
 
-\subsection*{Figure 2 - Integrated example showing the rendering and SMILES
+\subsection*{Figure 2 - Relative storage of stereochemistry, the \textbf{type} and \textbf{focus} of stereochemsitry are fixed for a given stereocenter description but the \textbf{carriers} and \textbf{configuration} are relative. The multiple rows for each stereochemistry type are different internal representation that would be considered equivalent. In the tetrahedral types, hydrogens may be suppressed in a molecular graph so the \textbf{focus} is reused in the \textbf{carriers} list as a placeholder.}\label{fig:stereodatastructure}
+
+\includegraphics{img/stereodesc_annotated.pdf}
+
+\subsection*{Figure 3 - The raw input files of CHEMBL23970 and CHEMBL444314 are displayed (ChEMBL 21). Without perceiving the stereochemistry indicated by Haworth projection in CHEMBL23970, the database entries are inncorectly considered distinct. Down stream aggregation databases mirror this separation (PubChem CID 5280, CID 65119).}\label{fig:stereoprojections}
+
+\includegraphics{img/projections_annotated.pdf}
+
+\subsection*{Figure 4 - Integrated example showing the rendering and SMILES
 parsing functionality.}\label{fig:depiction}
 
 \includegraphics[width=\textwidth]{reaction.png}
 
-\subsection*{Figure 3 - The improved structure diagram generation has improved
+\subsection*{Figure 5 - The improved structure diagram generation has improved
 code to solve overlap. The original SDG code used general heuristics (left) and the
 OverlapResolver would fine tune the layout to ensure atoms would not be placed
 at the same location (middle). The new SDG algorithm is able to
@@ -744,7 +777,7 @@ make more rigorous changes, making the final output must more pleasing
 
 \includegraphics[width=\textwidth]{sdg.png}
 
-  \subsection*{Figure 4 - Dependencies between CDK modules.}\label{fig:deps}
+  \subsection*{Figure 6 - Dependencies between CDK modules.}\label{fig:deps}
       Visualization of the dependencies between CDK modules. For example,
       the cdk-core depends on the cdk-interfaces module. A few higher level
       modules have been left out: cdk-builder3dtools, cdk-legacy, and
