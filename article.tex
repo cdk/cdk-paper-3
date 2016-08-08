@@ -306,13 +306,13 @@ for (IStereoElement element : container.) {
 }
 \end{verbatim}
 
-  \subsection*{Signatures}
+  \subsubsection*{Signatures}
 
   An implementation has been provided of the Signature structure descriptor for
   molecules~\cite{Faulon2003}. These act as a linear notation - like the SMILES format - 
   for the whole molecule as well as for connected substructures rooted at a single atom. The 
   descriptor can also be canonicalized to provide isomorphism-independent
-  representations~\cite{Faulon2004}.
+  representations~\cite{Faulon2004}, and has been successfully used in QSAR modeling~\cite{signaturefingerprints,Spjuth2011DS,Moghadam2015,Alvarsson2014,Spjuth2012OS,Norinder2013}.
 
   \subsubsection*{Rendering API}
 
@@ -651,10 +651,9 @@ but dependencies can also be defined on individual CDK modules.
 
 \subsubsection*{OSGi bundles}
 
-OSGi bundles are available for the CDK too, which are used by Bioclipse and
-KNIME.
+OSGi bundles are available for the CDK too, which are used by e.g. Bioclipse~\cite{spjuth2007bioclipse,spjuth2009bioclipse} and KNIME~\cite{Beisken2013}. Due to split packages between CDK modules, CDK is bundled as a single OSGi jar, which is available from \url{http://pele.farmbio.uu.se/bioclipse/cdk/cdk-1.5.13/}. This constitutes an area where improvements can be done on modularization.
 
-% ping Arvid
+
 
 %%%%%%%%%%%%%%%%%%%%%%
 \section*{Conclusions}
@@ -700,9 +699,9 @@ content of this paper and approved the final version.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Acknowledgements}
-The authors acknoledge the great number of people who have contributed smaller
+The authors acknowledge the great number of people who have contributed smaller
 and larger contributions to the CDK library. A full list of contributors is
-found in the AUTHORS file~\cite{AUTHORS}.
+found in the AUTHORS file~\cite{AUTHORS}. OS acknowledges support from the Swedish strategic research programs eSSENCE and Swedish e-Science Research Center (SeRC).
 
 \bibliographystyle{bmc-mathphys}  % Style BST file
 \bibliography{article}
