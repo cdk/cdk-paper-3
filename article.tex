@@ -760,11 +760,13 @@ carbon.}\label{fig:atomtype}
   </at:AtomType>
 \end{verbatim}
 
-\subsection*{Figure 2 - Relative storage of stereochemistry, the \textbf{type} and \textbf{focus} of stereochemsitry are fixed for a given stereocenter description but the \textbf{carriers} and \textbf{configuration} are relative. The multiple rows for each stereochemistry type are different internal representation that would be considered equivalent. In the tetrahedral types, hydrogens may be suppressed in a molecular graph so the \textbf{focus} is reused in the \textbf{carriers} list as a placeholder.}\label{fig:stereodatastructure}
+\subsection*{Figure 2 - Relative storage of stereochemistry, the \textbf{type} and \textbf{focus} of stereochemsitry are fixed for a given stereocenter description but the \textbf{carriers} and \textbf{configuration} are relative.}\label{fig:stereodatastructure}
+The multiple rows for each stereochemistry type are different internal representation that would be considered equivalent. In the tetrahedral types, hydrogens may be suppressed in a molecular graph so the \textbf{focus} is reused in the \textbf{carriers} list as a placeholder.
 
 \includegraphics{img/stereodesc_annotated.pdf}
 
-\subsection*{Figure 3 - The raw input files of CHEMBL23970 and CHEMBL444314 are displayed (ChEMBL 21). Without perceiving the stereochemistry indicated by Haworth projection in CHEMBL23970, the database entries are inncorectly considered distinct. Down stream aggregation databases mirror this separation (PubChem CID 5280, CID 65119).}\label{fig:stereoprojections}
+\subsection*{Figure 3 - The raw input files of CHEMBL23970 and CHEMBL444314 are displayed (ChEMBL 21).}\label{fig:stereoprojections}
+Without perceiving the stereochemistry indicated by Haworth projection in CHEMBL23970, the database entries are inncorectly considered distinct. Down stream aggregation databases mirror this separation (PubChem CID 5280, CID 65119).
 
 \includegraphics{img/projections_annotated.pdf}
 
@@ -774,11 +776,12 @@ parsing functionality.}\label{fig:depiction}
 \includegraphics[width=\textwidth]{reaction.png}
 
 \subsection*{Figure 5 - The improved structure diagram generation has improved
-code to solve overlap. The original SDG code used general heuristics (left) and the
+code to solve overlap.}\label{fig:sdg}
+The original SDG code used general heuristics (left) and the
 OverlapResolver would fine tune the layout to ensure atoms would not be placed
 at the same location (middle). The new SDG algorithm is able to
 make more rigorous changes, making the final output must more pleasing
-(right).}\label{fig:sdg}
+(right).
 
 \includegraphics[width=\textwidth]{sdg.png}
 
