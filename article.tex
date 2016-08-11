@@ -848,26 +848,24 @@ make more rigorous changes, making the final output must more pleasing
     \centering
     \begin{tabular}{lp{3cm}p{3cm}l}
   \textbf{Module}            & \textbf{Description}  & \textbf{Major Changes} & \textbf{Dependencies} \\ \hline
-  interfaces                 &              & & Vecmath 1.5.2 \\ \hline
-  core                       &              & & Google Guava 17.0 \\ \hline % FIXME: how to add https://github.com/google/guava ?
-  standard                   &              & & \\ \hline
-  render                     &              & Redesigned to make it more modular and support multiple widget toolkits, like AWT and SWT. & \\ \hline
-  isomorphism                &              & & \\ \hline
-  atomtype                   &              & Unified approach where atom typing is separated from other algorithms. & \\ \hline
-  valencycheck               &              & & \\ \hline
-  ioformats                  &              & & \\ \hline
-  io                         &              & The MDL molfile reader has been rewritten and supports in atom types defind in the specification. & XPP3 1.1.4c \\ \hline
-  iordf                      &              & New. & Jena 2.7.4 \\ \hline
-  inchi                      &              & & JNI-InChI 0.8~\cite{Spjuth2013}  \\ \hline
-  libiocml                   &              & & XOM 1.2.5, CMLXOM 3.1~\cite{Murray-Rust2011} \\ \hline
-  smiles                     &              & SMILES support performance and converage is greatly improved. & Beam 0.9.1~\cite{Beam} \\
-  smarts                     &              & & Beam 0.9.1~\cite{Beam} \\
-  formula                    &              & New. & \\ \hline
-  fingerprint                &              & Many new fingerprint types (see text). & Apache Commons Math 3.1.1 \\ \hline
-  qsar                       &              & & XOM 1.2.5, JAMA 1.0.3~\cite{Hicklin2012} \\ \hline
-  signatures                 &              & & Signatures 1.1 \\ \hline % FIXME: ask Gilleain for the reference
-  qsarmolecular              &              & & \\ \hline
-  log4j                      &              & & Log4j 1.2.17 \\ \hline
+  interfaces                 & Interfaces for the data models. & & Vecmath 1.5.2 \\ \hline
+  core                       & Core functionality.             & & Google Guava 17.0 \\ \hline % FIXME: how to add https://github.com/google/guava ?
+  standard                   & Common functionality.           & & \\ \hline
+  render                     & Graphical rendering.            & Redesigned to make it more modular and support multiple widget toolkits, like AWT and SWT. & \\ \hline
+  isomorphism                & Isomorphism and substructure searching. & & \\ \hline
+  atomtype                   & Various non-core atom type schemes.     & Unified approach where atom typing is separated from other algorithms. & \\ \hline
+  ioformats                  & Definitions of (chemical) input/output formats. & & \\ \hline
+  io                         & Readers and writers for input/output formats.  & The MDL molfile reader has been rewritten and supports in atom types defind in the specification. & XPP3 1.1.4c \\ \hline
+  iordf                      & Stores data models as in the Resource Description Framework serialization foramts. & New. & Jena 2.7.4 \\ \hline
+  inchi                      & IUPAC International Chemical Identifier support. & & JNI-InChI 0.8~\cite{Spjuth2013}  \\ \hline
+  libiocml                   & Writer for the Chemical Markup Language format. & & XOM 1.2.5, CMLXOM 3.1~\cite{Murray-Rust2011} \\ \hline
+  sdg                        & Structure diagram generation.  & Much improved overlap resolution. & \\ \hline
+  smiles                     & Reading and writing in the SMILES format. & SMILES support performance and converage is greatly improved. & Beam 0.9.1~\cite{Beam} \\ \hline
+  smarts                     & Substructure searching with the SMARTS format. & & Beam 0.9.1~\cite{Beam} \\ \hline
+  formula                    & Chemical formula support. & New. & \\ \hline
+  fingerprint                & Calculate fingerprints. & Many new fingerprint types (see text). & Apache Commons Math 3.1.1 \\ \hline
+  qsar and qsarmolecular                       & Molecular descriptors.  & & XOM 1.2.5, JAMA 1.0.3~\cite{Hicklin2012} \\ \hline
+  signatures                 & Calculation of molecular and atomic signatures. & & Signatures 1.1 \\ \hline % FIXME: ask Gilleain for the reference
     \end{tabular}
     \end{minipage}
 
