@@ -1,7 +1,7 @@
 all: article.pdf
 	@echo "********* Latex Summary *********"
-	@grep -i error article.log || true
-	@grep -i warning article.log || true
+	@grep -i error article.log | grep -v infwarerr || true
+	@grep -i warning article.log | grep -v infwarerr || true
 
 update: article.pdf
 
