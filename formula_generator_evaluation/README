@@ -1,0 +1,17 @@
+This folder contains the code that was used to measure the runtimes of 
+* CDK/Round Robin algorithm (Dührkop et al., 2013)
+* PFG (Zhang et al., 2016)
+* HR2 (Kind and Fiehn, 2007)
+
+PFG sources were downloaded from https://github.com/zmzhang/PFG
+
+HR2 sources were downloaded from http://fiehnlab.ucdavis.edu/projects/Seven_Golden_Rules/Software/
+
+To run the evaluation: 
+
+1) Compile the programs by running 'make' in the CDK, PFG, and HR2 folders.
+
+2) Run ./measure_runtime.sh <mass(Da)> <tolerance(Da)>
+
+Tested on Ubuntu Linux.
+

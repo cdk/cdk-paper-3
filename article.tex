@@ -12,6 +12,7 @@
 \usepackage{amssymb}
 %\usepackage{cite}
 \usepackage{graphicx}
+\usepackage{multirow}
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 %%                                             %%
@@ -69,6 +70,10 @@
    email={berg.arvid@gmail.com}
 ]{\inits{AB}\fnm{Arvid} \snm{Berg}}
 \author[
+   addressref={jena},
+   email={kai.duehrkop@uni-jena.de}
+]{\inits{KD}\fnm{Kai} \snm{Dührkop}}
+\author[
    addressref={idea},
    email={jeliazkova.nina@gmail.com}
 ]{\inits{NJ}\fnm{Nina} \snm{Jeliazkova}}
@@ -122,12 +127,26 @@
   \city{Uppsala},
   \cny{Sweden}
 }
+\address[id=jena]{
+  \orgname{Chair for Bioinformatics, Friedrich Schiller University},
+  %\street{},
+  \postcode{07743},
+  \city{Jena},
+  \cny{Germany}
+}
 \address[id=idea]{
   \orgname{Ideaconsult Ltd},
   \street{A. Kanchev 4},
   \postcode{1000},
   \city{Sofia},
   \cny{Bulgaria}
+}
+\address[id=wi_mit]{
+  \orgname{Whitehead Institute for Biomedical Research}, 
+  \street{9 Cambridge Center},
+  \postcode{MA 02142},
+  \city{Cambridge},
+  \cny{USA}
 }
 \address[id=nih]{
   \orgname{National Center for Advancing Translational Science},
@@ -143,13 +162,7 @@
   \city{Hinxton},
   \cny{UK}
 }
-\address[id=wi_mit]{
-  \orgname{Whitehead Institute for Biomedical Research}, 
-  \street{9 Cambridge Center},
-  \postcode{MA 02142},
-  \city{Cambridge},
-  \cny{USA}
-}
+
 %\begin{artnotes}
 %\note{Sample of title note}     % note to the article
 %\note[id=n1]{Equal contributor} % note, connected to author
@@ -395,24 +408,37 @@ TODO
 
   \subsubsection*{Molecular Formula}
 
-The chemical formula is the basic/simple chemical representation of a compound.
+  A chemical formula is the basic/simple chemical representation of a compound.
 It defines the number of isotopes or elements that constitute the composition
 of a compound without describing how atoms are bonded. With the rise of
 metabolomics it has become increasingly relevant to have full support for these
 in cheminformatics libraries~\cite{RojasCherto2011}.
 
-The CDK interfaces can handle several concepts related to chemical formulas:
-the formula itself, sets of formulas, chemical formula ranges, adducts,
-isotope containers and patterns, and rules to filter formula sets. These new
-tools can be used for a number of tasks, including calculate the isotopic
-pattern from a given chemical formula, determining the possible elemental
-compositions for a given mass, and calculate the exact mass from a given
+  The CDK interfaces can handle several concepts related to chemical formulas:
+the formula itself, sets of formulas, chemical formula ranges, adducts, isotope
+containers and patterns, and rules to filter formula sets. These new tools can
+be used for a number of tasks, including calculating the isotopic pattern from
+a given chemical formula, determining the possible elemental compositions for a
+given mass (mass decomposition), and calculating the exact mass from a given
 chemical formula.
 
-The MolecularFormulaGenerator class was originally developed and evaluated 
-as part of the MZmine~2 framework~\cite{Pluskal2012}. The following code
-calculates all possible chemical formula for a given accurate mass, 
-within allowed counts for each element:
+  The CDK contains two algorithms for the decomposition of mass ranges into
+possible elemental formulas. For most inputs, a Round Robin algorithm,
+originally developed for the SIRIUS metabolite identification
+tool~\cite{Bocker2009}, is used. The algorithm discretizes the real-value mass
+decomposition problem into an integer-value knapsack
+problem~\cite{Martello1990}. It first computes a dynamic programming table and
+then backtracks it to generate matching formulas~\cite{Duehrkop2013,
+Boecker2008}. Data for the Round Robin algorithm is stored in an extended
+residue table~\cite{Bocker2005}, resulting in a low memory footprint of several
+kilobytes. For certain problem instances, such as very large mass values (above
+$400\,000$ Da) or mass range span larger than $1$ Da, the Round Robin algorithm
+is not applicable and CDK falls back to an optimized full enumeration search
+method, originally developed as part of the MZmine~2 framework for mass
+spectrometry data processing~\cite{Pluskal2012, Pluskal2010}.
+
+  The following code calculates all possible chemical formulas for a given
+accurate mass, within allowed counts for each element:
 
 \begin{verbatim}
 Isotopes ifac = Isotopes.getInstance();
@@ -443,6 +469,14 @@ C9H11N 133.089149352
 C9H9O 133.065339908
 C8H7NO 133.052763844
 \end{verbatim}
+
+   To evaluate the performance of the CDK molecular formula generator, we
+compared its runtimes on a range of inputs and compared them to the runtimes of
+the classic, full enumeration-based HR2 formula generator~\cite{Kind2007} and
+those of a recently developed Parallel Formula Generator (PFG)~\cite{Zhang2016}
+(Table~1\ref{tab:formula_generators}). Although for small mass values the PFG
+algorithm achieved shorter runtimes, for larger masses the Round Robin
+algorithm implemented in CDK clearly outperformed the two other methods.
 
 
   \subsubsection*{SMILES parser and generator}
@@ -589,7 +623,7 @@ fingerprint representation implementations a bit fingerprint interface was
 introduced. Also, although fingerprints traditionally are bit vectors a count
 fingerprint was also introduced making fingerprints based on integer vectors
 supported in CDK as well. The fingerprints currently existing in CDK are listed
-in Table~1\ref{tab:fingerprints}.
+in Table~2\ref{tab:fingerprints}.
 
 \subsection*{Improved Coding Standards}
 
@@ -622,7 +656,7 @@ that dependencies are minimized and to make it easier to exclude CDK functionali
 third-party dependencies that are not needed.
 
 An overview of key modules with description, important changes, and dependencies
-on third-party libraries is given in Table~2\ref{tab:modules} and the dependencies
+on third-party libraries is given in Table~3\ref{tab:modules} and the dependencies
 between the CDK modules are depicted in Figure~6\ref{fig:deps}.
 
   \subsubsection*{Documentation}
@@ -814,8 +848,40 @@ make more rigorous changes, making the final output must more pleasing
 \section*{Tables}
 
 
+  \subsection*{Table 1 - Evaluation of molecular formula generators.}
+  \label{tab:formula_generators}
+  The resulting formula counts and runtimes of the HR2, PFG, and CDK chemical
+formula generators based on input mass and mass tolerance values. Formulas were
+generated using chemical elements C,H,N,O,P,S without bounds (the allowed atom
+count was set to 0--10000 for each element). All heuristic filtering rules were
+disabled for the purpose of the evaluation. The slight differences in the
+number of generated formulas were caused by different isotope masses embedded
+in each software and/or by rounding errors during calculation. The runtimes are
+average values from three independent runs performed on three different 16-core
+Intel Xeon 2.2~GHz CPU workstations equipped with 128~GB RAM, running Ubuntu
+Linux version 12.04.5 LTS and OpenJDK Java runtime version 1.7.0\_101.
+  \vskip 1\baselineskip
 
-  \subsection*{Table 1 - The molecular fingerprints in CDK.}
+    \begin{minipage}{1\textwidth}
+    \centering
+    \begin{tabular}{llllllll}
+	\multirow{2}{*}{ Mass (Da) } & \multirow{2}{*}{ Tolerance ($\pm$ Da) } & \multicolumn{3}{c}{ \# of generated formulas } & \multicolumn{3}{c}{ Runtime (s) } \\
+	& & HR2 & PFG & CDK & HR2 & PFG & CDK \\
+	$100$ & $0.001$ & $1$ & $1$ & $1$ & $0.10$ & $\mathbf{0.06}$ & $0.49$ \\
+	$100$ & $0.01$ & $18$ & $18$ & $18$ & $0.03$ & $\mathbf{0.01}$ & $0.52$ \\
+	$500$ & $0.001$ & $430$ & $430$ & $430$ & $0.51$ & $\mathbf{0.09}$ & $0.67$ \\
+	$500$ & $0.01$ & $4\,265$ & $4\,265$ & $4\,264$ & $0.55$ & $\mathbf{0.39}$ & $0.96$ \\
+	$1\,000$ & $0.001$ & $8\,572$ & $8\,572$ & $8\,568$ & $16.5$ & $1.5$ & $\mathbf{1.2}$ \\
+	$1\,000$ & $0.01$ & $85\,542$ & $85\,542$ & $85\,537$ & $16.8$ & $5.4$ & $\mathbf{3.7}$ \\
+	$2\,000$ & $0.001$ & $226\,346$ & $226\,346$ & $226\,323$ & $1156.5$ & $58.9$ & $\mathbf{8.6}$ \\
+	$2\,000$ & $0.01$ & $2\,263\,410$ & $2\,263\,410$ & $2\,263\,409$ & $932.5$ & $156.3$ & $\mathbf{69.7}$ \\
+	$3\,000$ & $0.001$ & $1\,647\,132$ & $1\,647\,132$ & $1\,647\,118$ & $9\,667.9$ & $603.5$ & $\mathbf{59.3}$ \\
+	$3\,000$ & $0.01$ & $16\,471\,338$ & $16\,471\,338$ & $16\,471\,373$ & $9\,694.5$ & $1\,303.6$ & $\mathbf{505.7}$ \\
+    \end{tabular}
+    \end{minipage}
+
+
+  \subsection*{Table 2 - The molecular fingerprints in CDK.}
   \label{tab:fingerprints}
   Listed are the currently available molecular fingerprint in CDK with
   information about whether they come as bit / count versions, what CDK version
@@ -848,7 +914,7 @@ make more rigorous changes, making the final output must more pleasing
     \end{tabular}
     \end{minipage}
 
-      \subsection*{Table 2 - A selection of key CDK modules with major changes.}\label{tab:modules}
+      \subsection*{Table 3 - A selection of key CDK modules with major changes.}\label{tab:modules}
   An overview of a selection of often used CDK modules with description,
   dependencies on third-party libraries, and the major changes since
   version~1.2. Dependencies between modules are depicted in Figure~4\ref{fig:deps}.
