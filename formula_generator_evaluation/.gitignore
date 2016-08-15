@@ -1,0 +1,4 @@
+*.o
+*.class
+out*.sorted
+out*.txt
