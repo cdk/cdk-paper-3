@@ -345,7 +345,7 @@ publications.
   \end{itemize}
 
   The perception from coordinates and wedge assignment algorithms are fundamental for conversion
-  between formats that store stereochemistry implicitly based on coordinates (e.g. Molfile, CML) and 
+  between formats that store stereochemistry implicitly based on coordinates (e.g. molfile, CML) and 
   explicitly (e.g. SMILES, CML, InChI). Perception from 2D coordinates can optionally identify
   perspective projects, specifically: Fischer, Haworth, and Chair projections. With the perception of 
   perspective projections enabled, database entries currently consider distinct can be merged
@@ -601,27 +601,41 @@ Aromaticity aromaticity = new Aromaticity(
 );
 \end{verbatim}
 
-  \subsubsection*{MDL molfile improvements}
+\subsubsection*{CTfile Format Improvements}
 
-The MDL molfile formats are still very popular, despite it being a proprietary
-standard, but taking advantage of the detailed specification still floating
-around on the world wide web and can be found by googling for
-ctfile.pdf~\cite{ctfile.pdf}. The CDK has various related readers, reflecting
-the various formats specified in this document, as well as a more historical
-reader for the pre-V2000 formats. When this reader was written, MDL molfiles
-in this pre-V2000 format were still around, but the authors are unaware of
-existing use of this format. At the same time, V3000 does not have seen a
-significant adoption either. Furthermore, several formats exist that wrap
-molfiles in collections, such as structure data files (SD files), reaction files,
-and reaction collections. Table XXX shows an overview of the various readers
-for (partially) supported formats.
+The molfile format is still very popular, despite it being a proprietary
+format it has become a de facto standard. The format forms the core of the larger
+CTfile family which was originally developed by MDL Information Systems \cite{Dalby92}. The
+current format specification is published by BIOVIA and available on 
+request \cite{ctfilespec}.
+
+%% CTfile Format Support
+%% To tabulate, r=read, w=write
+%% MOLfile V2000=rw, V3000=rw
+%% RXNfile V2000=rw, V3000=r
+%% SDfile MOLfile V2000=rw, MOLfile V3000=r, RGfile=n/a
+%% RGfile V2000=rw
+%% RDfile n/a
+ 
+The CTAB block (connection table) of a molfile comes in two versions, V2000
+and V3000. The V3000 provides several enhancements including but not
+limited to: removing atom and bond count limits, enhanced stereochemistry,
+and link nodes. For backwards compatibility V2000 is often preferred resulting
+in limited usage of V3000.
+
+CDK \textbf{2.0} adds support for V3000 and has optimized and extended
+support for V2000. Currently these are considered separate formats requiring
+a user to know what version is being read beforehand. Future APIs will aim
+to simplify this and provide a unified reader.
+
+CTfile Sgroups capture and organise high level information about sets of atoms
+and bonds \cite{Gushurst91}. There are four types of Sgroup: Display Shortcuts, Polymers,
+Mixtures, and Data. The most familiar Sgroups from an end user perspective are structure 
+repeat units (e.g. bracketing) and abbreviations (Figure: 8\label{fig:sgroups}). CDK \textbf{2.0} adds 
+supports for representation, reading, writing, and depiction.
+
 % note, I pie chart would be cool, showing the various relative amounts of the
 % various formats.
-
-Of course, the molfile is special here and this reader has been rewritten in
-this CDK version, and now supports....
-
-  TODO: S group, V3000 formats, ...
 
   \subsubsection*{New Builders}
 
@@ -674,6 +688,10 @@ introduced. Also, although fingerprints traditionally are bit vectors a count
 fingerprint was also introduced making fingerprints based on integer vectors
 supported in CDK as well. The fingerprints currently existing in CDK are listed
 in Table~2\ref{tab:fingerprints}.
+
+\subsubsection*{Hash Codes}
+
+%% JWM todo
 
 \subsection*{Improved Coding Standards}
 
@@ -782,7 +800,7 @@ OSGi bundles are available for the CDK too, which are used by e.g. Bioclipse~\ci
 Since the last CDK publication in 2006, the library has been improved in many
 aspects. The functionality has seen many additions and rewrites, making the
 library more functional and a lot more faster then before. Updates on the common
-SMILES and MDL molfile formats and the improved structure diagram generation are
+SMILES and molfile formats and the improved structure diagram generation are
 very visible and benefit many of the tools using the CDK.
 Furthermore, the stability of the development model has significantly improved,
 providing greater stability of the library over time. The project adopted peer
@@ -863,9 +881,12 @@ Without perceiving the stereochemistry indicated by Haworth projection in CHEMBL
 \includegraphics{img/projections_annotated.pdf}
 
 \subsection*{Figure 4 - Integrated example showing the rendering and SMILES
-parsing functionality.}\label{fig:depiction}
+parsing functionality. Example from U.S. Patent \textbf{US 2014 231770 A1} para 287.}\label{fig:depiction}
 
-\includegraphics[width=\textwidth]{reaction.png}
+%% SMILES=[CH3:17][CH:16]([CH3:18])[CH2:15][Mg+].[cH:7]1[cH:6][cH:5][c:4]2[c:9]([cH:8]1)[cH:10][cH:11][c:2]3[c:3]2[n:12][cH:13][n:14][c:1]3Cl.[Br-]>C/C(=C/C(=O)C)/[O-].C/C(=C/C(=O)C)/[O-].C/C(=C/C(=O)C)/[O-].[Fe+3].CN1CCCC1=O.C1CCOC1.Cl>[CH3:17][CH:16]([CH3:18])[CH2:15][c:1]1[c:2]2[cH:11][cH:10][c:9]3[cH:8][cH:7][cH:6][cH:5][c:4]3[c:3]2[n:12][cH:13][n:14]1 |f:0.2,3.4.5.6,SgD::cdk&#58;ReactionConditions:16 h&#44; RT|
+%% Kumada Coupling?
+
+\includegraphics[width=\textwidth]{img/US20140231770A1_0287.pdf}
 
 \subsection*{Figure 5 - The improved structure diagram generation has improved
 code to solve overlap.}\label{fig:sdg}
@@ -889,6 +910,12 @@ double bond and tetrahedral stereochemistry.}\label{fig:sdgstereo}
       cdk-depict.
 
 \includegraphics[width=\textwidth]{cdkDeps.png}
+
+\subsection*{Figure 8 - Examples of Sgroups now captured by the CDK and encoded in molfiles and CXSMILES. a) Ethyl esterification fully expanded reaction. b) Using Sgroup abbreviations allows display short cuts and more compact depiction. c) An example of a structure repeat unit in \textit{DNA 5'-phosphate} (\textbf{CHEBI:4294})}
+\label{fig:sgroups}
+      
+
+\includegraphics[width=\textwidth]{img/sgroups.pdf}
 
 
 \newpage
@@ -987,7 +1014,7 @@ Linux version 12.04.5 LTS and OpenJDK Java runtime version 1.7.0\_101.
   isomorphism                & Isomorphism and substructure searching. & & \\ \hline
   atomtype                   & Various non-core atom type schemes.     & Unified approach where atom typing is separated from other algorithms. & \\ \hline
   ioformats                  & Definitions of (chemical) input/output formats. & & \\ \hline
-  io                         & Readers and writers for input/output formats.  & The MDL molfile reader has been rewritten and supports in atom types defind in the specification. & XPP3 1.1.4c \\ \hline
+  io                         & Readers and writers for input/output formats.  & The molfile reader has been rewritten and supports in atom types defind in the specification. & XPP3 1.1.4c \\ \hline
   iordf                      & Stores data models as in the Resource Description Framework serialization foramts. & New. & Jena 2.7.4 \\ \hline
   inchi                      & IUPAC International Chemical Identifier support. & & JNI-InChI 0.8~\cite{Spjuth2013}  \\ \hline
   libiocml                   & Writer for the Chemical Markup Language format. & & XOM 1.2.5, CMLXOM 3.1~\cite{Murray-Rust2011} \\ \hline
