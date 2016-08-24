@@ -345,7 +345,7 @@ publications.
   \end{itemize}
 
   The perception from coordinates and wedge assignment algorithms are fundamental for conversion
-  between formats that store stereochemistry implicitly based on coordinates (e.g. Molfile, CML) and 
+  between formats that store stereochemistry implicitly based on coordinates (e.g. molfile, CML) and 
   explicitly (e.g. SMILES, CML, InChI). Perception from 2D coordinates can optionally identify
   perspective projects, specifically: Fischer, Haworth, and Chair projections. With the perception of 
   perspective projections enabled, database entries currently consider distinct can be merged
@@ -601,14 +601,14 @@ Aromaticity aromaticity = new Aromaticity(
 );
 \end{verbatim}
 
-  \subsubsection*{MDL molfile improvements}
+\subsubsection*{molfile improvements}
 
-The MDL molfile formats are still very popular, despite it being a proprietary
+The molfile formats are still very popular, despite it being a proprietary
 standard, but taking advantage of the detailed specification still floating
 around on the world wide web and can be found by googling for
 ctfile.pdf~\cite{ctfile.pdf}. The CDK has various related readers, reflecting
 the various formats specified in this document, as well as a more historical
-reader for the pre-V2000 formats. When this reader was written, MDL molfiles
+reader for the pre-V2000 formats. When this reader was written, molfiles
 in this pre-V2000 format were still around, but the authors are unaware of
 existing use of this format. At the same time, V3000 does not have seen a
 significant adoption either. Furthermore, several formats exist that wrap
@@ -786,7 +786,7 @@ OSGi bundles are available for the CDK too, which are used by e.g. Bioclipse~\ci
 Since the last CDK publication in 2006, the library has been improved in many
 aspects. The functionality has seen many additions and rewrites, making the
 library more functional and a lot more faster then before. Updates on the common
-SMILES and MDL molfile formats and the improved structure diagram generation are
+SMILES and molfile formats and the improved structure diagram generation are
 very visible and benefit many of the tools using the CDK.
 Furthermore, the stability of the development model has significantly improved,
 providing greater stability of the library over time. The project adopted peer
@@ -991,7 +991,7 @@ Linux version 12.04.5 LTS and OpenJDK Java runtime version 1.7.0\_101.
   isomorphism                & Isomorphism and substructure searching. & & \\ \hline
   atomtype                   & Various non-core atom type schemes.     & Unified approach where atom typing is separated from other algorithms. & \\ \hline
   ioformats                  & Definitions of (chemical) input/output formats. & & \\ \hline
-  io                         & Readers and writers for input/output formats.  & The MDL molfile reader has been rewritten and supports in atom types defind in the specification. & XPP3 1.1.4c \\ \hline
+  io                         & Readers and writers for input/output formats.  & The molfile reader has been rewritten and supports in atom types defind in the specification. & XPP3 1.1.4c \\ \hline
   iordf                      & Stores data models as in the Resource Description Framework serialization foramts. & New. & Jena 2.7.4 \\ \hline
   inchi                      & IUPAC International Chemical Identifier support. & & JNI-InChI 0.8~\cite{Spjuth2013}  \\ \hline
   libiocml                   & Writer for the Chemical Markup Language format. & & XOM 1.2.5, CMLXOM 3.1~\cite{Murray-Rust2011} \\ \hline
