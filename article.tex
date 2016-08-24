@@ -602,7 +602,25 @@ Aromaticity aromaticity = new Aromaticity(
 \end{verbatim}
 
   \subsubsection*{MDL molfile improvements}
-  
+
+The MDL molfile formats are still very popular, despite it being a proprietary
+standard, but taking advantage of the detailed specification still floating
+around on the world wide web and can be found by googling for
+ctfile.pdf~\cite{ctfile.pdf}. The CDK has various related readers, reflecting
+the various formats specified in this document, as well as a more historical
+reader for the pre-V2000 formats. When this reader was written, MDL molfiles
+in this pre-V2000 format were still around, but the authors are unaware of
+existing use of this format. At the same time, V3000 does not have seen a
+significant adoption either. Furthermore, several formats exist that wrap
+molfiles in collections, such as structure data files (SD files), reaction files,
+and reaction collections. Table XXX shows an overview of the various readers
+for (partially) supported formats.
+% note, I pie chart would be cool, showing the various relative amounts of the
+% various formats.
+
+Of course, the molfile is special here and this reader has been rewritten in
+this CDK version, and now supports....
+
   TODO: S group, V3000 formats, ...
 
   \subsubsection*{New Builders}
