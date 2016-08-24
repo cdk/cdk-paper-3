@@ -628,12 +628,10 @@ support for V2000. Currently these are considered separate formats requiring
 a user to know what version is being read beforehand. Future APIs will aim
 to simplify this and provide a unified reader.
 
-%% TODO(JWM): Sgroup Examples
-
 CTfile Sgroups capture and organise high level information about sets of atoms
 and bonds \cite{Gushurst91}. There are four types of Sgroup: Display Shortcuts, Polymers,
 Mixtures, and Data. The most familiar Sgroups from an end user perspective are structure 
-repeat units (e.g. bracketing) and abbreviations (figure: ??). CDK \textbf{2.0} adds 
+repeat units (e.g. bracketing) and abbreviations (Figure: 8\label{fig:sgroups}). CDK \textbf{2.0} adds 
 supports for representation, reading, writing, and depiction.
 
 % note, I pie chart would be cool, showing the various relative amounts of the
@@ -900,7 +898,7 @@ make more rigorous changes, making the final output must more pleasing
 \subsection*{Figure 6 - Structure diagram generation for structures with
 double bond and tetrahedral stereochemistry.}\label{fig:sdgstereo}
 
-\includegraphics[width=\textwidth]{sdg2.png}
+%\includegraphics[width=\textwidth]{sdg2.png}
 
   \subsection*{Figure 7 - Dependencies between CDK modules.}\label{fig:deps}
       Visualization of the dependencies between CDK modules. For example,
@@ -909,6 +907,12 @@ double bond and tetrahedral stereochemistry.}\label{fig:sdgstereo}
       cdk-depict.
 
 \includegraphics[width=\textwidth]{cdkDeps.png}
+
+\subsection*{Figure 8 - Examples of Sgroups now captured by the CDK and encoded in molfiles and CXSMILES. a) Ethyl esterification fully expanded reaction. b) Using Sgroup abbreviations allows display short cuts and more compact depiction. c) An example of a structure repeat unit in \textit{DNA 5'-phosphate} (\textbf{CHEBI:4294})}
+\label{fig:sgroups}
+      
+
+\includegraphics[width=\textwidth]{img/sgroups.pdf}
 
 
 \newpage
