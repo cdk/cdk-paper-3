@@ -606,14 +606,6 @@ format it has become a de facto standard. The format forms the core of the large
 CTfile family which was originally developed by MDL Information Systems~\cite{Dalby92}. The
 current format specification is published by BIOVIA and available on 
 request~\cite{ctfilespec}.
-
-%% CTfile Format Support
-%% To tabulate, r=read, w=write
-%% MOLfile V2000=rw, V3000=rw
-%% RXNfile V2000=rw, V3000=r
-%% SDfile MOLfile V2000=rw, MOLfile V3000=r, RGfile=n/a
-%% RGfile V2000=rw
-%% RDfile n/a
  
 The CTAB block (connection table) of a molfile comes in two versions, V2000
 and V3000. The V3000 provides several enhancements including but not
@@ -624,7 +616,8 @@ in limited usage of V3000.
 CDK \textbf{2.0} adds support for V3000 and has optimized and extended
 support for V2000. Currently these are considered separate formats requiring
 a user to know what version is being read beforehand. Future APIs will aim
-to simplify this and provide a unified reader.
+to simplify this and provide a unified reader. An overview of currently
+supported CTfile formats is given in Table~2\ref{tab:ctfileFormats}.
 
 CTfile Sgroups capture and organise high level information about sets of atoms
 and bonds~\cite{Gushurst91}. There are four types of Sgroup: Display Shortcuts, Polymers,
@@ -685,7 +678,7 @@ fingerprint representation implementations a bit fingerprint interface was
 introduced. Also, although fingerprints traditionally are bit vectors a count
 fingerprint was also introduced making fingerprints based on integer vectors
 supported in CDK as well. The fingerprints currently existing in CDK are listed
-in Table~2\ref{tab:fingerprints}.
+in Table~3\ref{tab:fingerprints}.
 
 \subsubsection*{Hash Codes}
 
@@ -722,7 +715,7 @@ that dependencies are minimized and to make it easier to exclude CDK functionali
 third-party dependencies that are not needed.
 
 An overview of key modules with description, important changes, and dependencies
-on third-party libraries is given in Table~3\ref{tab:modules} and the dependencies
+on third-party libraries is given in Table~4\ref{tab:modules} and the dependencies
 between the CDK modules are depicted in Figure~6\ref{fig:deps}.
 
   \subsubsection*{Documentation}
@@ -961,8 +954,25 @@ Linux version 12.04.5 LTS and OpenJDK Java runtime version 1.7.0\_101.
     \end{tabular}
     \end{minipage}
 
+    %% CTfile Format Support
+%% To tabulate, r=read, w=write
+      \subsection*{Table 2 - CTfile Format Support..}\label{tab:ctfileFormats}
 
-  \subsection*{Table 2 - The molecular fingerprints in CDK.}
+    \begin{minipage}{1\textwidth}
+    \renewcommand*{\thempfootnote}{\fnsymbol{mpfootnote}}
+    \centering
+    \begin{tabular}{lll}
+  \textbf{Format}            & \textbf{V2000}  & \textbf{V3000} \\ \hline
+    MOLfile & read and write & read and write \\
+    RXNfile & read and write & read \\
+    SDfile MOLfile & read and write & read \\ % FIXME: RGfile=n/a
+    RGfile & read and write & \\
+    RDfile & & \\ % FIXME: yes, we do have support
+    \end{tabular}
+    \end{minipage}
+
+
+  \subsection*{Table 3 - The molecular fingerprints in CDK.}
   \label{tab:fingerprints}
   Listed are the currently available molecular fingerprint in CDK with
   information about whether they come as bit / count versions, what CDK version
@@ -995,7 +1005,7 @@ Linux version 12.04.5 LTS and OpenJDK Java runtime version 1.7.0\_101.
     \end{tabular}
     \end{minipage}
 
-      \subsection*{Table 3 - A selection of key CDK modules with major changes.}\label{tab:modules}
+      \subsection*{Table 4 - A selection of key CDK modules with major changes.}\label{tab:modules}
   An overview of a selection of often used CDK modules with description,
   dependencies on third-party libraries, and the major changes since
   version~1.2. Dependencies between modules are depicted in Figure~4\ref{fig:deps}.
