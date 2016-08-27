@@ -39,6 +39,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% RESEARCH PAPER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\def \cdkversion {\textbf{2.0}}
+
 \begin{document}
 
 %%% Start of article front matter
@@ -316,7 +318,7 @@ publications.
   \subsubsection*{Stereochemistry}
 
   In previous versions of the API, stereochemistry was represented disparately hindering 
-  interconversion between and within file formats. In CDK 1.5.x the core representation 
+  interconversion between and within file formats. In CDK \cdkversion{} the core representation 
   has been standardized upon and procedures updated or added to enable duplicate checking,
   pattern matching, and interconversion.
 
@@ -613,7 +615,7 @@ limited to: removing atom and bond count limits, enhanced stereochemistry,
 and link nodes. For backwards compatibility V2000 is often preferred resulting
 in limited usage of V3000.
 
-CDK \textbf{2.0} adds support for V3000 and has optimized and extended
+CDK \cdkversion{} adds support for V3000 and has optimized and extended
 support for V2000. Currently these are considered separate formats requiring
 a user to know what version is being read beforehand. Future APIs will aim
 to simplify this and provide a unified reader. An overview of currently
@@ -622,7 +624,7 @@ supported CTfile formats is given in Table~2\ref{tab:ctfileFormats}.
 CTfile Sgroups capture and organise high level information about sets of atoms
 and bonds~\cite{Gushurst91}. There are four types of Sgroup: Display Shortcuts, Polymers,
 Mixtures, and Data. The most familiar Sgroups from an end user perspective are structure 
-repeat units (e.g. bracketing) and abbreviations (Figure~8\label{fig:sgroups}). CDK \textbf{2.0} adds 
+repeat units (e.g. bracketing) and abbreviations (Figure~8\label{fig:sgroups}). CDK \cdkversion{} adds 
 supports for representation, reading, writing, and depiction.
 
 % note, I pie chart would be cool, showing the various relative amounts of the
