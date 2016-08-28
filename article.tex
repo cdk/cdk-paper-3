@@ -450,7 +450,7 @@ tetrahedral stereochemistry. These features are exemplified by the following
 code and the resulting layout depiction in Figure~\ref{fig:sdgstereo}.
 
 \begin{verbatim}
-someMolecule = fromSMILES.....
+someMolecule = parser.parseSmiles("OC/C(C)=C/[C@](F)(Cl)Br");
 sdg.setMolecule(someMolecule);
 sdg.generateCoordinates();
 IAtomContainer layedOutMol = sdg.getMolecule();
@@ -915,7 +915,7 @@ make more rigorous changes, making the final output must more pleasing
 \subsection*{Figure 6 - Structure diagram generation for structures with
 double bond and tetrahedral stereochemistry.}\label{fig:sdgstereo}
 
-%\includegraphics[width=\textwidth]{sdg2.png}
+\includegraphics[width=0.3\textwidth]{sdg2.png}
 
   \subsection*{Figure 7 - Dependencies between CDK modules.}\label{fig:deps}
       Visualization of the dependencies between CDK modules. For example,
