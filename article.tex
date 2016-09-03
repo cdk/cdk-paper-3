@@ -388,7 +388,23 @@ publications.
   molecules~\cite{Faulon2003}. These act as a linear notation - like the SMILES format - 
   for the whole molecule as well as for connected substructures rooted at a single atom. The 
   descriptor can also be canonicalized to provide isomorphism-independent
-  representations~\cite{Faulon2004}, and has been successfully used in QSAR modeling~\cite{signaturefingerprints,Spjuth2011DS,Moghadam2015,Alvarsson2014,Spjuth2012OS,Norinder2013}.
+  representations~\cite{Faulon2004}. Signatures can be calculated for atoms with:
+
+\begin{verbatim}
+\end{verbatim}
+
+  But they can also can be calculated for full molecules:
+
+\begin{verbatim}
+\end{verbatim}
+
+  Finally, a signatures fingerprint can be calculated for molecules, to allow
+  similarity calculations. This can then be used in QSAR modeling~\cite{signaturefingerprints,
+  Spjuth2011DS,Moghadam2015,Alvarsson2014,Spjuth2012OS,Norinder2013,Alvarsson2016}.
+  The fingerprint for a molecule can be calculated with:
+
+\begin{verbatim}
+\end{verbatim}
 
   \subsubsection*{Rendering API}
 
