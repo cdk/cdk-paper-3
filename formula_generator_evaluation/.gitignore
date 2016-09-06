@@ -1,7 +1,2 @@
-*.o
-*.class
 out*.sorted
 out*.txt
-HR2
-PFG
-*.exe
