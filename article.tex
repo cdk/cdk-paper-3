@@ -501,7 +501,7 @@ Boecker2008}. Data for the Round Robin algorithm is stored in an extended
 residue table~\cite{Bocker2005}, resulting in a low memory footprint of several
 kilobytes. For certain problem instances, such as very large mass values (above
 $400\,000$ Da) or mass range span larger than $1$ Da, the Round Robin algorithm
-is not applicable and CDK falls back to an optimized full enumeration search
+is not suitable and CDK falls back to an optimized full enumeration search
 method, originally developed as part of the MZmine~2 framework for mass
 spectrometry data processing~\cite{Pluskal2012, Pluskal2010}.
 
@@ -539,13 +539,15 @@ C8H7NO 133.052763844
 \end{verbatim}
 
    To evaluate the performance of the CDK molecular formula generator, we
-compared its runtimes on a range of inputs and compared them to the runtimes of
-the classic, full enumeration-based HR2 formula generator~\cite{Kind2007} and
-those of a recently developed Parallel Formula Generator (PFG)~\cite{Zhang2016}
-(Table~1\ref{tab:formula_generators}). Although for small mass values the PFG
-algorithm achieved shorter runtimes, for larger masses the Round Robin
-algorithm implemented in CDK clearly outperformed the two other methods.
-
+compared its runtimes to those of the classic, full enumeration-based HR2
+formula generator~\cite{Kind2007} and those of a recently developed Parallel
+Formula Generator (PFG)~\cite{Zhang2016} (Table~1\ref{tab:formula_generators}).
+As inputs, we used two sets of $10\,000$ small ($< 500$~Da) and $20$ large ($>
+1\,500$ and $< 3\,500$~Da) molecular mass values downloaded from the Global
+Natural Products Social Molecular Networking database~\cite{wang2016}. The mass
+tolerance was set to 0.001 or 0.01 Da. The CDK's Round-Robin formula generator
+outperformed the other methods in all cases, despite running in a single thread
+(PFG utilizes multiple threads).
 
   \subsubsection*{SMILES parser and generator}
 
@@ -963,32 +965,31 @@ double bond and tetrahedral stereochemistry.}\label{fig:sdgstereo}
   \subsection*{Table 1 - Evaluation of molecular formula generators.}
   \label{tab:formula_generators}
   The resulting formula counts and runtimes of the HR2, PFG, and CDK chemical
-formula generators based on input mass and mass tolerance values. Formulas were
-generated using chemical elements C,H,N,O,P,S without bounds (the allowed atom
-count was set to 0--10000 for each element). All heuristic filtering rules were
-disabled for the purpose of the evaluation. The slight differences in the
-number of generated formulas were caused by different isotope masses embedded
-in each software and/or by rounding errors during calculation. The runtimes are
-average values from three independent runs performed on three different 16-core
-Intel Xeon 2.2~GHz CPU workstations equipped with 128~GB RAM, running Ubuntu
-Linux version 12.04.5 LTS and OpenJDK Java runtime version 1.7.0\_101.
+formula generators on two different inputs with two different mass tolerance
+settings. For the set of small masses, $10\,000$ mass values in the range of
+$0$--$500$ Da were randomly selected from the Global Natural Products Social
+Molecular Networking database~\cite{wang2016}. For the set of large masses, $20$
+mass values in the range of $1\,500$--$3\,500$ Da were randomly selected from the same
+database. Formulas were generated using chemical elements C,H,N,O,P,S without
+bounds (the allowed atom count was set to $0$--$10\,000$ for each element). All
+heuristic filtering rules were disabled for the purpose of the evaluation. The
+slight differences in the number of generated formulas were caused by different
+isotope masses embedded in each software and/or by rounding errors during
+calculation. The runtimes are average values from three independent runs
+performed on three different 16-core Intel Xeon 2.9~GHz CPU workstations
+equipped with 189~GB RAM, running Ubuntu Linux version 12.04.5 LTS and OpenJDK
+Java runtime version 1.7.0\_101.
   \vskip 1\baselineskip
 
     \begin{minipage}{1\textwidth}
     \centering
     \begin{tabular}{llllllll}
-	\multirow{2}{*}{ Mass (Da) } & \multirow{2}{*}{ Tolerance ($\pm$ Da) } & \multicolumn{3}{c}{ \# of generated formulas } & \multicolumn{3}{c}{ Runtime (s) } \\
+	\multirow{2}{*}{ Input } & \multirow{2}{*}{ Mass tolerance ($\pm$ Da) } & \multicolumn{3}{c}{ \# of generated formulas } & \multicolumn{3}{c}{ Runtime (s) } \\
 	& & HR2 & PFG & CDK & HR2 & PFG & CDK \\
-	$100$ & $0.001$ & $1$ & $1$ & $1$ & $0.10$ & $\mathbf{0.06}$ & $0.49$ \\
-	$100$ & $0.01$ & $18$ & $18$ & $18$ & $0.03$ & $\mathbf{0.01}$ & $0.52$ \\
-	$500$ & $0.001$ & $430$ & $430$ & $430$ & $0.51$ & $\mathbf{0.09}$ & $0.67$ \\
-	$500$ & $0.01$ & $4\,265$ & $4\,265$ & $4\,264$ & $0.55$ & $\mathbf{0.39}$ & $0.96$ \\
-	$1\,000$ & $0.001$ & $8\,572$ & $8\,572$ & $8\,568$ & $16.5$ & $1.5$ & $\mathbf{1.2}$ \\
-	$1\,000$ & $0.01$ & $85\,542$ & $85\,542$ & $85\,537$ & $16.8$ & $5.4$ & $\mathbf{3.7}$ \\
-	$2\,000$ & $0.001$ & $226\,346$ & $226\,346$ & $226\,323$ & $1156.5$ & $58.9$ & $\mathbf{8.6}$ \\
-	$2\,000$ & $0.01$ & $2\,263\,410$ & $2\,263\,410$ & $2\,263\,409$ & $932.5$ & $156.3$ & $\mathbf{69.7}$ \\
-	$3\,000$ & $0.001$ & $1\,647\,132$ & $1\,647\,132$ & $1\,647\,118$ & $9\,667.9$ & $603.5$ & $\mathbf{59.3}$ \\
-	$3\,000$ & $0.01$ & $16\,471\,338$ & $16\,471\,338$ & $16\,471\,373$ & $9\,694.5$ & $1\,303.6$ & $\mathbf{505.7}$ \\
+	$10\,000$ small masses & $0.001$ & $616\,846$ & $616\,846$ & $616\,843$ & $669$ & $168$ & $\mathbf{41}$ \\
+	$10\,000$ small masses & $0.01$ & $6\,163\,303$ & $6\,163\,302$ & $6\,163\,326$ & $689$ & $501$ & $\mathbf{212}$ \\
+	$20$ large masses & $0.001$ & $4\,912\,939$ & $4\,912\,939$ & $4\,912\,904$ & $26\,370$ & $1\,292$ & $\mathbf{177}$ \\
+	$20$ large masses & $0.01$ & $49\,128\,811$ & $49\,128\,810$ & $49\,128\,815$ & $26\,587$ & $3\,406$ & $\mathbf{1\,580}$ \\
     \end{tabular}
     \end{minipage}
 
