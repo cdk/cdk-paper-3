@@ -23,6 +23,6 @@ cat outPFG.txt | cut -f 1 | grep -v formula | sort > outPFG.sorted
 cat outCDK.txt | sort > outCDK.sorted
 cat outHR2.txt | cut -f 1 | sort > outHR2.sorted
 
-echo Comparing thr numbers of results
+echo Comparing the numbers of results
 wc -l *.sorted | grep -v total
 
