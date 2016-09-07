@@ -536,14 +536,15 @@ bool set_break;
 
 
 time( &start );		// start time
-printf("\n");		/* linefeed */
+// printf("\n");		/* linefeed */
 
 /* calculate limits */
 
 limit_lo = measured_mass - tolerance;
 limit_hi = measured_mass + tolerance;
 
-if (strlen(comment))	/* print only if there is some text to print */
+/*
+if (strlen(comment))
 	printf ("Text      \t%s\n", comment);
 
 printf ("Composition\t");
@@ -555,7 +556,7 @@ printf ("\n");
 printf ("Tol (amu)\t%.6f\n",tolerance);
 printf ("Measured\t%.6lf\n", measured_mass);
 printf ("Charge  \t%+.1lf\n", charge);
-
+*/
 hit = 0;			/* Reset counter */
 counter = 0;
 set_break = false;	/* set breaker for element counts to false */
@@ -716,13 +717,13 @@ while (el[2].cnt++ < el[2].max) /*"H"*/{
 
 time(&finish);		// stop timer
 elapsed_time = difftime(finish , start);	// calulate time difference
-
+/*
 if (!hit)
 	printf("No matching combination found in %6.0f seconds.\n", elapsed_time );
 else
 	printf("\n%llu formulas found in %6.0f seconds by evaluating %llu formulae.\n",hit,elapsed_time,counter);
 	printf("RDBs are overloaded to maximum valence values (N=3,P=5,S=6).\n");
-	
+*/	
 return hit;
 }
 

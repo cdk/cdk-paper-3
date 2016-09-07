@@ -5,13 +5,13 @@ This folder contains the code that was used to measure the runtimes of
 
 PFG sources were downloaded from https://github.com/zmzhang/PFG
 
-HR2 sources were downloaded from http://fiehnlab.ucdavis.edu/projects/Seven_Golden_Rules/Software/
+HR2 sources were downloaded from http://fiehnlab.ucdavis.edu/projects/Seven_Golden_Rules/Software/ and modified to remove all filtering rules.
 
 To run the evaluation: 
 
 1) Compile the programs by running 'make' in the CDK, PFG, and HR2 folders.
 
-2) Run ./measure_runtime.sh <mass(Da)> <tolerance(Da)>
+2) Run ./measure_all.sh
 
 Tested on Ubuntu Linux.
 
