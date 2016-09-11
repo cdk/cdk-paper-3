@@ -1110,7 +1110,7 @@ Java runtime version 1.7.0\_101.
 
 \subsection*{Table 5 - SMARTS matching performance.}\label{tab:smigrep}
   Total time taken to match the SMARTS \texttt{O=[C,N]aa[N,O;!H0]} against $\sim$1.5 million SMILES from
-  ChEMBL 21. The reported time is for single core execution, measure with the Unix time utility (Cent OS 7, Intel Core i7-4790 CPU @ 3.60GHz). The times for recent versions of OpenBabel and RDKit are included for reference but this is not intended to be a systematic comparison. The difference in number found is due to variations in valence and aromaticity models.
+  ChEMBL 21. The reported time is for single core execution, measure with the Unix time utility (Cent OS 7, Intel Core i7-4790 CPU @ 3.60GHz). The times for recent versions of Open Babel~\cite{OBoyle2011} and RDKit~\cite{rdkit} are included for reference but this is not intended to be a systematic comparison. The difference in number found is due to variations in valence and aromaticity models.
   \vskip \baselineskip
 
 \begin{tabular}{lll}
@@ -1118,7 +1118,7 @@ Toolkit                   & Time   & Matched \\
 \hline
 CDK 1.4.9                 & 64m3s  & 69,782  \\
 CDK \cdkversion{}         & 1m7s   & 62,518  \\
-OpenBabel 2.3.90          & 13m55s & 61,906  \\
+Open Babel 2.3.90         & 13m55s & 61,906  \\
 RDKit 2016.3.4            & 6m18s  & 62,402  \\
 \end{tabular}
 
