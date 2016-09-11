@@ -65,8 +65,8 @@
    email={egon.willighagen@maastrichtuniversity.nl}
 ]{\inits{ELW}\fnm{Egon L} \snm{Willighagen}}
 \author[
-   addressref={aff2},
-   email={john@nextmovesoftware.com}
+   addressref={nm},
+   email={john.may@cantab.net}
 ]{\inits{JWM}\fnm{John W} \snm{May}}
 \author[
    addressref={uppsala},
@@ -124,11 +124,11 @@
   \city{Maastricht},
   \cny{The Netherlands}
 }
-\address[id=aff2]{
-  %\orgname{??},
+\address[id=nm]{
+  \orgname{NextMove Software Ltd},
   %\street{D\"{u}sternbrooker Weg 20},
-  %\postcode{24105},
-  %\city{Kiel},
+  \postcode{CB4 0EY},
+  \city{Cambridge},
   \cny{UK}
 }
 \address[id=uppsala]{
@@ -181,7 +181,7 @@
   \cny{USA}
 }
 \address[id=ebi]{
-  \orgname{Chemoinformatics and Metabolism team, European Bioinformatics Institute},
+  \orgname{Metabolomics and Molecular Informatics, EMBL-EBI},
   %\street{A. Kanchev 4},
   %\postcode{1000},
   \city{Hinxton},
@@ -270,12 +270,11 @@ KNIME~\cite{Beisken2013}, ChemViz2 for Cytoscape~\cite{ChemViz2}, and LICSS for
 Microsoft Excel~\cite{Lawson2012}.
 Furthermore, projects with specific functionality have emerged building on the CDK, including
 jCompoundMapper~\cite{Hinselmann2011}, ScaffoldHunter~\cite{wetzel2009interactive}, OMG~\cite{Peironcely2012},
-PaDEL~\cite{yap2011padel}, AMBIT-SMARTS~\cite{jeliazkova2011ambitsmarts}, AMBIT-Tautomer~\cite{kochev2013ambit},
-ReactPRED~\cite{ReactPRED}, SMSD~\cite{Rahman2009,Rahman2014,Rahman2016}, WhichCyp~\cite{Rostkowski2013},
-MetaPrint2D~\cite{Carlsson2010}, and the IUPHAR/BPS Guide to Pharmacology database~\cite{Southan2016}.
+PaDEL~\cite{yap2011padel}, ReactPRED~\cite{ReactPRED}, SMSD~\cite{Rahman2009,Rahman2014,Rahman2016},
+WhichCyp~\cite{Rostkowski2013}, MetaPrint2D~\cite{Carlsson2010}, and the IUPHAR/BPS Guide to Pharmacology database~\cite{Southan2016}.
 Other tools used previous versions already, and follow
 newer releases of the CDK, such as Bioclipse~\cite{spjuth2007bioclipse,
-spjuth2009bioclipse} and AMBIT~\cite{jeliazkova2011ambit}. While the above
+spjuth2009bioclipse} and AMBIT~\cite{jeliazkova2011ambit,jeliazkova2011ambitsmarts,kochev2013ambit}. While the above
 tools suggest that the CDK is primarily used to create general tools, it is
 important to note that it is also used to solve specific questions, like finding
 the maximally bridging rings in chemical structures~\cite{Marth2015}.
@@ -586,9 +585,36 @@ outperformed the other methods in all cases, despite running in a single thread
   smiles2 = atomaticGenerator.createSMILES(mol)
 \end{verbatim}
 
-  \subsubsection*{Substructure searching}
+  \subsubsection*{Substructure and SMARTS matching}
 
-  TODO: iterator and new SMARTS
+  Substructure matching is fundamental to many other procedures. Since CDK 1.2 functionality has been added to handle the SMARTS query language. The SMARTS language is supported well including: Stereochemistry, Component Grouping, Atom Maps (to match reaction transformations). A new \textit{Pattern} API has been added to CDK \cdkversion{}, the API simplifies finding, filtering, and transform results. The API is immutable allowing a pattern to be initialized once and then matched against several molecules or reactions across multiple threads, during initialization the pattern is inspected as to determine what invariants will be needed (e.g. ring size) and only calculating what is needed. The internal matching algorithms provide a lazy iterator, the lazy evaluation means the next match is only calculated when it is needed. The API handles reactions in addition to molecules, both can be specified as either queries or targets.
+
+  \begin{verbatim}
+    // initialize SMARTS pattern API
+    Pattern pattern = 
+      SmartsPattern.findSubstructure("O=[C,N]aa[N,O;!H0]");
+
+    IAtomContainer mol = ...;
+    IReaction      rxn = ...;
+
+    // check if the query matches, molecules and reactions
+    boolean mMatch = pattern.matches(mol);
+    boolean rMatch = pattern.matches(rxn);         
+
+    // lazily iterate over all unique atom matches as query atom
+    // index bijection to atoms in 'mol', 'rxn' can also be used
+    for (int[] m : pattern.matchAll(mol)
+                          .uniqueAtoms()) {
+
+    }
+  \end{verbatim}
+
+  CDK \cdkversion{} includes large improvements to algorithm efficiency, an isolated benchmark demonstrates relative improvements between recent CDK versions and to other open source toolkits (Table~5\ref{tab:smigrep}). The efficiency improvements are a combination of optimising data structures and key molecule processing algorithms (e.g. Kekulisation and Aromaticity) needed before a SMARTS match can be run.
+  
+  % More on performance?
+  % http://efficientbits.blogspot.co.uk/2013_10_01_archive.html
+  % http://efficientbits.blogspot.co.uk/2013_11_01_archive.html
+
 
   \subsubsection*{Ring finding}
 
@@ -1080,6 +1106,21 @@ Java runtime version 1.7.0\_101.
   signatures                 & Calculation of molecular and atomic signatures. & & Signatures 1.1 \\ \hline % FIXME: ask Gilleain for the reference
     \end{tabular}
     \end{minipage}
+
+
+\subsection*{Table 5 - SMARTS matching performance.}\label{tab:smigrep}
+  Total time taken to match the SMARTS \texttt{O=[C,N]aa[N,O;!H0]} against $\sim$1.5 million SMILES from
+  ChEMBL 21. The reported time is for single core execution, measure with the Unix time utility (Cent OS 7, Intel Core i7-4790 CPU @ 3.60GHz). The times for recent versions of OpenBabel and RDKit are included for reference but this is not intended to be a systematic comparison. The difference in number found is due to variations in valence and aromaticity models.
+  \vskip \baselineskip
+
+\begin{tabular}{lll}
+Toolkit                   & Time   & Matched \\
+\hline
+CDK 1.4.9                 & 64m3s  & 69,782  \\
+CDK \cdkversion{}         & 1m7s   & 62,518  \\
+OpenBabel 2.3.90          & 13m55s & 61,906  \\
+RDKit 2016.3.4            & 6m18s  & 62,402  \\
+\end{tabular}
 
 
 \end{backmatter}
