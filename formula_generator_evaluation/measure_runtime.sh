@@ -5,7 +5,6 @@ TOLERANCE=$2
 MIN=0
 MAX=10000
 
-rm -rf 
 echo Running CDK on file $MASS_FILE +-${TOLERANCE} Da
 time -p java -cp "CDK/*:CDK" CDKFormulaGeneratorCLI $MASS_FILE $TOLERANCE C${MIN}-${MAX}H${MIN}-${MAX}N${MIN}-${MAX}O${MIN}-${MAX}S${MIN}-${MAX}P${MIN}-${MAX} > outCDK.txt
 echo
