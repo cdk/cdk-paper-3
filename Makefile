@@ -17,4 +17,4 @@ article.pdf: article.tex article.bbl
 distclean: clean
 
 clean:
-	rm -f *.bbl *.aux bmc_article.pdf *.blg *.log *.ps *.fff *.lof *.lot *.ttt *.dvi *~ *.Rout
+	rm -f *.bbl *.aux bmc_article.pdf *.blg *.log *.ps *.fff *.lof *.lot *.ttt *.dvi *~ *.Rout *.bak
