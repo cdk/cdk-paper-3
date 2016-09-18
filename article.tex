@@ -345,10 +345,22 @@ publications.
   This class handles a variety in types of missing information, as commonly resulting
   from various (file) formats; for example, it can handle undefined hydrogen counts
   and undefined double bond positions if hybridization information is provided instead.
-  That makes the code complex, and at times slow, but so far shown sufficiently
-  performant for many applications. Possibly, in the future
-  alternative algorithms may be implemented, while that would again increase the maintenance
-  burden.
+  That makes the perception code flexible but also more complex. Alternative
+  algorithms to do the perception have not been explored. This reference
+  implementation can be used on a single atom:
+
+\begin{verbatim}
+for (IAtom atom : molecule.atoms()) {
+  type = matcher.findMatchingAtomType(molecule, atom);
+}
+\end{verbatim}
+
+And on a full molecule, in which case the list of types is ordered in the same
+order as the atoms in the molecule object:
+
+\begin{verbatim}
+types = matcher.findMatchingAtomTypes(molecule);
+\end{verbatim}
 
   \subsubsection*{Stereochemistry}
 
