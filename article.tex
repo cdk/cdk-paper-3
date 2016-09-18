@@ -724,8 +724,9 @@ supports for representation, reading, writing, and depiction.
 
   \subsubsection*{New Builders}
 
-Originally, the CDK was developed as a shared library between JChemPaint and Jmol. The former
-used a MVC approach with an event-passing mechanism to update the view when the model was
+Originally, the CDK was developed as a shared library between
+JChemPaint~\cite{krause2000jchempaint} and Jmol~\cite{Willighagen2007jmol,Hanson2010}.
+JChemPaint used a MVC approach with an event-passing mechanism to update the view when the model was
 changed. This can cause an cascade of change events being passed around. To address,
 interfaces were introduced allowing multiple implementations of the core interfaces.
 % TODO: check if the interfaces have previously been defined
