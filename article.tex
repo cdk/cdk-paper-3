@@ -781,27 +781,31 @@ in Table~3\ref{tab:fingerprints}.
 
 \subsection*{Improved Coding Standards}
 
-As the library grew over the years, so did the maintenance become more complex. Increasingly,
-the main branch did not compile, and bug fixing become increasingly difficult, as fixing a bug
-in one part of the code, broke some other code which made the wrong assumption about the first
-code.
+As the library grew over the years, so did the complexity of the maintenance:
+Increasingly frequent, the main branch faied to compile, and bug fixing become
+more difficult with unexpected side effects. Often fixing a bug in one part of
+the code, broke some other code which made the incorrect assumptions about the
+fixed code. Such is inevitable when the number of developers increases.
 
-To address these issues, we have adopted a number of coding standards. By no means there are
-meant to implement the best practices of source code development; instead, they attempt to find
-a balance between increasing code maintainability and being flexible enough to allow efficient
-code development. However, we appreciate the subjective nature of this statement, and some
-adopted guidelines have been heavily discussed in the community.
-The next sections describe some approaches the project have adopted that allows us to
-maintain the CDK library as it is today. 
+To address these issues, we have adopted a number of coding standards. By no
+means these are meant to implement the best practices of source code development,
+which is not practically unfeasible with limited resources; instead, they attempt
+to find a balance between increasing code maintainability and being flexible
+enough to allow efficient code development. However, we appreciate the subjective 
+nature of this statement, and some adopted guidelines have been heavily discussed
+and debated in the CDK community.
 
-However, perhaps the biggest factor in improved code quality is that we
+Arguably, perhaps the biggest factor in improved code quality is that we
 instantiated a peer review process where any functionality changing patch is
-required to be reviewed by one independent, senior CDK developer for  the development
+required to be reviewed by one independent, senior CDK developer for the development
 branch, and two reviewers for stable branches. This patch development system
 is supported by a number of automated validations steps as outlined below.
 
-  \subsubsection*{Modularization}
-  
+The next sections describe some approaches the project have adopted that allows
+us to maintain the CDK library as it is today. 
+
+\subsubsection*{Modularization}
+
 One of the key approaches we have adopted, is to make the CDK more modular. The CDK assigns
 every class to a module, and defines dependencies between modules. For example, core modules
 are not allowed to depend on a module holding data classes implementing the CDK interfaces;
