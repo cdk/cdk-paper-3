@@ -40,7 +40,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% RESEARCH PAPER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def \cdkversion {\textbf{2.0}}
+%\def \cdkversion {\textbf{2.0}}
+\def \cdkversion {2.0}
 
 \begin{document}
 
@@ -241,7 +242,8 @@ fingerprints, rendering of molecules, and handling of molecular formulas.
 \parttitle{Conclusions}
 With this paper we have shown the continued effort to provide a free, Open Source
 cheminformatics library, and show that such collaborative projects can exist over
-a long period. We have taken advantage from the community support, and show
+a long period and result in a high-quality and fast library. We have taken
+advantage from the community support, and show
 that an open source cheminformatics project can act as a peer reviewed
 publishing platform for scientific computing software.
 \end{abstract}
@@ -558,9 +560,9 @@ for (mf in mfSet) {
 This gives the following output:
 
 \begin{verbatim}
-C11H 133.007825032
+C11H   133.007825032
 C9H11N 133.089149352
-C9H9O 133.065339908
+C9H9O  133.065339908
 C8H7NO 133.052763844
 \end{verbatim}
 
@@ -630,7 +632,7 @@ applications in high-resolution mass spectrometry.
     // index bijection to atoms in 'mol', 'rxn' can also be used
     for (int[] m : pattern.matchAll(mol)
                           .uniqueAtoms()) {
-
+       ...
     }
   \end{verbatim}
 
@@ -720,7 +722,7 @@ and bonds~\cite{Gushurst91}. There are four types of Sgroup: Display Shortcuts, 
 Mixtures, and Data. The most familiar Sgroups from an end user perspective are structure 
 repeat units (e.g. bracketing) and abbreviations (Figure~8\ref{fig:sgroups}).
 CDK~\cdkversion{} adds 
-supports for representation, reading, writing, and depiction.
+supports for representation, reading, writing, and depiction of Sgroups.
 
 % note, I pie chart would be cool, showing the various relative amounts of the
 % various formats.
@@ -892,16 +894,16 @@ OSGi bundles are available for the CDK too, which are used by e.g. Bioclipse~\ci
 \section*{Conclusions}
 
 Since the last CDK publication in 2006, the library has been improved in many
-aspects. The functionality has seen many additions and rewrites, making the
-library more functional and a lot more faster then before. Updates on the common
+aspects. The functionality has seen numerous additions and rewrites, making the
+library more functional and a lot faster than before. Updates on the common
 SMILES and molfile formats and the improved structure diagram generation are
 very visible and benefit many of the tools using the CDK.
 Furthermore, the stability of the development model has significantly improved,
 providing greater stability of the library over time. The project adopted peer
 review and quality control.
 
-With 93 contributors, a long list of tools based on the CDK, and hundreds
-of article citations, the CDK is alive and kicking.
+With more than 90 contributors, a long list of tools based on the CDK, and
+hundreds of article citations, the CDK is alive and kicking.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Availability and requirements}
