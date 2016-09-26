@@ -280,29 +280,44 @@ publishing platform for scientific computing software.
 %%
 \section*{Background}
 
-Open Source cheminformatics has made significant steps forward recently~\cite{OBoyle2011b}.
-The Chemistry Development Kit (CDK) is one of the tools under the Blue Obelisk wings,
-and previously documented version have been widely adopted~\cite{Steinbeck2003,Steinbeck2006}.
-For example, new tools expose CDK functionality in larger platforms such as Cinfony~\cite{OBoyle2008},
-rcdk~\cite{Guha2007}, and plugins for Taverna~\cite{Truszkowski2011},
-KNIME~\cite{Beisken2013}, ChemViz2 for Cytoscape~\cite{ChemViz2}, and LICSS for
-Microsoft Excel~\cite{Lawson2012}.
-Furthermore, projects with specific functionality have emerged building on the CDK, including
+The Open Source cheminformatics community has made significant steps
+forward recently~\cite{OBoyle2011b} as evidenced by the growing number
+of tools and underlying toolkits, along with the usage of these
+software components in a variety of applications.
+The Chemistry Development Kit (CDK) is one of the tools developed
+under the aegis of the Blue Obelisk 
+and previously documented versions have been widely adopted~\cite{Steinbeck2003,Steinbeck2006}.
+Adoption of the CDK ranges from inclusion of CDK functionality in
+wrapper platforms such as Cinfony~\cite{OBoyle2008}, incorporation
+within the R environment (rcdk~\cite{Guha2007}), and as plugins for
+Taverna~\cite{Truszkowski2011}, 
+KNIME~\cite{Beisken2013}, Cytoscape (ChemViz2~\cite{ChemViz2}), and for
+Microsoft Excel (LICSS~\cite{Lawson2012}).
+In contrast to scenarios that have made CDK functionality available in
+larger systems, a number of projects have employed the CDK as a
+general cheminformatics toolkit. Examples include 
 jCompoundMapper~\cite{Hinselmann2011}, ScaffoldHunter~\cite{wetzel2009interactive}, OMG~\cite{Peironcely2012},
 PaDEL~\cite{yap2011padel}, ReactPRED~\cite{ReactPRED}, SMSD~\cite{Rahman2009,Rahman2014,Rahman2016},
 WhichCyp~\cite{Rostkowski2013}, MetaPrint2D~\cite{Carlsson2010}, and the IUPHAR/BPS Guide to Pharmacology database~\cite{Southan2016}.
-Other tools used previous versions already, and follow
-newer releases of the CDK, such as Bioclipse~\cite{spjuth2007bioclipse,
-spjuth2009bioclipse} and AMBIT~\cite{jeliazkova2011ambit,jeliazkova2011ambitsmarts,kochev2013ambit}. While the above
-tools suggest that the CDK is primarily used to create general tools, it is
-important to note that it is also used to solve specific questions, like finding
+A number of such tools were initially developed using older versions
+of the CDK and are updated to new releases as they are made
+available. Examples include Bioclipse~\cite{spjuth2007bioclipse,
+spjuth2009bioclipse} and
+AMBIT~\cite{jeliazkova2011ambit,jeliazkova2011ambitsmarts,kochev2013ambit}. The
+CDK has also played a role in a number of chemical studies, such as finding
 the maximally bridging rings in chemical structures~\cite{Marth2015}, and
 defining fingerprints for organic reactions~\cite{Segler2016}.
 
-However, previous version of the CDK were written by a community with specific applications
-in mind, of which structure elucidation was one. It could therefore be rather competitive
-in some cheminformatics domains, such as fingerprinting~\cite{Clark2014,Cannon2006}, in other parts
-it could be inadequate, such in the capturing of stereochemistry.
+While the CDK has purported to be a general purpose cheminformatics
+toolkit, older versions were designed by a community with specific
+applications, primary among them being structure elucidation. In
+addition, an implicit goal of previous versions was to have the CDK
+serve as an educational resource to enable students of cheminformatics
+to understand the underlying algorithms. This resulted in certain
+functionalities, such as fingerprinting~\cite{Clark2014,Cannon2006},
+receiving more attention than others, such as stereochemistry. The
+outcome was significant variance in performance and features
+throughout the toolkit.
 
 Continued community development of the CDK in the last few years, however, has shown that
 Open Source software is here to stay. The adoption of automatic build systems and
