@@ -221,29 +221,35 @@
 \begin{abstract}
 % Do not use inserted blank lines (ie \\) until main body of text.
 \parttitle{Background}
-Cheminformatics is a well-established field with many applications in chemistry,
-biology, drug discovery, and others. The Chemistry Development Kit (CDK) has
-become a widely used Open Source cheminformatics toolkit, providing various models to represent
-chemical structures, of which the chemical graph is essential. However,
-in the first five years of the project increased so much in size that
-interdependencies between components grew unmanageable large, resulting
-in unpredictable instabilities.
+The Chemistry Development Kit (CDK) is a 
+widely used Open Source cheminformatics toolkit, providing data
+structures to represent chemical concepts along with methods to
+manipulate such structures and perform computations on them. The
+library implements a wide variety of cheminformatics algorithms
+ranging from chemical structure canonicalization to molecular
+descriptor calculations and pharmacophore perception. Over the
+last five years, the code based has grown significantly resulting in
+many, complex interdependencies between components and poor
+performance of many algorithms. 
 \parttitle{Results}
-We here report improvements to the CDK since the 1.2 release series made
-to accommodate both the increased complexity of the library, as well as
-significant improvements of and additions to the functionality of the
-library. Second, we outline how the CDK evolved with respect to
-quality control and the approach we have adopted to ensure stability, including
-a peer review mechanism.
-Additionally, a selection of the new APIs that have been introduced will
-be discussed: atom type perception, substructure searching, molecular
+We report improvements to the CDK since the 1.2 release series,
+specifically addressing the increase functional complexity and poor
+performance. We first summarize the addition of new, and
+improvements to existing functionality that has led to significant
+improvement in performance and support for important chemistry
+features including atom type perception, substructure searching, molecular
 fingerprints, rendering of molecules, and handling of molecular formulas.
+Second, we outline how the CDK has evolved with respect to
+quality control and the approaches we have adopted to ensure stability, including
+a code review mechanism.
 \parttitle{Conclusions}
-With this paper we have shown the continued effort to provide a free, Open Source
+This paper highlights the our continued efforts to provide a community
+driven, Open Source
 cheminformatics library, and show that such collaborative projects can exist over
-a long period and result in a high-quality and fast library. We have taken
-advantage from the community support, and show
-that an open source cheminformatics project can act as a peer reviewed
+extended periods of time, resulting in a high-quality and performant
+library. By taking 
+advantage of community support and contributions, we show 
+that an Open Source cheminformatics project can act as a peer reviewed
 publishing platform for scientific computing software.
 \end{abstract}
 
@@ -1048,7 +1054,7 @@ Java runtime version 1.7.0\_101.
     \begin{minipage}{1\textwidth}
     \centering
     \begin{tabular}{llllllll}
-	\multirow{2}{*}{ Input } & \multirow{2}{*}{ Mass tolerance ($\pm$ Da) } & \multicolumn{3}{c}{ \# of generated formulas } & \multicolumn{3}{c}{ Runtime (s) } \\
+	\multirow{2}{1in}{ Input } & \multirow{2}{1in}{ Mass tolerance ($\pm$ Da) } & \multicolumn{3}{c}{ \# of generated formulas } & \multicolumn{3}{c}{ Runtime (s) } \\
 	& & HR2 & PFG & CDK & HR2 & PFG & CDK \\
 	$10\,000$ small masses & $0.001$ & $616\,846$ & $616\,846$ & $616\,843$ & $669$ & $168$ & $\mathbf{41}$ \\
 	$10\,000$ small masses & $0.01$ & $6\,163\,303$ & $6\,163\,302$ & $6\,163\,326$ & $689$ & $501$ & $\mathbf{212}$ \\
