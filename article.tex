@@ -403,7 +403,7 @@ types = matcher.findMatchingAtomTypes(molecule);
 
 
   Along with the new stereochemistry representation, algorithms were required in several areas. Generally
-  a user does not need to invoked these procedures explicitly as they are called as needed within existing
+  a user does not need to invoke these procedures explicitly as they are called as needed within existing
   APIs:
 
   \begin{itemize}
@@ -468,7 +468,7 @@ String signature = new MoleculeSignature(molecule).toCanonicalString();
   A second new design goal was introduced to balance between size restrictions
   of some use cases, such as Java applets, and the rendering functionality. In
   particular, some functionality, even after Modularization, needed considerable
-  parts of the CDK library, making creation if a small-sized applet unfeasible.
+  parts of the CDK library, making creation of a small-sized applet unfeasible.
   Therefore, the rendering API was modularized to allow splitting up rendering
   functionality into modules, with varying CDK dependencies.
   
@@ -688,7 +688,7 @@ applications in high-resolution mass spectrometry.
   often are not well defined. Based on this information several different
   algorithmic definitions of aromaticity can be defined. Older CDK versions had
   various models implemented and the code was scattered throughout the library.
-  This was unified resulting in a three models, of which two are based on the
+  This was unified resulting in three models, of which two are based on the
   CDK atom typer, to provide the number of electrons donated by each atom to
   the delocalized $\pi$ system. The difference between these two models is
   how double bonds pointing outwards from a ring are contributing.
