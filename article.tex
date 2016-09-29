@@ -310,7 +310,7 @@ defining fingerprints for organic reactions~\cite{Segler2016}.
 
 While the CDK has purported to be a general purpose cheminformatics
 toolkit, older versions were designed by a community with specific
-applications, primary among them being structure elucidation. In
+applications in mind, primary among them being structure elucidation. In
 addition, an implicit goal of previous versions was to have the CDK
 serve as an educational resource to enable students of cheminformatics
 to understand the underlying algorithms. This resulted in certain
@@ -319,59 +319,83 @@ receiving more attention than others, such as stereochemistry. The
 outcome was significant variance in performance and features
 throughout the toolkit.
 
-Continued community development of the CDK in the last few years, however, has shown that
-Open Source software is here to stay. The adoption of automatic build systems and
-quality control methodologies such as unit testing, automated source code validation,
-and peer review by fellow developers have greatly improved the stability of the library,
-At the expense of slowing down the development, it has allowed for cleaning up interdependencies
-between modules of code, and has reset the scalability of the development model,
-allowing for a lot of new functionality in code APIs while maintaining the quality
-of code depending on those core APIs.
+The growth of Open Source software over the last 10 years [REF] is evidence
+of the ability of communities of developers to develop systems and
+processes that lead to high quality software systems for long term
+use. The CDK is no different. The adoption of automatic build systems
+and quality control methodologies such as unit testing, automated
+source code validation, and peer review by fellow developers have
+greatly improved the stability of the library, While it has slowed
+development somewhat, it has allowed for cleaning up interdependencies
+between modules of code, and importantly, has improved the scalability
+of the development model.  This has resulted in significant new
+functionality in core APIs while maintaining the quality of code
+depending on those core APIs.
 
-This has resulted in important improved functionality, such as a separately published
-InChI functionality~\cite{Spjuth2013} and greatly improved ring detection functionality~\cite{May2014},
-but also a core atom type perception module, covering a much wider set of elements than
-previous CDK versions and capturing many more charged and radical atom species,
-a more comprehensive fingerprinting API, many speed and stability improvements, and more.
+Examples of new features supported by the improved development model
+include InChI functionality~\cite{Spjuth2013}, greatly improved ring
+detection algorithms~\cite{May2014}, improvements to the core atom
+type perception module that now covers a much more comprehensive set
+of elements, charge states and radical species than previous versions,
+a more comprehensive fingerprinting API and many speed and stability
+improvements.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Results and Discussion %%
 %%
 \section*{Results and Discussion}
 
+In this section we described the specifics of new APIs and
+improvements to pre-existing methods that are available in the latest
+CDK.  We then discuss how we have improved and formalized the
+development model for the project using unit testing, code review and
+guidelines for handling version control. Finally we report on the
+availability of binary distributions of the library, allowing users to
+include specific modules (and their dependencies) of the CDK in their
+own projects (as opposed to developers who work on the CDK library
+itself).
+
 \subsection*{New APIs and improved implementations}
 
 We here outline various new and improved APIs in the CDK library since the two previous
-publications.
+publications (corresponding to version XXX)
 
   \subsubsection*{Atom Typing}
 
-  Atom type perception is a core cheminformations functionality: the atom types describe
-  chemical features of atoms, such as the number of neighbors, possible formal charges,
-  (approximate) hybridization, electron distribution over orbitals, etc. However, the
-  CDK commonly integrated atom type perception into algorithms, resulting in multiple
-  and diverging copies of similar atom type schemes. With the need to add many
-  new atom types for previously uncovered element, but also charged and radical atom
-  types, a new approach was needed.
+  Atom type perception is a core cheminformations functionality: the
+  atom types describe chemical features of atoms, such as the number
+  of neighbors, possible formal charges, (approximate) hybridization,
+  electron distribution over orbitals and so on. However, previous
+  versions of the CDK implemented atom type perception as part of
+  different algorithms, resulting in duplicated and sometimes
+  divergent typing schemes. As a result it was cumbersome to add new
+  atom types and implement support for new charged and radical species
+  in a consistent manner.
   
-  This CDK version has isolated a new atom typing framework, removing the perception of
-  atom types from various algorithms, allowing the perception to be tested separately.
-  The new code defines the atom types using a list that specifies for each type
-  the element symbol, hybridization, formal charge, number of lone pairs, and
-  an enumeration of the bond orders (see Figure~1). This list of properties captures the
-  information needed for the various algorithms in the CDK. For example,
-  hybridization information can be used in certain aromaticity models (see later),
-  and the lone pair information is needed for resonance structure calculation
-  needed, for example, for Gasteiger $\pi$-charges.
+  This CDK version has a new, centralized atom typing framework,
+  removing the perception of atom types from various algorithms. This
+  allows for a consistent and extensive typing scheme, that can be
+  also be tested independently of other code.  The new code defines
+  the atom types using a list that specifies for each type the element
+  symbol, hybridization, formal charge, number of lone pairs, and an
+  enumeration of the bond orders (see Figure~\ref{fig:atomtype}). This list of
+  properties captures the information needed for the various
+  algorithms in the CDK. For example, hybridization information can be
+  used in certain aromaticity models (see later), and the lone pair
+  information is needed for resonance structure calculation needed,
+  for example, for Gasteiger $\pi$-charges.
 
-  A reference perception class, CDKAtomTypeMatcher, has been written that perceives these atom types, and
-  validates the perception automatically against the properties defined by the ontology.
-  This class handles a variety in types of missing information, as commonly resulting
-  from various (file) formats; for example, it can handle undefined hydrogen counts
-  and undefined double bond positions if hybridization information is provided instead.
-  That makes the perception code flexible but also more complex. Alternative
-  algorithms to do the perception have not been explored. This reference
-  implementation can be used on a single atom:
+  A reference implementation, \texttt{CDKAtomTypeMatcher}, has been
+  written that perceives these atom types, and validates the
+  perception automatically against the properties defined by the
+  ontology.  This class handles a variety in types of missing
+  information, as commonly resulting from various (file) formats; for
+  example, it can handle undefined hydrogen counts and undefined
+  double bond positions if hybridization information is provided
+  instead.  That makes the perception code flexible but also more
+  complex. Alternative algorithms for atom typing have not been
+  explored. This reference implementation can be used on a single
+  atom:
 
 \begin{verbatim}
 for (IAtom atom : molecule.atoms()) {
@@ -395,11 +419,11 @@ types = matcher.findMatchingAtomTypes(molecule);
 
   The preferred representation of stereochemistry is now for it to be stored at the molecule
   level as a \texttt{\textbf{StereoElement}}. In abstract terms a stereo element describes local
-  geometry using a type, focus, carriers, and configuration (Figure~2\ref{fig:stereodatastructure}).
+  geometry using a type, focus, carriers, and configuration (Figure~\ref{fig:stereodatastructure}).
   Currently the most common types of stereochemistry are supported: Tetrahedral, Cis-trans isomerism 
   around a double bond, and Extended Tetrahedral. Rarer types of stereochemistry, such as: Square 
   Planar, Trigonal Bipyramidal, Octahedral, could easily be incorporated into the chosen description 
-  given sufficient demand from the community.
+   given sufficient demand from the community.
 
 
   Along with the new stereochemistry representation, algorithms were required in several areas. Generally
@@ -420,7 +444,7 @@ types = matcher.findMatchingAtomTypes(molecule);
   explicitly (e.g. SMILES, CML, InChI). Perception from 2D coordinates can optionally identify
   perspective projects, specifically: Fischer, Haworth, and Chair projections. With the perception of 
   perspective projections enabled, database entries currently consider distinct can be merged
-  (Figure~3\ref{fig:stereoprojections}). The perception is based on an algorithm briefly 
+  (Figure~\ref{fig:stereoprojections}).  The perception is based on an  algorithm briefly  
   described by~\cite{Karapetyan2015}.
 
   % ChEMBL 21 ~2281 structures (~11454 TH center) drawn in perspective
@@ -487,13 +511,14 @@ new DepictionGenerator()
 
   Many of the rendering options are available as parameters in the core API
   and as methods on the DepictionGenerator class. This includes substructure
-  coloring, exemplified with an example reaction shown in Figure~4\ref{fig:depiction}.
+  coloring, exemplified with an example reaction shown in Figure~\ref{fig:depiction}.
 
   \subsubsection*{Structure Diagram Layout}
 
   The structure diagram layout has been rewritten and the new code solves a
   number of long standing issues. Particularly, collision detection has been
-  greatly improved. Figure~5\ref{fig:sdg} shows a difference in output between
+  greatly improved. Figure~\ref{fig:sdg} shows a difference in output
+  between  
   the old code base, with and without overlap resolving, and with the new code.
   The new code can be used like:
 
@@ -740,7 +765,7 @@ supported CTfile formats is given in Table~2\ref{tab:ctfileFormats}.
 CTfile Sgroups capture and organise high level information about sets of atoms
 and bonds~\cite{Gushurst91}. There are four types of Sgroup: Display Shortcuts, Polymers,
 Mixtures, and Data. The most familiar Sgroups from an end user perspective are structure 
-repeat units (e.g. bracketing) and abbreviations (Figure~8\ref{fig:sgroups}).
+repeat units (e.g. bracketing) and abbreviations (Figure~\ref{fig:sgroups}).
 CDK~\cdkversion{} adds 
 supports for representation, reading, writing, and depiction of Sgroups.
 
@@ -840,7 +865,7 @@ third-party dependencies that are not needed.
 
 An overview of key modules with description, important changes, and dependencies
 on third-party libraries is given in Table~4\ref{tab:modules} and the dependencies
-between the CDK modules are depicted in Figure~6\ref{fig:deps}.
+between the CDK modules are depicted in Figure~\ref{fig:deps}.
 
   \subsubsection*{Documentation}
 
@@ -987,52 +1012,90 @@ carbon.}\label{fig:atomtype}
   </at:AtomType>
 \end{verbatim}
 
-\subsection*{Figure 2 - Relative storage of stereochemistry, the \textbf{type} and \textbf{focus} of stereochemsitry are fixed for a given stereocenter description but the \textbf{carriers} and \textbf{configuration} are relative.}\label{fig:stereodatastructure}
-The multiple rows for each stereochemistry type are different internal representation that would be considered equivalent. In the tetrahedral types, hydrogens may be suppressed in a molecular graph so the \textbf{focus} is reused in the \textbf{carriers} list as a placeholder.
 
+\begin{figure}[h!]
+  \caption{\csentence{Relative storage of stereochemistry, the \textbf{type} and
+    \textbf{focus} of stereochemsitry are fixed for a given
+    stereocenter description but the \textbf{carriers} and
+    \textbf{configuration} are relative.} 
+  The multiple rows for each
+  stereochemistry type are different internal representation that
+  would be considered equivalent. In the tetrahedral types,
+  hydrogens may be suppressed in a molecular graph so the
+  \textbf{focus} is reused in the \textbf{carriers} list as a
+  placeholder.}
+\centering
 \includegraphics{img/stereodesc_annotated.pdf}
+\label{fig:stereodatastructure}
+\end{figure}
 
-\subsection*{Figure 3 - The raw input files of CHEMBL23970 and CHEMBL444314 are displayed (ChEMBL 21).}\label{fig:stereoprojections}
-Without perceiving the stereochemistry indicated by Haworth projection in CHEMBL23970, the database entries are incorrectly considered distinct. Down stream aggregation databases mirror this separation (PubChem CID 5280, CID 65119).
 
-\includegraphics{img/projections_annotated.pdf}
 
-\subsection*{Figure 4 - Integrated example showing the rendering and SMILES
-parsing functionality. Example from U.S. Patent \textbf{US 2014 231770 A1} para 287.}\label{fig:depiction}
 
-%% SMILES=[CH3:17][CH:16]([CH3:18])[CH2:15][Mg+].[cH:7]1[cH:6][cH:5][c:4]2[c:9]([cH:8]1)[cH:10][cH:11][c:2]3[c:3]2[n:12][cH:13][n:14][c:1]3Cl.[Br-]>C/C(=C/C(=O)C)/[O-].C/C(=C/C(=O)C)/[O-].C/C(=C/C(=O)C)/[O-].[Fe+3].CN1CCCC1=O.C1CCOC1.Cl>[CH3:17][CH:16]([CH3:18])[CH2:15][c:1]1[c:2]2[cH:11][cH:10][c:9]3[cH:8][cH:7][cH:6][cH:5][c:4]3[c:3]2[n:12][cH:13][n:14]1 |f:0.2,3.4.5.6,SgD::cdk&#58;ReactionConditions:16 h&#44; RT|
-%% Kumada Coupling?
+\begin{figure}[h!]
+  \caption{\csentence{The raw input files of CHEMBL23970 and CHEMBL444314 are displayed (ChEMBL 21).}
+    Without perceiving the stereochemistry indicated by Haworth
+    projection in CHEMBL23970, the database entries are incorrectly
+    considered distinct. Down stream aggregation databases mirror this
+    separation (PubChem CID 5280, CID 65119).}
+    \centering
+    \includegraphics{img/projections_annotated.pdf}
+    \label{fig:stereoprojections}
+\end{figure}
 
-\includegraphics[width=\textwidth]{img/US20140231770A1_0287.pdf}
+\begin{figure}[h!]
+  \caption{\csentence{Integrated example showing the rendering and SMILES
+      parsing functionality. Example from U.S. Patent \textbf{US 2014 231770 A1} para 287.}}
+  \centering
+  \includegraphics[width=\textwidth]{img/US20140231770A1_0287.pdf}
+  \label{fig:depiction}
+\end{figure}
 
-\subsection*{Figure 5 - The improved structure diagram generation has improved
-code to solve overlap.}\label{fig:sdg}
-The original SDG code used general heuristics (left) and the
-OverlapResolver would fine tune the layout to ensure atoms would not be placed
-at the same location (middle). The new SDG algorithm is able to
-make more rigorous changes, making the final output must more pleasing
-(right).
+\begin{figure}[h!]
+  \caption{\csentence{{The improved structure diagram generation has improved
+        code to solve overlap.}}
+    The original SDG code used general heuristics (left) and the
+    OverlapResolver would fine tune the layout to ensure atoms would not be placed
+    at the same location (middle). The new SDG algorithm is able to
+    make more rigorous changes, making the final output must more pleasing
+    (right).}
+    \includegraphics[width=\textwidth]{sdg.png}
+    \label{fig:sdg}
+\end{figure}
 
-\includegraphics[width=\textwidth]{sdg.png}
+\begin{figure}[h!]
+  \caption{\csentence{Structure diagram generation for structures with
+      double bond and tetrahedral stereochemistry.}}
+  \centering
+  \includegraphics[width=0.3\textwidth]{sdg2.png}
+  \label{fig:sdgstereo}
+\end{figure}
 
-\subsection*{Figure 6 - Structure diagram generation for structures with
-double bond and tetrahedral stereochemistry.}\label{fig:sdgstereo}
 
-\includegraphics[width=0.3\textwidth]{sdg2.png}
+\begin{figure}[h!]
+  \caption{\csentence{Dependencies between CDK modules.}
+    Visualization of the dependencies between CDK modules. For example,
+    the cdk-core depends on the cdk-interfaces module. A few higher level
+    modules have been left out: cdk-builder3dtools, cdk-legacy, and
+    cdk-depict.}
+  \centering
+  \includegraphics[width=\textwidth]{cdkDeps.png}
+  \label{fig:deps}
+\end{figure}
 
-  \subsection*{Figure 7 - Dependencies between CDK modules.}\label{fig:deps}
-      Visualization of the dependencies between CDK modules. For example,
-      the cdk-core depends on the cdk-interfaces module. A few higher level
-      modules have been left out: cdk-builder3dtools, cdk-legacy, and
-      cdk-depict.
-
-\includegraphics[width=\textwidth]{cdkDeps.png}
-
-\subsection*{Figure 8 - Examples of Sgroups now captured by the CDK and encoded in molfiles and CXSMILES. a) Ethyl esterification fully expanded reaction. b) Using Sgroup abbreviations allows display short cuts and more compact depiction. c) An example of a structure repeat unit in \textit{DNA 5'-phosphate} (\textbf{CHEBI:4294})}
-\label{fig:sgroups}
+\begin{figure}[h!]
+  \caption{\csentence{Examples of Sgroups now captured by the CDK and
+      encoded in molfiles and CXSMILES. a) Ethyl esterification fully
+      expanded reaction. b) Using Sgroup abbreviations allows display
+      short cuts and more compact depiction. c) An example of a
+      structure repeat unit in \textit{DNA 5'-phosphate}
+      (\textbf{CHEBI:4294})}}
+  \includegraphics[width=\textwidth]{img/sgroups.pdf}
+  \label{fig:sgroups}
+\end{figure}
       
 
-\includegraphics[width=\textwidth]{img/sgroups.pdf}
+
 
 
 \newpage
@@ -1132,7 +1195,7 @@ Java runtime version 1.7.0\_101.
       \subsection*{Table 4 - A selection of key CDK modules with major changes.}\label{tab:modules}
   An overview of a selection of often used CDK modules with description,
   dependencies on third-party libraries, and the major changes since
-  version~1.2. Dependencies between modules are depicted in Figure~4\ref{fig:deps}.
+  version~1.2. Dependencies between modules are depicted in Figure~\ref{fig:deps}.
   \vskip 1\baselineskip
 
     \begin{minipage}{1\textwidth}
