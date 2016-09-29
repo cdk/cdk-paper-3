@@ -345,39 +345,57 @@ improvements.
 %%
 \section*{Results and Discussion}
 
+In this section we described the specifics of new APIs and
+improvements to pre-existing methods that are available in the latest
+CDK.  We then discuss how we have improved and formalized the
+development model for the project using unit testing, code review and
+guidelines for handling version control. Finally we report on the
+availability of binary distributions of the library, allowing users to
+include specific modules (and their dependencies) of the CDK in their
+own projects (as opposed to developers who work on the CDK library
+itself).
+
 \subsection*{New APIs and improved implementations}
 
 We here outline various new and improved APIs in the CDK library since the two previous
-publications.
+publications (corresponding to version XXX)
 
   \subsubsection*{Atom Typing}
 
-  Atom type perception is a core cheminformations functionality: the atom types describe
-  chemical features of atoms, such as the number of neighbors, possible formal charges,
-  (approximate) hybridization, electron distribution over orbitals, etc. However, the
-  CDK commonly integrated atom type perception into algorithms, resulting in multiple
-  and diverging copies of similar atom type schemes. With the need to add many
-  new atom types for previously uncovered element, but also charged and radical atom
-  types, a new approach was needed.
+  Atom type perception is a core cheminformations functionality: the
+  atom types describe chemical features of atoms, such as the number
+  of neighbors, possible formal charges, (approximate) hybridization,
+  electron distribution over orbitals and so on. However, previous
+  versions of the CDK implemented atom type perception as part of
+  different algorithms, resulting in duplicated and sometimes
+  divergent typing schemes. As a result it was cumbersome to add new
+  atom types and implement support for new charged and radical species
+  in a consistent manner.
   
-  This CDK version has isolated a new atom typing framework, removing the perception of
-  atom types from various algorithms, allowing the perception to be tested separately.
-  The new code defines the atom types using a list that specifies for each type
-  the element symbol, hybridization, formal charge, number of lone pairs, and
-  an enumeration of the bond orders (see Figure~1). This list of properties captures the
-  information needed for the various algorithms in the CDK. For example,
-  hybridization information can be used in certain aromaticity models (see later),
-  and the lone pair information is needed for resonance structure calculation
-  needed, for example, for Gasteiger $\pi$-charges.
+  This CDK version has a new, centralized atom typing framework,
+  removing the perception of atom types from various algorithms. This
+  allows for a consistent and extensive typing scheme, that can be
+  also be tested independently of other code.  The new code defines
+  the atom types using a list that specifies for each type the element
+  symbol, hybridization, formal charge, number of lone pairs, and an
+  enumeration of the bond orders (see Figure~\ref{fig:atomtype}). This list of
+  properties captures the information needed for the various
+  algorithms in the CDK. For example, hybridization information can be
+  used in certain aromaticity models (see later), and the lone pair
+  information is needed for resonance structure calculation needed,
+  for example, for Gasteiger $\pi$-charges.
 
-  A reference perception class, CDKAtomTypeMatcher, has been written that perceives these atom types, and
-  validates the perception automatically against the properties defined by the ontology.
-  This class handles a variety in types of missing information, as commonly resulting
-  from various (file) formats; for example, it can handle undefined hydrogen counts
-  and undefined double bond positions if hybridization information is provided instead.
-  That makes the perception code flexible but also more complex. Alternative
-  algorithms to do the perception have not been explored. This reference
-  implementation can be used on a single atom:
+  A reference implementation, \texttt{CDKAtomTypeMatcher}, has been
+  written that perceives these atom types, and validates the
+  perception automatically against the properties defined by the
+  ontology.  This class handles a variety in types of missing
+  information, as commonly resulting from various (file) formats; for
+  example, it can handle undefined hydrogen counts and undefined
+  double bond positions if hybridization information is provided
+  instead.  That makes the perception code flexible but also more
+  complex. Alternative algorithms for atom typing have not been
+  explored. This reference implementation can be used on a single
+  atom:
 
 \begin{verbatim}
 for (IAtom atom : molecule.atoms()) {
@@ -401,7 +419,7 @@ types = matcher.findMatchingAtomTypes(molecule);
 
   The preferred representation of stereochemistry is now for it to be stored at the molecule
   level as a \texttt{\textbf{StereoElement}}. In abstract terms a stereo element describes local
-  geometry using a type, focus, carriers, and configuration (Figure~2\ref{fig:stereodatastructure}).
+  geometry using a type, focus, carriers, and configuration (Figure~\ref{fig:stereodatastructure}).
   Currently the most common types of stereochemistry are supported: Tetrahedral, Cis-trans isomerism 
   around a double bond, and Extended Tetrahedral. Rarer types of stereochemistry, such as: Square 
   Planar, Trigonal Bipyramidal, Octahedral, could easily be incorporated into the chosen description 
