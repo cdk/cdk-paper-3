@@ -478,7 +478,7 @@ for (IAtom atom : molecule.atoms()) {
 String signature = new MoleculeSignature(molecule).toCanonicalString();
 \end{verbatim}
 
-  Finally, a signatures fingerprint can be calculated for molecules, to allow
+  Finally, a signature fingerprint can be calculated for molecules, to allow
   similarity calculations. This can then be used in QSAR modeling~\cite{signaturefingerprints,
   Spjuth2011DS,Moghadam2015,Alvarsson2014,Spjuth2012OS,Norinder2013,Alvarsson2016}.
 
@@ -491,7 +491,7 @@ String signature = new MoleculeSignature(molecule).toCanonicalString();
   
   A second new design goal was introduced to balance between size restrictions
   of some use cases, such as Java applets, and the rendering functionality. In
-  particular, some functionality, even after Modularization, needed considerable
+  particular, some functionality, even after modularization, needed considerable
   parts of the CDK library, making creation of a small-sized applet unfeasible.
   Therefore, the rendering API was modularized to allow splitting up rendering
   functionality into modules, with varying CDK dependencies.
@@ -536,7 +536,7 @@ and handles stereochemistry of the input. Previously, double bond stereochemistr
 was supported, but the new engine more efficiently uses this when creating 2D
 layouts. Furthermore, the engine assigns wedge bond information based on
 tetrahedral stereochemistry. These features are exemplified by the following
-code and the resulting layout depiction in Figure~6\ref{fig:sdgstereo}.
+code and the resulting layout depiction in Figure~\ref{fig:sdgstereo}.
 
 \begin{verbatim}
 someMolecule = parser.parseSmiles("OC/C(C)=C/[C@](F)(Cl)Br");
@@ -996,8 +996,9 @@ found in the AUTHORS file~\cite{AUTHORS}. OS acknowledges support from the Swedi
 
 \section*{Figures}
 
-\subsection*{Figure 1 - Atom type information specified for a sp3-hybridized
-carbon.}\label{fig:atomtype}
+\begin{figure}[h!]
+\caption{\csentence{Atom type information specified for a sp3-hybridized
+carbon.}}
 \begin{verbatim}
   <at:AtomType rdf:ID="C.sp3">
     <at:categorizedAs rdf:resource="&cdkat;C.tetrahedral"/>
@@ -1011,6 +1012,8 @@ carbon.}\label{fig:atomtype}
     <at:formalBondType rdf:resource="&bo;single"/>
   </at:AtomType>
 \end{verbatim}
+  \label{fig:atomtype}
+\end{figure}
 
 
 \begin{figure}[h!]
