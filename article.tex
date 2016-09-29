@@ -1115,12 +1115,12 @@ carbon.}}
   \label{tab:formula_generators}
   The resulting formula counts and runtimes of the HR2, PFG, and CDK chemical
 formula generators on two different inputs with two different mass tolerance
-settings. For the set of small masses, $10\,000$ mass values in the range of
-$0$--$500$ Da were randomly selected from the Global Natural Products Social
-Molecular Networking database~\cite{wang2016}. For the set of large masses, $20$
-mass values in the range of $1\,500$--$3\,500$ Da were randomly selected from the same
+settings. For the set of small masses, 10,000 mass values in the range of
+0--500 Da were randomly selected from the Global Natural Products Social
+Molecular Networking database~\cite{wang2016}. For the set of large masses, 20
+mass values in the range of 1,500--3,500 Da were randomly selected from the same
 database. Formulas were generated using chemical elements C,H,N,O,P,S without
-bounds (the allowed atom count was set to $0$--$10\,000$ for each element). All
+bounds (the allowed atom count was set to 0--10,000 for each element). All
 heuristic filtering rules were disabled for the purpose of the evaluation. The
 slight differences in the number of generated formulas were caused by different
 isotope masses embedded in each software and/or by rounding errors during
@@ -1135,10 +1135,10 @@ Java runtime version 1.7.0\_101.
     \begin{tabular}{llllllll}
 	\multirow{2}{1in}{ Input } & \multirow{2}{1in}{ Mass tolerance ($\pm$ Da) } & \multicolumn{3}{c}{ \# of generated formulas } & \multicolumn{3}{c}{ Runtime (s) } \\
 	& & HR2 & PFG & CDK & HR2 & PFG & CDK \\
-	$10\,000$ small masses & $0.001$ & $616\,846$ & $616\,846$ & $616\,843$ & $669$ & $168$ & $\mathbf{41}$ \\
-	$10\,000$ small masses & $0.01$ & $6\,163\,303$ & $6\,163\,302$ & $6\,163\,326$ & $689$ & $501$ & $\mathbf{212}$ \\
-	$20$ large masses & $0.001$ & $4\,912\,939$ & $4\,912\,939$ & $4\,912\,904$ & $26\,370$ & $1\,292$ & $\mathbf{177}$ \\
-	$20$ large masses & $0.01$ & $49\,128\,811$ & $49\,128\,810$ & $49\,128\,815$ & $26\,587$ & $3\,406$ & $\mathbf{1\,580}$ \\
+	10,000 small masses & 0.001 & 616,846 & 616,846 & 616,843 & 669 & 168 & \textbf{41} \\
+	10,000 small masses & 0.01 & 6,163,303 & 6,163,302 & 6,163,326 & 689 & 501 & \textbf{212} \\
+	20 large masses & 0.001 & 4,912,939 & 4,912,939 & 4,912,904 & 26,370 & 1,292 & \textbf{177} \\
+	20 large masses & 0.01 & 49,128,811 & 49,128,810 & 49,128,815 & 26,587 & 3,406 & \textbf{1,580} \\
     \end{tabular}
     \end{minipage}
 
@@ -1234,12 +1234,12 @@ Java runtime version 1.7.0\_101.
   \vskip \baselineskip
 
 \begin{tabular}{lll}
-Toolkit                   & Time   & Matched \\
+Toolkit                   & Time (s)   & Matched \\
 \hline
-CDK 1.4.9                 & 64m3s  & 69,782  \\
-CDK \cdkversion{}         & 1m7s   & 62,518  \\
-Open Babel 2.3.90         & 13m55s & 61,906  \\
-RDKit 2016.3.4            & 6m18s  & 62,402  \\
+CDK 1.4.9                 & 3,843  & 69,782  \\
+CDK \cdkversion{}         & 67   & 62,518  \\
+Open Babel 2.3.90         & 835 & 61,906  \\
+RDKit 2016.3.4            & 378  & 62,402  \\
 \end{tabular}
 
 
