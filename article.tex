@@ -13,7 +13,10 @@
 %\usepackage{cite}
 \usepackage{graphicx}
 \usepackage{multirow}
- 
+
+%% Comment out before submission 
+\usepackage[colorinlistoftodos,textsize=small]{todonotes}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 %%                                             %%
 %%  If you wish to display your graphics for   %%
@@ -509,18 +512,20 @@ new DepictionGenerator()
   .writeTo("BenzeneLocalized.png");
 \end{verbatim}
 
-  Many of the rendering options are available as parameters in the core API
-  and as methods on the DepictionGenerator class. This includes substructure
-  coloring, exemplified with an example reaction shown in Figure~\ref{fig:depiction}.
+  Many of the rendering options are available as parameters in the
+  core API and as methods on the DepictionGenerator class. This
+  includes substructure coloring, exemplified with an example reaction
+  shown in Figure~\ref{fig:depiction}.
 
   \subsubsection*{Structure Diagram Layout}
 
   The structure diagram layout has been rewritten and the new code solves a
-  number of long standing issues. Particularly, collision detection has been
+  number of long standing issues. In particular, collision detection has been
   greatly improved. Figure~\ref{fig:sdg} shows a difference in output
   between  
-  the old code base, with and without overlap resolving, and with the new code.
-  The new code can be used like:
+  the old code base, with and without overlap resolving, and with the
+  new code. The latest implementation simplifies the generation of 2D
+  coordinates as shown below:
 
 \begin{verbatim}
 StructureDiagramGenerator sdg = new StructureDiagramGenerator();
@@ -529,14 +534,17 @@ sdg.generateCoordinates();
 IAtomContainer layedOutMol = sdg.getMolecule();
 \end{verbatim}
 
-The API has hardly changed, but the internals have significantly. Besides
-the aforementioned overlap resolution, the engine also handles large ring
-systems much better,
-and handles stereochemistry of the input. Previously, double bond stereochemistry
-was supported, but the new engine more efficiently uses this when creating 2D
-layouts. Furthermore, the engine assigns wedge bond information based on
-tetrahedral stereochemistry. These features are exemplified by the following
-code and the resulting layout depiction in Figure~\ref{fig:sdgstereo}.
+  While the API itself has not been significantly changed, the
+  internals have been revamped. In addition to improved overlap
+  resolution noted above, the engine appropriately handles large ring
+  systems and maintains input stereochemistry. While previous CDK
+versions supported 
+  double bond stereochemistry the new engine is more efficient in
+  using this information when generate 2D layouts. Furthermore, the
+  engine assigns wedge bond information based on tetrahedral
+  stereochemistry. These features are exemplified by the following
+  code and the resulting layout depiction in
+  Figure~\ref{fig:sdgstereo}.
 
 \begin{verbatim}
 someMolecule = parser.parseSmiles("OC/C(C)=C/[C@](F)(Cl)Br");
@@ -547,15 +555,16 @@ IAtomContainer layedOutMol = sdg.getMolecule();
 
 % FIXME: complete code example
 
-  \subsubsection*{Molecular Formula}
+ \subsubsection*{Molecular Formula}
 
-  A chemical formula is the basic/simple chemical representation of a compound.
-It defines the number of isotopes or elements that constitute the composition
-of a compound without describing how atoms are bonded. With the rise of
-metabolomics it has become increasingly relevant to have full support for these
-in cheminformatics libraries~\cite{RojasCherto2011}.
+A chemical formula is the simplest chemical representation of a
+compound.  It defines the number of isotopes or elements that
+compose  a compound without describing how atoms
+are bonded. With the rise of metabolomics it has become increasingly
+relevant to have full support for these in cheminformatics
+libraries~\cite{RojasCherto2011}.
 
-  The CDK interfaces can handle several concepts related to chemical formulas:
+The CDK interfaces can handle several concepts related to chemical formulas:
 the formula itself, sets of formulas, chemical formula ranges, adducts, isotope
 containers and patterns, and rules to filter formula sets. These new tools can
 be used for a number of tasks, including calculating the isotopic pattern from
@@ -563,7 +572,7 @@ a given chemical formula, determining the possible elemental compositions for a
 given mass (mass decomposition), and calculating the exact mass from a given
 chemical formula.
 
-  The CDK contains two algorithms for the decomposition of mass ranges into
+The CDK contains two algorithms for the decomposition of mass ranges into
 possible elemental formulas. For most inputs, a Round Robin algorithm,
 originally developed for the SIRIUS metabolite identification
 tool~\cite{Bocker2009}, is used. The algorithm discretizes the real-value mass
@@ -578,7 +587,7 @@ is not suitable and CDK falls back to an optimized full enumeration search
 method, originally developed as part of the MZmine~2 framework for mass
 spectrometry data processing~\cite{Pluskal2012, Pluskal2010}.
 
-  The following code calculates all possible chemical formulas for a given
+The following code calculates all possible chemical formulas for a given
 accurate mass, within allowed counts for each element:
 
 \begin{verbatim}
@@ -611,7 +620,7 @@ C9H9O  133.065339908
 C8H7NO 133.052763844
 \end{verbatim}
 
-   To evaluate the performance of the CDK molecular formula generator, we
+ To evaluate the performance of the CDK molecular formula generator, we
 compared its runtimes to those of the classic, full enumeration-based HR2
 formula generator~\cite{Kind2007} and those of a recently developed Parallel
 Formula Generator (PFG)~\cite{Zhang2016} (Table~1\ref{tab:formula_generators}).
@@ -625,16 +634,16 @@ the Round Robin algorithm was particularly apparent when narrow mass ranges
 were queried (e.g., $\pm 0.001$ Da), thus showing its suitability for
 applications in high-resolution mass spectrometry.
 
-  \subsubsection*{SMILES parser and generator}
+\subsubsection*{SMILES parser and generator}
 
-  The SMILES parsing has been replaced code in the external Beam project~\cite{Beam}.
-  This BSD-licensed SMILES parser is a complete implementation of the SMILES
-  and OpenSMILES (\url{http://opensmiles.org/}) specifications by one of the
-  authors (including stereochemistry), and is independent of
-  the CDK library. The SmilesParser API uses this library underneath, and the
-  Beam API is hidden by this class. The most significant change here is that
-  the SMILES parser now automatically locates the positions of double bonds,
-  but this can be turned off:
+The SMILES parsing has been replaced by code from the external Beam project~\cite{Beam}.
+This BSD-licensed SMILES parser is a complete implementation of the SMILES
+and OpenSMILES (\url{http://opensmiles.org/}) specifications by one of the
+authors (including stereochemistry), and is independent of
+the CDK library. The SmilesParser API uses this library underneath, and the
+Beam API is hidden by this class. The most significant change here is that
+the SMILES parser now automatically locates the positions of double bonds,
+but this can be turned off:
 
 \begin{verbatim}
   SmilesParser parser = new SmilesParser(
@@ -644,11 +653,11 @@ applications in high-resolution mass spectrometry.
   mol = parser.parseSmiles(smi);
 \end{verbatim}
 
-  The SMILES generation API has also been simplified and made more flexible.
-  Creating unique SMILES or aromatic SMILES is now done by first creating a
-  SMILES generator instance which can make generic or unique SMILES, and with
-  or without simplifying aromatic rings using the lower case element symbols
-  for the organic subset. This generator can then be repeatedly called:
+The SMILES generation API has also been simplified and made more flexible.
+Creating unique SMILES or aromatic SMILES is now done by first creating a
+SMILES generator instance which can make generic or unique SMILES, and with
+or without simplifying aromatic rings using the lower case element symbols
+for the organic subset. This generator can then be repeatedly called:
 
 \begin{verbatim}
   uniqueGenerator = SmilesGenerator.unique()
@@ -657,9 +666,25 @@ applications in high-resolution mass spectrometry.
   smiles2 = atomaticGenerator.createSMILES(mol)
 \end{verbatim}
 
-  \subsubsection*{Substructure and SMARTS matching}
+\subsubsection*{Substructure and SMARTS matching}
 
-  Substructure matching is fundamental to many other procedures. Since CDK 1.2 functionality has been added to handle the SMARTS query language. The SMARTS language is supported well including: Stereochemistry, Component Grouping, Atom Maps (to match reaction transformations). A new \textit{Pattern} API has been added to CDK \cdkversion{}, the API simplifies finding, filtering, and transform results. The API is immutable allowing a pattern to be initialized once and then matched against several molecules or reactions across multiple threads, during initialization the pattern is inspected as to determine what invariants will be needed (e.g. ring size) and only calculating what is needed. The internal matching algorithms provide a lazy iterator, the lazy evaluation means the next match is only calculated when it is needed. The API handles reactions in addition to molecules, both can be specified as either queries or targets.
+Substructure matching is fundamental cheminformatics operation and
+plays a key role in many other functions such as fingerprint,
+descriptor generation and atom typing. Since CDK 1.2, functionality
+has been added to handle the SMARTS query language. The SMARTS
+language is supported well including advanced features such as
+stereochemistry, component grouping, and atom
+maps (to match reaction transformations). A new \textit{Pattern} API
+has been added to CDK \cdkversion{}, which simplifies finding,
+filtering, and transform results. The API is immutable allowing a
+pattern to be initialized once and then matched against several
+molecules or reactions across multiple threads. During initialization
+the pattern is inspected as to determine what invariants will be
+needed (e.g. ring size) and only calculating what is needed. The
+internal matching algorithms provide a lazy iterator, such that the
+next match is only computed when it is needed. The API handles
+reactions in addition to molecules, and both can be specified as
+either queries or targets.
 
   \begin{verbatim}
     // initialize SMARTS pattern API
@@ -681,22 +706,29 @@ applications in high-resolution mass spectrometry.
     }
   \end{verbatim}
 
-  CDK \cdkversion{} includes large improvements to algorithm efficiency, an isolated benchmark demonstrates relative improvements between recent CDK versions and to other open source toolkits (Table~5\ref{tab:smigrep}). The efficiency improvements are a combination of optimising data structures and key molecule processing algorithms (e.g. Kekulisation and Aromaticity) needed before a SMARTS match can be run.
+CDK \cdkversion{} includes large improvements to algorithm
+efficiency. A simple benchmark experiment demonstrates the relative
+improvements between recent CDK versions and other open source
+toolkits (Table~5\ref{tab:smigrep}). The efficiency improvements are a
+combination of optimising data structures and key molecule processing
+algorithms (e.g. kekulisation and aromaticity) needed before a SMARTS
+match can be run.
   
   % More on performance?
   % http://efficientbits.blogspot.co.uk/2013_10_01_archive.html
   % http://efficientbits.blogspot.co.uk/2013_11_01_archive.html
 
 
-  \subsubsection*{Ring finding}
+\subsubsection*{Ring finding}
 
-  Ring finding is a key functionality in a cheminformatics library, and the CDK
-  knows a long history of ring finding~\cite{May2014}. Particularly, non-redundant
-  ring sets have seen particular interest, such as the smallest set of smallest
-  rings, for which the CDK implements two classical algorithms~\cite{Figueras1996,Berger2004}.
-  Recent work by one the authors has implemented a new, faster algorithm, allowing
-  searching for various types of (non-redundant) ring sets~\cite{May2014}. These
-  are available via the new Cycles API:
+Ring finding is a key functionality in a cheminformatics library, and
+the CDK knows a long history of ring finding~\cite{May2014}. In
+particular, non-redundant ring sets have seen particular interest,
+such as the smallest set of smallest rings, for which the CDK
+implements two classical algorithms~\cite{Figueras1996,Berger2004}.
+Recent work has implemented a new, faster algorithm, allowing
+searching for various types of (non-redundant) ring
+sets~\cite{May2014}. These are available via the new Cycles API:
 
 \begin{verbatim}
   allCycles = Cycles.all(mol)
@@ -705,25 +737,28 @@ applications in high-resolution mass spectrometry.
   sssrCycles = Cycles.sssr(mol)
 \end{verbatim}
 
-  \subsubsection*{Aromaticity}
+\subsubsection*{Aromaticity}
 
-  Aromaticity has seen many definitions in the past and for cheminformatics it
-  frequently is algorithmically defined. The outcome of an aromaticity calculation
-  depends on a number of atom type features and heuristics, which in literature
-  often are not well defined. Based on this information several different
-  algorithmic definitions of aromaticity can be defined. Older CDK versions had
-  various models implemented and the code was scattered throughout the library.
-  This was unified resulting in three models, of which two are based on the
-  CDK atom typer, to provide the number of electrons donated by each atom to
-  the delocalized $\pi$ system. The difference between these two models is
-  how double bonds pointing outwards from a ring are contributing.
+Aromaticity has seen many definitions in the past and for
+cheminformatics it frequently is algorithmically defined. The outcome
+of an aromaticity calculation depends on a number of atom type
+features and heuristics, which are often ambiguously defined in the
+published literature. Based on this information several different
+algorithmic definitions of aromaticity can be defined. Older CDK
+versions had various models implemented and the code was scattered
+throughout the library, resulting in an inconsistent approach to
+calling methods to compute aromaticity and a significant maintenance
+burden.  This was unified in the current version, resulting in three
+models, of which two are based on the CDK atom typer. The difference
+between these two models is how contributions from exocyclic double
+bonds are handled.
 
-  The current CDK version further generalizes the idea that aromaticity is a
-  model, and provides an API that allows you to select out of various options
-  providing greater interoperability with other toolkits. The new
-  Aromaticity class allows to build a custom model by selecting and combining
-  options. For example, to reproduce the functionality of the previous
-  CDKAromaticity class:
+The current CDK version further generalizes the idea that aromaticity
+is a model, and provides an API that allows the user to select one of
+several aromaticity models, leading to greater interoperability with
+other toolkits. The new \texttt{Aromaticity} class allows to build a
+custom model by selecting and combining options. For example, to
+reproduce the functionality of the previous \texttt{CDKAromaticity} class:
 
 \begin{verbatim}
 Aromaticity aromaticity = new Aromaticity(
@@ -731,10 +766,12 @@ Aromaticity aromaticity = new Aromaticity(
 );
 \end{verbatim}
 
-Here, the CDK model for counting donated electrons is used, as the ring systems
-the CDK previously included in aromaticity counting, which was limited in the 
-number of fused rings systems. However, an alternative aromaticity calculator
-that does consider all possible ring systems can now be easily created with:
+Here, the CDK model for counting donated electrons is used, along with
+the rings systems that were identified by the older algorithm in
+previous versions that was limited in the number of fused rings
+systems that were considered. However, an alternative aromaticity
+calculator that considers all possible ring systems can now be
+easily created with:
 
 \begin{verbatim}
 Aromaticity aromaticity = new Aromaticity(
@@ -744,7 +781,7 @@ Aromaticity aromaticity = new Aromaticity(
 
 \subsubsection*{CTfile Format Improvements}
 
-The molfile format is still very popular, despite it being a proprietary
+The molfile format is still very popular and despite it being a proprietary
 format it has become a de facto standard. The format forms the core of the larger
 CTfile family which was originally developed by MDL Information Systems~\cite{Dalby92}. The
 current format specification is published by BIOVIA and available on 
@@ -772,58 +809,68 @@ supports for representation, reading, writing, and depiction of Sgroups.
 % note, I pie chart would be cool, showing the various relative amounts of the
 % various formats.
 
-  \subsubsection*{New Builders}
+\subsubsection*{New Builders}
 
 Originally, the CDK was developed as a shared library between
-JChemPaint~\cite{krause2000jchempaint} and Jmol~\cite{Willighagen2007jmol,Hanson2010}.
-JChemPaint used a MVC approach with an event-passing mechanism to update the view when the model was
-changed. This can cause an cascade of change events being passed around. To address,
-interfaces were introduced allowing multiple implementations of the core interfaces.
+JChemPaint~\cite{krause2000jchempaint} and
+Jmol~\cite{Willighagen2007jmol,Hanson2010}.  JChemPaint used a MVC
+approach with an event-passing mechanism to update the view when the
+model was changed. This can cause an cascade of change events being
+passed around. This was not always a desirable feature, especially for
+non-UI code. To address this, interfaces were introduced allowing
+multiple implementations of the core interfaces.
 % TODO: check if the interfaces have previously been defined
-The IChemObjectBuilders play an important role here, allowing implementations of the
-interfaces to be instantiated without the need of explicitly referencing those implementations.
+The \texttt{IChemObjectBuilders} play an important role here, allowing
+implementations of the interfaces to be instantiated without the need
+of explicitly referencing those implementations.\todo{The motivation
+  for IChemObjectBuilders is not well defined.}
 
-However, the CDK 1.0 and 1.2 implementations of the IChemObjectBuilder had one method for
-each constructor, resulting in very large interface. Moreover, the API changed whenever
+However, the CDK 1.0 and 1.2 implementations of the \texttt{IChemObjectBuilder} had one method for
+each constructor, resulting in a very large interface. Moreover, the API changed whenever
 a new class was introduced, and existing methods changed when constructors were updated.
-To simplify the API, the new IChemObjectBuilder collapsed all methods returning new
+To simplify the API, the new \texttt{IChemObjectBuilder} collapsed all methods returning new
 implementations into a single method, which takes as a first parameter the class of the
-interface that is wished to be constructed. All further parameters are passes as
-parameter to the class constructor.
+interface that is wished to be constructed. All further parameters are passed as
+parameters to the class constructor.
 
-For example, to construct a new atom from its element symbol, one would now write:
+For example, to construct a new atom from its element symbol, one
+would now write:\todo{might be good to display code using older version}
 
 \begin{verbatim}
 IChemObjectBuilder builder; // previously defined
 IAtom atom = builder.newInstance(IAtom.class, "C");
 \end{verbatim}
 
-Increasingly, the CDK library is now written against the interfaces, and when new instanced
-are needed, these builders are being used. This allows to run a certain CDK-based
-application with a specific builder, aimed at a particular use case. The original
-implementation is available via the DefaultChemObjectBuilder, which creates
-classes that pass around change events, just like the original CDK data classes.
-However, a SilentChemObjectBuilder has been introduced that does not pass around
-change events, which makes code run about 10-20\% faster.
-The third builder is the DataDebugChemObjectBuilder which generates debug information
-for all changes to the content of the data classes. This can be useful for
-debugging and other forms of code inspection.
+The CDK library is now written against the interfaces\todo{this may
+  not mean to a non-expert Java coder}, and when new instances are
+needed, these builders are used. This allows to run a certain
+CDK-based application with a specific builder, aimed at a particular
+use case. The original implementation is available via the
+\texttt{DefaultChemObjectBuilder}, which creates classes that pass
+around change events, as in the older CDK versions.  However, a
+\texttt{SilentChemObjectBuilder} is available, that does not support
+change events, resulting in speedups of 10\%-20\%.  The third builder
+is the \texttt{DataDebugChemObjectBuilder} which generates debug
+information for all changes to the content of the data classes. This
+can be useful for debugging and other forms of code inspection.
 
 \subsubsection*{Molecular fingerprints}
-Also the molecular fingerprints in CDK has seen development since the 1.2
-release. Traditionally CDK fingerprints were represented using the
-\textit{BitSet} class shipping with Java. The benefits of that class include
-such things as already implemented methods for modifying bit sets using other
-bit sets. However the class keeps a vector of bits in memory. The solution was
-excellent for hashed, relatively small fingerprints, \textit{e.g.}, 1024 bits,
-\textit{i.e.}, 10 bits indexing space. However implementing a fingerprint
-designed to avoid collisions with, \textit{e.g.} a 32 bit indexing space using
-this approach would be highly memory-inefficient. To allow for multiple
-fingerprint representation implementations a bit fingerprint interface was
-introduced. Also, although fingerprints traditionally are bit vectors a count
-fingerprint was also introduced making fingerprints based on integer vectors
-supported in CDK as well. The fingerprints currently existing in CDK are listed
-in Table~3\ref{tab:fingerprints}.
+Molecular fingerprints are another area that seen significant
+development. Traditionally fingerprints were represented using the
+\texttt{BitSet} class from the Java library. While using this class
+allowed the use of pre-existing methods to manipulate bit strings, it
+keeps a vector of bits in memory. The solution was excellent for
+hashed, relatively small fingerprints, \textit{e.g.}, 1024 bits,
+\textit{i.e.}, 10 bits indexing space. However implementing a
+fingerprint designed to avoid collisions with, \textit{e.g.} a 32 bit
+indexing space using this approach would be highly
+memory-inefficient. To allow for multiple fingerprint representation
+implementations a bit fingerprint interface was introduced\todo{is
+  there any more information about this?}. Also,
+although fingerprints traditionally are bit vectors a count
+fingerprint was also introduced making fingerprints based on integer
+vectors supported in CDK as well. The fingerprints currently existing
+in CDK are listed in Table~3\ref{tab:fingerprints}.
 
 %% \subsubsection*{Hash Codes}
 
@@ -831,25 +878,28 @@ in Table~3\ref{tab:fingerprints}.
 
 \subsection*{Improved Coding Standards}
 
-As the library grew over the years, so did the complexity of the maintenance:
-Increasingly frequent, the main branch failed to compile, and bug fixing become
-more difficult with unexpected side effects. Often fixing a bug in one part of
-the code, broke some other code which made the incorrect assumptions about the
-fixed code. Such is inevitable when the number of developers increases.
+As the library grew over the years, so did the complexity of the
+maintenance. The main branch frequently failed to compile and bug
+fixes became more onerous due to unexpected side effects.  Often
+fixing a bug in one part of the code, broke some other code which made
+the incorrect assumptions about the fixed code. With the increase in
+the CDK developer community, such issues were inevitable, in the
+absence of any formal coding and testing standards.
 
-To address these issues, we have adopted a number of coding standards. By no
-means these are meant to implement the best practices of source code development,
-which is not practically unfeasible with limited resources; instead, they attempt
-to find a balance between increasing code maintainability and being flexible
-enough to allow efficient code development. However, we appreciate the subjective 
-nature of this statement, and some adopted guidelines have been heavily discussed
-and debated in the CDK community.
+To address these issues, we have adopted a number of coding
+standards. While not a comprehensive implementation of software
+engineering best practices, they attempt to find a balance between
+increasing code maintainability and being flexible enough to allow
+efficient code development. However, we appreciate the subjective
+nature of this statement, and some adopted guidelines have been
+heavily discussed and debated in the CDK community.
 
-Arguably, perhaps the biggest factor in improved code quality is that we
-instantiated a peer review process where any functionality changing patch is
-required to be reviewed by one independent, senior CDK developer for the development
-branch, and two reviewers for stable branches. This patch development system
-is supported by a number of automated validations steps as outlined below.
+Arguably, perhaps the biggest factor in improved code quality is a
+peer review process where any functionality changing patch is required
+to be reviewed by one independent, senior CDK developer for the
+development branch, and two reviewers for stable branches. This patch
+development system is supported by a number of automated validations
+steps as outlined below.
 
 The next sections describe some approaches the project have adopted that allows
 us to maintain the CDK library as it is today. 
@@ -865,27 +915,28 @@ third-party dependencies that are not needed.
 
 An overview of key modules with description, important changes, and dependencies
 on third-party libraries is given in Table~4\ref{tab:modules} and the dependencies
-between the CDK modules are depicted in Figure~\ref{fig:deps}.
+between the CDK modules are depicted in
+Figure~\ref{fig:deps}.\todo{the dependency graph is not very legible}
 
-  \subsubsection*{Documentation}
+\subsubsection*{Documentation}
 
-  The quality of JavaDoc of the CDK was originally tested with DocCheck, and
-  later replaced by a custom written tool called OpenJavaDocCheck. With the move
-  to Maven (explained elsewhere) which does not have integration for this tool,
-  we adopted CheckStyle (\url{http://checkstyle.sourceforge.net/}). This tool
-  reports about missing documentation and on documentation which is not properly
-  annotated in the Java source files.
+The quality of the JavaDocs was originally tested with DocCheck, and
+later replaced by a custom written tool called OpenJavaDocCheck. With the move
+to Maven (explained elsewhere) which does not have integration for this tool,
+we adopted CheckStyle (\url{http://checkstyle.sourceforge.net/}). This tool
+reports on missing documentation and on documentation which is not properly
+annotated in the Java source files.
 
-  \subsubsection*{Testing}
+\subsubsection*{Testing}
 
-  Years of development of the CDK library has resulted in a large suite of
-  tests of various kinds. This include unit tests, which test core APIs, and
-  functional testing, which test higher level functionality of the CDK. The
-  latter include tests if algorithm implementations calculate the expected
-  values, but also contain integrated tests, which involve more than one
-  algorithms, such as SMILES parsing.
+Years of development of the CDK library has resulted in a large suite of
+tests of various kinds. This include unit tests, which test core APIs, and
+functional testing, which test higher level functionality of the CDK. The
+latter include tests if algorithm implementations calculate the expected
+values, but also contain integrated tests, which involve more than one
+algorithms, such as SMILES parsing.
 
-  \subsubsection*{Code Quality}
+\subsubsection*{Code Quality}
 
 The project continues to use PMD (\url{http://pmd.sf.net/}) for code quality checking,
 but deviates from the default rules. For example, we are more liberal with 
@@ -896,33 +947,35 @@ that the code uses IAtom instead of Atom. That said, these tests do generate a
 few false positives, as the tests check the class name only, and not the
 Java package the class is in.
 
-  \subsubsection*{Git, branching, and patches}
+\subsubsection*{Git, branching, and patches}
 
-Another change made over the past years is the move to a Git-based version
-control system. Advantages the projects makes advantage of is the distributed
-nature of Git repositories, and easier branching and making available of
-patches. GitHub (\url{https://github.com/cdk/cdk}) has replaced SourceForge
-as the main source code hosting service
-where we can use novel approaches for commenting on code (peer review),
-pull requests, etc.
-These new features simplify our code review process.
+Older versions of the CDK employed Subversion for version control. A
+few years back, the project switched to the Git version control
+system. A key advantage of this shift is the ability to have
+distributed repositories, easier branching and provision for
+patches. GitHub (\url{https://github.com/cdk/cdk}) has replaced
+SourceForge as the main source code hosting service where we can use
+novel approaches for commenting on code (peer review), pull requests,
+etc.  These new features simplify our code review process.
 
 \subsection*{Binary distributions}
 
 \subsubsection*{Maven packages}
 
-Another recent change is the choice of build system: we have moved away from
-Ant to Maven to deal with dependencies and compile and test the library.
-To keep the original idea of CDK modules, this move required to split up the
-source code in multiple source folders. Fortunately, modern integrated
-development environments have no trouble handling this, removing the original
-argument to have everything in one source folder.
+The build system has been converted from Ant to Maven. The shift was
+motivated by the easier dependency handling, cleaner separation of
+testing code from the main library and automated packaging. The move
+to modules necessitated splitting the original monolithic source code
+tree in to per-module source folders. While this makes the on-disk
+layout of the source code more complex, this is usually hidden by
+modern IDEs.
 
-On the other hand, for many modules, the test code is now more closely
-linked to the code being tested: both reside in the same folder, though we
-adhere to the Maven custom to have src/main/java and a src/test/java folders.
-For a few modules, however, this solution introduces circular dependencies, in
-which case a separate Maven module is created for the tests.
+As a result for many modules, the test code is now more closely linked
+to the code being tested: both reside in the same folder, though we
+adhere to the Maven custom to have \texttt{src/main/java} and a
+\texttt{src/test/java} folders.  For a few modules, however, this
+solution introduces circular dependencies, in which case a separate
+Maven module is created for the tests.
 
 The Maven packages for the CDK are available from Maven Central, which makes it
 easy for other projects to use. The full library can be included in other
@@ -938,14 +991,16 @@ OSGi bundles are available for the CDK too, which are used by e.g. Bioclipse~\ci
 %%%%%%%%%%%%%%%%%%%%%%
 \section*{Conclusions}
 
-Since the last CDK publication in 2006, the library has been improved in many
-aspects. The functionality has seen numerous additions and rewrites, making the
-library more functional and a lot faster than before. Updates on the common
-SMILES and molfile formats and the improved structure diagram generation are
-very visible and benefit many of the tools using the CDK.
-Furthermore, the stability of the development model has significantly improved,
-providing greater stability of the library over time. The project adopted peer
-review and quality control.
+Since the last CDK publication in 2006, the library has been improved
+in many aspects including architecture, new functionality and improved
+code testing, management and deployment. These changes have led a more
+functionally rich cheminformatics library, with significant
+performance improvements. Updates on the common SMILES and molfile
+formats and the improved structure diagram generation are very visible
+and benefit many of the tools using the CDK.  Furthermore, the
+stability of the development model has significantly improved,
+providing greater stability of the library over time. The project
+adopted peer review and quality control.
 
 With more than 90 contributors, a long list of tools based on the CDK, and
 hundreds of article citations, the CDK is alive and kicking.
