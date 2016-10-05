@@ -308,8 +308,9 @@ available. Examples include Bioclipse~\cite{spjuth2007bioclipse,
 spjuth2009bioclipse} and
 AMBIT~\cite{jeliazkova2011ambit,jeliazkova2011ambitsmarts,kochev2013ambit}. The
 CDK has also played a role in a number of chemical studies, such as finding
-the maximally bridging rings in chemical structures~\cite{Marth2015}, and
-prediction of organic reactions~\cite{Segler2016}.
+the maximally bridging rings in chemical structures~\cite{Marth2015},
+prediction of organic reactions~\cite{Segler2016}, and bioactivities
+of compounds~\cite{Alvarsson2016}.
 
 While the CDK has purported to be a general purpose cheminformatics
 toolkit, older versions were designed by a community with specific
@@ -419,10 +420,10 @@ types = matcher.findMatchingAtomTypes(molecule);
 
   \subsubsection*{Stereochemistry}
 
-  In previous versions of the API, stereochemistry was represented disparately hindering 
-  interconversion between and within file formats. In CDK \cdkversion{} the core representation 
-  has been standardized upon and procedures updated or added to enable duplicate checking,
-  pattern matching, and interconversion.
+  Previous versions of the API presented stereochemistry disparately hindering 
+  interconversion between and within file formats. CDK \cdkversion{} standardizes
+  upon a new core representation and procedures have been updated or added to
+  enable duplicate checking, pattern matching, and interconversion.
 
   The preferred representation of stereochemistry is now for it to be stored at the molecule
   level as a \texttt{\textbf{StereoElement}}. In abstract terms a stereo element describes local
@@ -439,11 +440,11 @@ types = matcher.findMatchingAtomTypes(molecule);
 
 \vspace{0.2cm}
   \begin{itemize}
-   \item perception from 2D coordinates;
-   \item perception from 3D coordinates;
-   \item wedge assignment;
-   \item graph (sub)isomorphism matching;
-   \item SMARTS matching; and
+   \item perception from 2D coordinates,
+   \item perception from 3D coordinates,
+   \item wedge assignment,
+   \item graph (sub)isomorphism matching,
+   \item SMARTS matching, and
    \item canonicalization.
   \end{itemize}
 \vspace{0.2cm}
@@ -466,7 +467,7 @@ types = matcher.findMatchingAtomTypes(molecule);
   absolute label which can then be integrated into the ordering. More detailed descriptions of 
   these algorithms are described in detail in Chapter~6 of~\cite{May2015}.
 
-  \subsubsection*{Signatures}
+  \subsubsection*{Atomic and Molecular Signatures}
 
   An implementation has been provided of the Signature structure descriptor for
   molecules~\cite{Faulon2003}. These act as a linear notation - like the SMILES format - 
@@ -492,8 +493,8 @@ String signature = new MoleculeSignature(molecule).toCanonicalString();
 \vspace{0.2cm}
 
   Finally, a signature fingerprint can be calculated for molecules, to allow
-  similarity calculations. This can then be used in QSAR modeling~\cite{signaturefingerprints,
-  Spjuth2011DS,Moghadam2015,Alvarsson2014,Spjuth2012OS,Norinder2013,Alvarsson2016}.
+  similarity calculations. This can then be used in QSAR modeling~\cite{Alvarsson2016,
+  signaturefingerprints,Spjuth2011DS,Moghadam2015,Alvarsson2014,Spjuth2012OS,Norinder2013}.
 
   \subsubsection*{Rendering API}
 
@@ -528,6 +529,8 @@ new DepictionGenerator()
   core API and as methods on the DepictionGenerator class. This
   includes substructure coloring, exemplified with an example reaction
   shown in Figure~\ref{fig:depiction}.
+  When missing, 2D coordinates are generated on the fly with the new structure
+  diagram layout functionality.
 
   \subsubsection*{Structure Diagram Layout}
 
