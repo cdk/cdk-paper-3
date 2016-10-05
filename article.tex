@@ -400,18 +400,22 @@ publications (corresponding to version XXX).                                    
   explored. This reference implementation can be used on a single
   atom:
 
+\vspace{0.2cm}
 \begin{verbatim}
 for (IAtom atom : molecule.atoms()) {
   type = matcher.findMatchingAtomType(molecule, atom);
 }
 \end{verbatim}
+\vspace{0.2cm}
 
 And on a full molecule, in which case the list of types is ordered in the same
 order as the atoms in the molecule object:
 
+\vspace{0.2cm}
 \begin{verbatim}
 types = matcher.findMatchingAtomTypes(molecule);
 \end{verbatim}
+\vspace{0.2cm}
 
   \subsubsection*{Stereochemistry}
 
@@ -433,6 +437,7 @@ types = matcher.findMatchingAtomTypes(molecule);
   a user does not need to invoke these procedures explicitly as they are called as needed within existing
   APIs:
 
+\vspace{0.2cm}
   \begin{itemize}
    \item perception from 2D coordinates;
    \item perception from 3D coordinates;
@@ -441,6 +446,7 @@ types = matcher.findMatchingAtomTypes(molecule);
    \item SMARTS matching; and
    \item canonicalization.
   \end{itemize}
+\vspace{0.2cm}
 
   The perception from coordinates and wedge assignment algorithms are fundamental for conversion
   between formats that store stereochemistry implicitly based on coordinates (e.g. molfile, CML) and 
@@ -469,17 +475,21 @@ types = matcher.findMatchingAtomTypes(molecule);
   representations~\cite{Faulon2004}. Signatures of depth two can be calculated
   for atoms with:
 
+\vspace{0.2cm}
 \begin{verbatim}
 for (IAtom atom : molecule.atoms()) {
   String signature = new AtomSignature(atom, 2, molecule).toCanonicalString();
 }
 \end{verbatim}
+\vspace{0.2cm}
 
   But they can also can be calculated for full molecules:
 
+\vspace{0.2cm}
 \begin{verbatim}
 String signature = new MoleculeSignature(molecule).toCanonicalString();
 \end{verbatim}
+\vspace{0.2cm}
 
   Finally, a signature fingerprint can be calculated for molecules, to allow
   similarity calculations. This can then be used in QSAR modeling~\cite{signaturefingerprints,
@@ -505,12 +515,14 @@ String signature = new MoleculeSignature(molecule).toCanonicalString();
   common rendering needs, with the DepictionGenerator class. To depict benzene
   the following code can be used:
 
+\vspace{0.2cm}
 \begin{verbatim}
 new DepictionGenerator()
   .withSize(300, 300)
   .depict(benzene)
   .writeTo("BenzeneLocalized.png");
 \end{verbatim}
+\vspace{0.2cm}
 
   Many of the rendering options are available as parameters in the
   core API and as methods on the DepictionGenerator class. This
@@ -527,12 +539,14 @@ new DepictionGenerator()
   new code. The latest implementation simplifies the generation of 2D
   coordinates as shown below:
 
+\vspace{0.2cm}
 \begin{verbatim}
 StructureDiagramGenerator sdg = new StructureDiagramGenerator();
 sdg.setMolecule(someMolecule);
 sdg.generateCoordinates();
 IAtomContainer layedOutMol = sdg.getMolecule();
 \end{verbatim}
+\vspace{0.2cm}
 
   While the API itself has not been significantly changed, the
   internals have been revamped. In addition to improved overlap
@@ -546,12 +560,14 @@ versions supported
   code and the resulting layout depiction in
   Figure~\ref{fig:sdgstereo}.
 
+\vspace{0.2cm}
 \begin{verbatim}
 someMolecule = parser.parseSmiles("OC/C(C)=C/[C@](F)(Cl)Br");
 sdg.setMolecule(someMolecule);
 sdg.generateCoordinates();
 IAtomContainer layedOutMol = sdg.getMolecule();
 \end{verbatim}
+\vspace{0.2cm}
 
 % FIXME: complete code example
 
@@ -590,6 +606,7 @@ spectrometry data processing~\cite{Pluskal2012, Pluskal2010}.
 The following code calculates all possible chemical formulas for a given
 accurate mass, within allowed counts for each element:
 
+\vspace{0.2cm}
 \begin{verbatim}
 Isotopes ifac = Isotopes.getInstance();
 MolecularFormulaRange range =
@@ -610,15 +627,18 @@ for (mf in mfSet) {
     MolecularFormulaManipulator.getTotalExactMass(mf)
 }
 \end{verbatim}
+\vspace{0.2cm}
 
 This gives the following output:
 
+\vspace{0.2cm}
 \begin{verbatim}
 C11H   133.007825032
 C9H11N 133.089149352
 C9H9O  133.065339908
 C8H7NO 133.052763844
 \end{verbatim}
+\vspace{0.2cm}
 
  To evaluate the performance of the CDK molecular formula generator, we
 compared its runtimes to those of the classic, full enumeration-based HR2
@@ -645,6 +665,7 @@ Beam API is hidden by this class. The most significant change here is that
 the SMILES parser now automatically locates the positions of double bonds,
 but this can be turned off:
 
+\vspace{0.2cm}
 \begin{verbatim}
   SmilesParser parser = new SmilesParser(
     SilentChemObjectBuilder.getInstance()
@@ -652,6 +673,7 @@ but this can be turned off:
   parser.kekulise(false);
   mol = parser.parseSmiles(smi);
 \end{verbatim}
+\vspace{0.2cm}
 
 The SMILES generation API has also been simplified and made more flexible.
 Creating unique SMILES or aromatic SMILES is now done by first creating a
@@ -659,12 +681,14 @@ SMILES generator instance which can make generic or unique SMILES, and with
 or without simplifying aromatic rings using the lower case element symbols
 for the organic subset. This generator can then be repeatedly called:
 
+\vspace{0.2cm}
 \begin{verbatim}
   uniqueGenerator = SmilesGenerator.unique()
   aromaticGenerator = SmilesGenerator.generic().aromatic()
   smiles = uniqueGenerator.createSMILES(mol)
   smiles2 = atomaticGenerator.createSMILES(mol)
 \end{verbatim}
+\vspace{0.2cm}
 
 \subsubsection*{Substructure and SMARTS matching}
 
@@ -686,6 +710,7 @@ next match is only computed when it is needed. The API handles
 reactions in addition to molecules, and both can be specified as
 either queries or targets.
 
+\vspace{0.2cm}
   \begin{verbatim}
     // initialize SMARTS pattern API
     Pattern pattern = 
@@ -705,6 +730,7 @@ either queries or targets.
        ...
     }
   \end{verbatim}
+\vspace{0.2cm}
 
 CDK \cdkversion{} includes large improvements to algorithm
 efficiency. A simple benchmark experiment demonstrates the relative
@@ -730,12 +756,14 @@ Recent work has implemented a new, faster algorithm, allowing
 searching for various types of (non-redundant) ring
 sets~\cite{May2014}. These are available via the new Cycles API:
 
+\vspace{0.2cm}
 \begin{verbatim}
   allCycles = Cycles.all(mol)
   relevantCycles = Cycles.relevant(mol)
   essentialCycles = Cycles.essential(mol)
   sssrCycles = Cycles.sssr(mol)
 \end{verbatim}
+\vspace{0.2cm}
 
 \subsubsection*{Aromaticity}
 
@@ -760,11 +788,13 @@ other toolkits. The new \texttt{Aromaticity} class allows to build a
 custom model by selecting and combining options. For example, to
 reproduce the functionality of the previous \texttt{CDKAromaticity} class:
 
+\vspace{0.2cm}
 \begin{verbatim}
 Aromaticity aromaticity = new Aromaticity(
   ElectronDonation.cdk(), Cycles.cdkAromaticSet()
 );
 \end{verbatim}
+\vspace{0.2cm}
 
 Here, the CDK model for counting donated electrons is used, along with
 the rings systems that were identified by the older algorithm in
@@ -773,11 +803,13 @@ systems that were considered. However, an alternative aromaticity
 calculator that considers all possible ring systems can now be
 easily created with:
 
+\vspace{0.2cm}
 \begin{verbatim}
 Aromaticity aromaticity = new Aromaticity(
   ElectronDonation.cdk(), Cycles.all()
 );
 \end{verbatim}
+\vspace{0.2cm}
 
 \subsubsection*{CTfile Format Improvements}
 
@@ -836,10 +868,12 @@ parameters to the class constructor.
 For example, to construct a new atom from its element symbol, one
 would now write:\todo{might be good to display code using older version}
 
+\vspace{0.2cm}
 \begin{verbatim}
 IChemObjectBuilder builder; // previously defined
 IAtom atom = builder.newInstance(IAtom.class, "C");
 \end{verbatim}
+\vspace{0.2cm}
 
 The CDK library is now written against the interfaces\todo{this may
   not mean to a non-expert Java coder}, and when new instances are
