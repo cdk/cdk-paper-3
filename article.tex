@@ -994,7 +994,7 @@ Figure~\ref{fig:deps}.
 
 The quality of the JavaDocs was originally tested with DocCheck, and
 later replaced by a custom written tool called OpenJavaDocCheck. With the move
-to Maven (explained elsewhere) which does not have integration for this tool,
+to Maven (explained later), which does not have integration for this tool,
 we adopted CheckStyle (\url{http://checkstyle.sourceforge.net/}). This tool
 reports on missing documentation and on documentation which is not properly
 annotated in the Java source files.
@@ -1006,7 +1006,8 @@ tests of various kinds. This include unit tests, which test core APIs, and
 functional testing, which test higher level functionality of the CDK. The
 latter include tests if algorithm implementations calculate the expected
 values, but also contain integrated tests, which involve more than one
-algorithms, such as SMILES parsing.
+algorithm, such as SMILES parsing. The suite consists of more than 23 thousand
+tests.
 
 \subsubsection*{Code Quality}
 
@@ -1014,8 +1015,8 @@ The project continues to use PMD (\url{http://pmd.sf.net/}) for code quality che
 but deviates from the default rules. For example, we are more liberal with 
 variable name length. Moreover, a number of additional PMD tests have been
 developed specifically for the CDK, that, for example, test if a class uses
-the core interfaces instead of implementations of those interfaces. For example,
-that the code uses IAtom instead of Atom. That said, these tests do generate a
+the core interfaces instead of implementations of those interfaces. That is,
+that the code uses \texttt{IAtom} instead of \texttt{Atom}. However, these tests do generate a
 few false positives, as the tests check the class name only, and not the
 Java package the class is in.
 
@@ -1028,7 +1029,7 @@ distributed repositories, easier branching and provision for
 patches. GitHub (\url{https://github.com/cdk/cdk}) has replaced
 SourceForge as the main source code hosting service where we can use
 novel approaches for commenting on code (peer review), pull requests,
-etc.  These new features simplify our code review process.
+etc. These new features simplify our code review process.
 
 \subsection*{Binary distributions}
 
@@ -1056,7 +1057,13 @@ but dependencies can also be defined on individual CDK modules.
 
 \subsubsection*{OSGi bundles}
 
-OSGi bundles are available for the CDK too, which are used by e.g. Bioclipse~\cite{spjuth2007bioclipse,spjuth2009bioclipse} and KNIME~\cite{Beisken2013}. Due to split packages between CDK modules, CDK is bundled as a single OSGi jar, which is available from \url{http://pele.farmbio.uu.se/bioclipse/cdk/cdk-1.5.13/}. This constitutes an area where improvements can be done on modularization.
+OSGi bundles are available for the CDK too, which are used by e.g.
+Bioclipse~\cite{spjuth2007bioclipse,spjuth2009bioclipse} and
+KNIME~\cite{Beisken2013}. However, because CDK Java packages are occassionally
+split between CDK modules, the CDK currently needs to be bundled as a single
+OSGi jar. The bundle is available from \url{http://pele.farmbio.uu.se/bioclipse/cdk/cdk-1.5.13/}.
+This Java package and bundle incompatibilities are currently being explored and
+constitutes an area where improvements can be done on modularization.
 
 
 
