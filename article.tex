@@ -692,14 +692,14 @@ for the organic subset. This generator can then be called repeatedly:
 \subsubsection*{Substructure and SMARTS matching}
 
 Substructure matching is fundamental cheminformatics operation and
-plays a key role in many other functions such as fingerprint,
-descriptor generation and atom typing. Since CDK 1.2, functionality
+plays a key role in many other functions such as fingerprint and
+descriptor generation, and atom typing. Since CDK 1.2, functionality
 has been added to handle the SMARTS query language. The SMARTS
 language is supported well including advanced features such as
 stereochemistry, component grouping, and atom
 maps (to match reaction transformations). A new \textit{Pattern} API
 has been added to CDK \cdkversion{}, which simplifies finding,
-filtering, and transform results. The API is immutable allowing a
+filtering, and transforming search results. The API is immutable allowing a
 pattern to be initialized once and then matched against several
 molecules or reactions across multiple threads. During initialization
 the pattern is inspected as to determine what invariants will be
@@ -746,9 +746,9 @@ match can be run.
 
 \subsubsection*{Ring finding}
 
-Ring finding is a key functionality in a cheminformatics library, and
-the CDK knows a long history of ring finding~\cite{May2014}. In
-particular, non-redundant ring sets have seen particular interest,
+Ring finding is another key functionality in a cheminformatics library, and
+the CDK knows a long history of ring finding~\cite{Berger2004,May2014}. Specifically,
+non-redundant ring sets have seen particular interest,
 such as the smallest set of smallest rings, for which the CDK
 implements two classical algorithms~\cite{Figueras1996,Berger2004}.
 Recent work has implemented a new, faster algorithm, allowing
