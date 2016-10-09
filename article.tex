@@ -770,12 +770,12 @@ Aromaticity has seen many definitions in the past and for
 cheminformatics it frequently is algorithmically defined. The outcome
 of an aromaticity calculation depends on a number of atom type
 features and heuristics, which are often ambiguously defined in the
-published literature. Based on this information several different
+published literature. Based on the information used, several different
 algorithmic definitions of aromaticity can be defined. Older CDK
-versions had various models implemented and the code was scattered
-throughout the library, resulting in an inconsistent approach to
-calling methods to compute aromaticity and a significant maintenance
-burden.  This was unified in the current version, resulting in three
+versions had various aromaticity models implemented but the code was scattered
+throughout the library, resulting in an inconsistent API
+to compute aromaticity and a significant maintenance
+burden.  The API was unified in the current version, resulting in three
 models, of which two are based on the CDK atom typer. The difference
 between these two models is how contributions from exocyclic double
 bonds are handled.
@@ -840,7 +840,7 @@ supports for representation, reading, writing, and depiction of Sgroups.
 % note, I pie chart would be cool, showing the various relative amounts of the
 % various formats.
 
-\subsubsection*{New Builders}
+\subsubsection*{New Object Builders}
 
 Originally, the CDK was developed as a shared library between
 JChemPaint~\cite{krause2000jchempaint} and
@@ -849,45 +849,62 @@ approach with an event-passing mechanism to update the view when the
 model was changed. This can cause an cascade of change events being
 passed around. This was not always a desirable feature, especially for
 non-UI code. To address this, interfaces were introduced allowing
-multiple implementations of the core interfaces.
-% TODO: check if the interfaces have previously been defined
-The \texttt{IChemObjectBuilders} play an important role here, allowing
+multiple implementations of the core interfaces. With much code of the CDK
+library no longer based on the original data model, a builder is needed to
+create objects of that data model, such as an implementation of the IAtom.
+The new \texttt{IChemObjectBuilders} allow implementations to be created, allowing
 implementations of the interfaces to be instantiated without the need
-of explicitly referencing those implementations.\todo{The motivation
-  for IChemObjectBuilders is not well defined.}
+of explicitly referencing those implementations. This way, any algorithm
+implementation in the CDK can use any of the data model interface
+implementations.
 
-However, the CDK 1.0 and 1.2 implementations of the \texttt{IChemObjectBuilder} had one method for
-each constructor, resulting in a very large interface. Moreover, the API changed whenever
-a new class was introduced, and existing methods changed when constructors were updated.
-To simplify the API, the new \texttt{IChemObjectBuilder} collapsed all methods returning new
-implementations into a single method, which takes as a first parameter the class of the
-interface that is wished to be constructed. All further parameters are passed as
+The CDK 1.0 and 1.2 implementations of the \texttt{IChemObjectBuilder} had,
+however, one method for each data object constructor, resulting in a very large
+interface. Moreover, this interface API had to be updated each time a new class
+was introduced, and when existing methods changed and constructors were updated.
+To simplify the API, the new \texttt{IChemObjectBuilder} collapses all methods
+into a single method, which takes as a first parameter the class of the
+interface that is to be constructed. All further parameters are passed as
 parameters to the class constructor.
 
 For example, to construct a new atom from its element symbol, one
-would now write:\todo{might be good to display code using older version}
+would write previously:
 
 \vspace{0.2cm}
 \begin{verbatim}
-IChemObjectBuilder builder; // previously defined
+IChemObjectBuilder builder = ...;
+IAtom atom = builder.newAtom("C");
+\end{verbatim}
+\vspace{0.2cm}
+
+With the new builder, the code looks like:
+
+\vspace{0.2cm}
+\begin{verbatim}
+IChemObjectBuilder builder = ...;
 IAtom atom = builder.newInstance(IAtom.class, "C");
 \end{verbatim}
 \vspace{0.2cm}
 
-The CDK library is now written against the interfaces\todo{this may
-  not mean to a non-expert Java coder}, and when new instances are
-needed, these builders are used. This allows to run a certain
-CDK-based application with a specific builder, aimed at a particular
-use case. The original implementation is available via the
-\texttt{DefaultChemObjectBuilder}, which creates classes that pass
-around change events, as in the older CDK versions.  However, a
-\texttt{SilentChemObjectBuilder} is available, that does not support
-change events, resulting in speedups of 10\%-20\%.  The third builder
+The CDK library is now mostly written that it no longer depends on a specific
+implementation of the \texttt{IChemObjectBuilder}, allowing the user of the
+CDK to select a builder suitable to their software. Therefore, if software
+depends on event passing, then the \texttt{DefaultChemObjectBuilder} can be
+used:
+
+\vspace{0.2cm}
+\begin{verbatim}
+IChemObjectBuilder builder = DefaultChemObjectBuilder.getInstance();
+\end{verbatim}
+\vspace{0.2cm}
+
+However, if events are not needed, a \texttt{SilentChemObjectBuilder} is
+available, resulting in a typical speedup of 10\%-20\%.  The third builder
 is the \texttt{DataDebugChemObjectBuilder} which generates debug
 information for all changes to the content of the data classes. This
 can be useful for debugging and other forms of code inspection.
 
-\subsubsection*{Molecular fingerprints}
+\subsubsection*{Molecular Fingerprints}
 Molecular fingerprints are another area that seen significant
 development. Traditionally fingerprints were represented using the
 \texttt{BitSet} class from the Java library. While using this class
