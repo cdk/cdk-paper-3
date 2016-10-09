@@ -931,7 +931,7 @@ vectors supported in CDK as well. This is useful for fingerprints that are based
 on substructures, such as the \texttt{SignatureFingerprinter} which uses the
 aforementioned atomic signatures. The counts in the fingerprint then represent
 how often this substructure is found in the molecule it represents. For
-example, for signature depth 1:
+example, for a signature of depth 1:
 
 \vspace{0.2cm}
 \begin{verbatim}
@@ -948,45 +948,47 @@ The fingerprints currently provided by the CDK are listed in Table~3\ref{tab:fin
 
 \subsection*{Improved Coding Standards}
 
-As the library grew over the years, so did the complexity of the
+As the CDK library grew over the years, so did the complexity of the
 maintenance. The main branch frequently failed to compile and bug
 fixes became more onerous due to unexpected side effects.  Often
 fixing a bug in one part of the code, broke some other code which made
-the incorrect assumptions about the fixed code. With the increase in
-the CDK developer community, such issues were inevitable, in the
+the incorrect assumptions about the fixed code. With the increased size of
+the CDK developer community, such issues were inevitable in the
 absence of any formal coding and testing standards.
 
 To address these issues, we have adopted a number of coding
 standards. While not a comprehensive implementation of software
 engineering best practices, they attempt to find a balance between
 increasing code maintainability and being flexible enough to allow
-efficient code development. However, we appreciate the subjective
+efficient code development. We appreciate the subjective
 nature of this statement, and some adopted guidelines have been
 heavily discussed and debated in the CDK community.
 
 Arguably, perhaps the biggest factor in improved code quality is a
 peer review process where any functionality changing patch is required
 to be reviewed by one independent, senior CDK developer for the
-development branch, and two reviewers for stable branches. This patch
+development branch, and by two reviewers for stable branches. This patch
 development system is supported by a number of automated validations
 steps as outlined below.
-
 The next sections describe some approaches the project have adopted that allows
 us to maintain the CDK library as it is today. 
 
 \subsubsection*{Modularization}
 
-One of the key approaches we have adopted, is to make the CDK more modular. The CDK assigns
+One of the central approaches we have adopted, is to make the CDK more modular. The CDK assigns
 every class to a module, and defines dependencies between modules. For example, core modules
-are not allowed to depend on a module holding data classes implementing the CDK interfaces;
-instead, they may only depend on the interfaces themselves. This, for example, is to ensure
-that dependencies are minimized and to make it easier to exclude CDK functionality with
-third-party dependencies that are not needed.
-
+are not allowed to depend on modules with data classes implementing the CDK interfaces;
+instead, they may only depend on the interfaces themselves. This ensures that
+dependencies are minimized. Furthermore, it also allows cherrypicking CDK
+functionality, reducing the number of third-party library dependencies that are
+needed.
 An overview of key modules with description, important changes, and dependencies
 on third-party libraries is given in Table~4\ref{tab:modules} and the dependencies
 between the CDK modules are depicted in
-Figure~\ref{fig:deps}.\todo{the dependency graph is not very legible}
+Figure~\ref{fig:deps}.
+
+% \todo{the dependency graph is not very legible}
+% EW: not sure how to solve that
 
 \subsubsection*{Documentation}
 
