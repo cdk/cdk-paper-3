@@ -1,5 +1,6 @@
 bmc_template/
 *.bak
+*.orig
 *article.aux
 *article.bbl
 *article.blg
