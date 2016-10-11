@@ -43,7 +43,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% RESEARCH PAPER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %\def \cdkversion {\textbf{2.0}}
-\def \cdkversion {2.0}
+\def \cdkversion {v2.0}
 
 \begin{document}
 
@@ -69,7 +69,7 @@
 \author[
    addressref={nm},
    email={john.may@cantab.net}
-]{\inits{JWM}\fnm{John W} \snm{May}}
+]{\inits{JWM}\fnm{John W} \snm{Mayfield}}
 \author[
    addressref={uppsala},
    email={jonathan.alvarsson@farmbio.uu.se}
@@ -233,7 +233,7 @@ last ten years, the code base has grown significantly resulting in
 many complex interdependencies among components and poor
 performance of many algorithms. 
 \parttitle{Results}
-We report improvements to the CDK since the 1.2 release series,
+We report improvements to the CDK \cdkversion{} since the v1.2 release series,
 specifically addressing the increased functional complexity and poor
 performance. We first summarize the addition of new, and
 improvements to existing functionality that has led to significant
@@ -419,8 +419,9 @@ types = matcher.findMatchingAtomTypes(molecule);
 
   \subsubsection*{Stereochemistry}
 
-  Previous versions of the API presented stereochemistry disparately hindering 
-  interconversion between and within file formats. CDK \cdkversion{} standardizes
+  Previous versions of the API represented stereochemistry in different ways, this hindered
+  interconversion between and within file 
+  .formats. CDK \cdkversion{} standardizes
   upon a new core representation and procedures have been updated or added to
   enable duplicate checking, pattern matching, and interconversion.
 
@@ -508,15 +509,23 @@ String signature = new MoleculeSignature(molecule).toCanonicalString();
   parts of the CDK library, making creation of a small-sized applet unfeasible.
   Therefore, the rendering API was modularized to allow splitting up rendering
   functionality into modules, with varying CDK dependencies.
-  
+
+  Rendering is split up into several generation steps, previous versions split
+  up bond from atom rendering, heteroatom symbols were simply drawn over lines
+  representing bonds using a white rectangle to mask. A new \texttt{StandardGenerator}
+  has been introduced that does bond and atom rendering at the same time, it incorporates
+  many ideas described by Alex Clark~\cite{Clark10,Clark13}. The depictions generated are of much
+  higher quality and suitable for publication.
+
   % DESCRIBE THE CORE APIs
   
-  Moreover, a simplified API has been introduced that addresses most of the
-  common rendering needs, with the DepictionGenerator class. To depict benzene
-  the following code can be used:
+  Moreover, a simplified high-level API has been introduced that addresses most of the
+  common rendering needs, with the DepictionGenerator class. To depict a molecule
+  loaded into a variable `benzene' the following code can be used:
 
 \vspace{0.2cm}
 \begin{verbatim}
+IAtomContainer benzene = ...;
 new DepictionGenerator()
   .withSize(300, 300)
   .depict(benzene)
@@ -533,27 +542,26 @@ new DepictionGenerator()
 
   \subsubsection*{Structure Diagram Layout}
 
-  The structure diagram layout has been rewritten and the new code solves a
-  number of long standing issues. In particular, collision detection has been
+  The structure diagram layout has been improved and the new code solves a
+  number of long standing issues. In particular, collision avoidance has been
   greatly improved. Figure~\ref{fig:sdg} shows a difference in output
-  between  
-  the old code base, with and without overlap resolving, and with the
-  new code. Generation of 2D coordinates is done as shown below:
+  between the old code base, with and without overlap resolving, and with the
+  new refinement based implementation\cite{Helson07}. Generation of 2D coordinates is done as shown below:
 
 \vspace{0.2cm}
 \begin{verbatim}
+IAtomContainer mol = ...;
 StructureDiagramGenerator sdg = new StructureDiagramGenerator();
-sdg.setMolecule(someMolecule);
-sdg.generateCoordinates();
-IAtomContainer layedOutMol = sdg.getMolecule();
+sdg.generateCoordinates(mol);
 \end{verbatim}
 \vspace{0.2cm}
 
   While the API itself has not been significantly changed, the
   internals have been revamped. In addition to improved overlap
   resolution noted above, the engine appropriately handles large ring
-  systems and maintains input stereochemistry. While previous CDK
-versions supported 
+  systems, maintains input stereochemistry, and makes use of a large
+  template library. Templates are useful for laying out substructure
+  While previous CDK versions partially supported 
   double bond stereochemistry the new engine is more efficient in
   using this information when generate 2D layouts. Furthermore, the
   engine assigns wedge bond information based on tetrahedral
@@ -563,10 +571,9 @@ versions supported
 
 \vspace{0.2cm}
 \begin{verbatim}
-someMolecule = parser.parseSmiles("OC/C(C)=C/[C@](F)(Cl)Br");
-sdg.setMolecule(someMolecule);
-sdg.generateCoordinates();
-IAtomContainer layedOutMol = sdg.getMolecule();
+String smi = "C[C@@H](\N=C(/S)\Nc1ccccn1)C2CCCCC2 CHEMBL305150";
+IAtomContainer mol = parser.parseSmiles(smi);
+sdg.generateCoordinates(mol);
 \end{verbatim}
 \vspace{0.2cm}
 
@@ -660,42 +667,60 @@ This BSD-licensed SMILES parser is a complete implementation of the SMILES
 and OpenSMILES (\url{http://opensmiles.org/}) specifications by one of the
 authors (including stereochemistry), and is independent of
 the CDK library. The SmilesParser API uses this library underneath, and the
-Beam API is hidden by this class. The most significant change here is that
-the SMILES parser now automatically locates the positions of double bonds,
-but this can be turned off:
+Beam API is hidden by this class. Basic usage is as follows:
 
 \vspace{0.2cm}
 \begin{verbatim}
-  SmilesParser parser = new SmilesParser(
-    SilentChemObjectBuilder.getInstance()
-  );
-  parser.kekulise(false);
-  mol = parser.parseSmiles(smi);
+  IChemObjectBuilder bldr 
+     = SilentChemObjectBuilder.getInstance()
+  SmilesParser       smipar = new SmilesParser(bldr);
+  IAtomContainer     mol    = smipar.parseSmiles('[nH]1cccc1');
 \end{verbatim}
 \vspace{0.2cm}
 
-The SMILES generation API has also been simplified and made more flexible.
-Creating unique SMILES or aromatic SMILES is now done by first creating a
-SMILES generator instance which can make generic or unique SMILES, and with
-or without simplifying aromatic rings using the lower case element symbols
-for the organic subset. This generator can then be called repeatedly:
+The most significant functional change here is that the SMILES parser automatically 
+locates the positions of double bonds in de-localised aromatic systems (Kekulisation).
+If this invariant can not be meet the SMILES is rejected as invalid. It is 
+possible to override this check but this is strongly discouraged as rejected
+molecules do not have a fixed formula or tautomer.
+
+The SMILES generation API has also been simplified and made more flexible able 
+to produce several different flavours. The \texttt{SmiFlavor} flags are used
+to control the type of SMILES generated. Historically the terms: generic, 
+isomeric, unique, absolute have been used in other toolkits and are also 
+supported.
 
 \vspace{0.2cm}
 \begin{verbatim}
-  uniqueGenerator = SmilesGenerator.unique()
-  aromaticGenerator = SmilesGenerator.generic().aromatic()
-  smiles = uniqueGenerator.createSMILES(mol)
-  smiles2 = atomaticGenerator.createSMILES(mol)
+  SmilesGenerator smigen = new SmilesGenerator(SmiFlavor.Canonical |
+                                               SmiFlavor.StereoTetrahedral)
 \end{verbatim}
+\vspace{0.2cm}
+
+Support for ChemAxon Extended SMILES (CXSMILES)\cite{CXSMILES} layers has been added
+to the CDK \cdkversion{}. CXSMILES provides a powerful means of including auxiliary 
+information in a SMILES string such as 2D/3D coordinates, atom values, generic labels, 
+repeat units, and positional variation. CXSMILES is achieving by placing additional
+information between pipe characters (`\texttt{|}') in the SMILES title field. Information
+is annotated based on the order of the atoms in the SMILES string. An example CXSMILES
+for a generic structure is shown below.
+
+\vspace{0.2cm}
+\small
+\begin{verbatim}
+c1(:*:c2c(:*:c1*)C(N(N2)*)=O)* |$;Y;;;X;;R10;;;;Z;;R11$| US 2007/0129374 (I)
+<- SMILES -------------------> <- CXSMILES ------------> <- Title --------->
+\end{verbatim}
+\normalsize
 \vspace{0.2cm}
 
 \subsubsection*{Substructure and SMARTS matching}
 
 Substructure matching is fundamental cheminformatics operation and
 plays a key role in many other functions such as fingerprint and
-descriptor generation, and atom typing. Since CDK 1.2, functionality
+descriptor generation, and atom typing. Since CDK v1.2, functionality
 has been added to handle the SMARTS query language. The SMARTS
-language is supported well including advanced features such as
+language is supported well including features such as
 stereochemistry, component grouping, and atom
 maps (to match reaction transformations). A new \textit{Pattern} API
 has been added to CDK \cdkversion{}, which simplifies finding,
@@ -703,7 +728,7 @@ filtering, and transforming search results. The API is immutable allowing a
 pattern to be initialized once and then matched against several
 molecules or reactions across multiple threads. During initialization
 the pattern is inspected as to determine what invariants will be
-needed (e.g. ring size) and only calculating what is needed. The
+needed (e.g. ring size) and only required invariants are calculated. The
 internal matching algorithms provide a lazy iterator, such that the
 next match is only computed when it is needed. The API handles
 reactions in addition to molecules, and both can be specified as
@@ -810,6 +835,21 @@ Aromaticity aromaticity = new Aromaticity(
 \end{verbatim}
 \vspace{0.2cm}
 
+For SMARTS matching and SMILES generation a model based
+on Daylight \cite{DaylightCIS} can be used and offers significant
+speed improvements to the one based on CDK Atom Types. 
+This model has recently been documented as part of the
+OpenSMILES specification (\url{http://opensmiles.org/}):
+
+\vspace{0.2cm}
+\begin{verbatim}
+Aromaticity aromaticity = new Aromaticity(
+  ElectronDonation.daylight(), Cycles.all()
+);
+\end{verbatim}
+\vspace{0.2cm}
+
+
 \subsubsection*{CTfile Format Improvements}
 
 The molfile format is still very popular and despite it being a proprietary
@@ -831,13 +871,12 @@ to simplify this and provide a unified reader. An overview of currently
 supported CTfile formats is given in Table~2\ref{tab:ctfileFormats}.
 
 CTfile Sgroups capture and organise high level information about sets of atoms
-and bonds~\cite{Gushurst91}. There are four types of Sgroup: Display Shortcuts, Polymers,
+and bonds~\cite{Gushurst91}. There are four types of Sgroup: Display Short-cuts, Polymers,
 Mixtures, and Data. The most familiar Sgroups from an end user perspective are structure 
 repeat units (e.g. bracketing) and abbreviations (Figure~\ref{fig:sgroups}).
-CDK~\cdkversion{} adds 
-supports for representation, reading, writing, and depiction of Sgroups.
+CDK~\cdkversion{} adds supports for representation, reading, writing, and depiction of Sgroups.
 
-% note, I pie chart would be cool, showing the various relative amounts of the
+% note, a pie chart would be cool, showing the various relative amounts of the
 % various formats.
 
 \subsubsection*{New Object Builders}
@@ -890,17 +929,16 @@ The CDK library is now mostly written that it no longer depends on a specific
 implementation of the \texttt{IChemObjectBuilder}, allowing the user of the
 CDK to select a builder suitable to their software. Therefore, if software
 depends on event passing, then the \texttt{DefaultChemObjectBuilder} can be
-used:
+used, in most cases this isn't needed and the \texttt{SilentChemObjectBuilder} 
+is preferred resulting in a typical speed up of 10\%-20\%:
 
 \vspace{0.2cm}
 \begin{verbatim}
-IChemObjectBuilder builder = DefaultChemObjectBuilder.getInstance();
+IChemObjectBuilder builder = SilentChemObjectBuilder.getInstance();
 \end{verbatim}
 \vspace{0.2cm}
 
-However, if events are not needed, a \texttt{SilentChemObjectBuilder} is
-available, resulting in a typical speedup of 10\%-20\%.  The third builder
-is the \texttt{DataDebugChemObjectBuilder} which generates debug
+The third builder is the \texttt{DataDebugChemObjectBuilder} which generates debug
 information for all changes to the content of the data classes. This
 can be useful for debugging and other forms of code inspection.
 
@@ -911,40 +949,33 @@ the Java library. While using this class
 allowed the use of pre-existing methods to manipulate bit strings, it
 keeps a vector of bits in memory. The solution was excellent for
 hashed, relatively small fingerprints, \textit{e.g.}, 1024 bits,
-\textit{i.e.} with a 10 bits indexing space. However, implementing a
-fingerprint designed to avoid collisions with, \textit{e.g.} a 32 bit
-indexing space using this approach would be highly
-memory-inefficient. To allow for multiple fingerprint representation
-implementations a bit fingerprint interface was introduced:
-\texttt{IBitFingerprint}.
+\textit{i.e.} with a $2^{10}$ indexing space (128 B). However, implementing a
+fingerprint designed to avoid collisions with a $2^{32}$ bit
+indexing space using this approach would be memory-inefficient (512 MiB).
+To allow for multiple fingerprint representations, a bit
+fingerprint interface was introduced: \texttt{IBitFingerprint}.
 
 \vspace{0.2cm}
 \begin{verbatim}
-IFingerprinter fingerprinter = new Fingerprinter();
-IBitFingerprint fingerprint = fingerprinter.getBitFingerprint(mol);
+IFingerprinter  ecfp = new CircularFingerprinter();
+IBitFingerprint fp   = ecfp.getBitFingerprint(mol);
 \end{verbatim}
 \vspace{0.2cm}
 
 Also, although fingerprints traditionally are bit vectors a count
 fingerprint was also introduced making fingerprints based on integer
-vectors supported in CDK as well. This is useful for fingerprints that are based
-on substructures, such as the \texttt{SignatureFingerprinter} which uses the
-aforementioned atomic signatures. The counts in the fingerprint then represent
-how often this substructure is found in the molecule it represents. For
-example, for a signature of depth 1:
+vectors supported in CDK as well. The counts in the fingerprint then 
+represent how often this substructure is found in the molecule it
+represents.
 
 \vspace{0.2cm}
 \begin{verbatim}
-SignatureFingerprinter fingerprinter = new SignatureFingerprinter(2);
-ICountFingerprint bitFP = fingerprinter.getCountFingerprint(mol);
+IFingerprinter    ecfp = new CircularFingerprinter(CLASS_ECFP4);
+ICountFingerprint fp   = ecfp.getCountFingerprint(mol);
 \end{verbatim}
 \vspace{0.2cm}
 
 The fingerprints currently provided by the CDK are listed in Table~3\ref{tab:fingerprints}.
-
-%% \subsubsection*{Hash Codes}
-
-%% JWM todo
 
 \subsection*{Improved Coding Standards}
 
@@ -1052,7 +1083,7 @@ Maven module is created for the tests.
 
 The Maven packages for the CDK are available from Maven Central, which makes it
 easy for other projects to use. The full library can be included in other
-software by depending on the cdk artifact (\url{http://mvnrepository.com/artifact/org.openscience.cdk/cdk})
+software by depending on the cdk artifact (\url{http://search.maven.org/#search|ga|1|org.openscience})
 but dependencies can also be defined on individual CDK modules.
 
 \subsubsection*{OSGi bundles}
@@ -1115,7 +1146,7 @@ content of this paper and approved the final version.
 \section*{Acknowledgments}
 The authors acknowledge the great number of people who have contributed smaller
 and larger contributions to the CDK library. A full list of contributors is
-found in the AUTHORS file~\cite{AUTHORS}. OS acknowledges support from the Swedish strategic research programs eSSENCE and Swedish e-Science Research Center (SeRC). TP is a Simons Foundation Fellow of the Helen Hay Whitney Foundation.
+found in the Maven parent POM~\cite{AUTHORS}. OS acknowledges support from the Swedish strategic research programs eSSENCE and Swedish e-Science Research Center (SeRC). TP is a Simons Foundation Fellow of the Helen Hay Whitney Foundation.
 We also thank K. Dührkop for his contributions during the writing of this paper.
 
 \bibliographystyle{bmc-mathphys}  % Style BST file
@@ -1202,7 +1233,7 @@ carbon.}}
   \caption{\csentence{Structure diagram generation for structures with
       double bond and tetrahedral stereochemistry.}}
   \centering
-  \includegraphics[width=0.3\textwidth]{sdg2.png}
+  \includegraphics[width=0.3\textwidth]{sdg2.pdf}
   \label{fig:sdgstereo}
 \end{figure}
 
@@ -1352,6 +1383,7 @@ Java runtime version 1.7.0\_101.
   sdg                        & Structure diagram generation.  & Much improved overlap resolution. & \\ \hline
   smiles                     & Reading and writing in the SMILES format. & SMILES support performance and coverage is greatly improved. & Beam 0.9.1~\cite{Beam} \\ \hline
   smarts                     & Substructure searching with the SMARTS format. & & Beam 0.9.1~\cite{Beam} \\ \hline
+  hash                       & Molecular hash codes~\cite{Ihlenfeldt94}. & & \\ \hline
   formula                    & Chemical formula support. & New. & \\ \hline
   fingerprint                & Calculate fingerprints. & Many new fingerprint types (see text). & Apache Commons Math 3.1.1 \\ \hline
   qsar and qsarmolecular                       & Molecular descriptors.  & & XOM 1.2.5, JAMA 1.0.3~\cite{Hicklin2012} \\ \hline
