@@ -420,8 +420,7 @@ types = matcher.findMatchingAtomTypes(molecule);
   \subsubsection*{Stereochemistry}
 
   Previous versions of the API represented stereochemistry in different ways, this hindered
-  interconversion between and within file 
-  .formats. CDK \cdkversion{} standardizes
+  interconversion between and within file formats CDK \cdkversion{} standardizes
   upon a new core representation and procedures have been updated or added to
   enable duplicate checking, pattern matching, and interconversion.
 
@@ -680,7 +679,7 @@ Beam API is hidden by this class. Basic usage is as follows:
 
 The most significant functional change here is that the SMILES parser automatically 
 locates the positions of double bonds in de-localised aromatic systems (Kekulisation).
-If this invariant can not be meet the SMILES is rejected as invalid. It is 
+If this invariant cannot be met the SMILES is rejected as invalid. It is 
 possible to override this check but this is strongly discouraged as rejected
 molecules do not have a fixed formula or tautomer.
 
@@ -698,7 +697,7 @@ supported.
 \vspace{0.2cm}
 
 Support for ChemAxon Extended SMILES (CXSMILES)\cite{CXSMILES} layers has been added
-to the CDK \cdkversion{}. CXSMILES provides a powerful means of including auxiliary 
+to CDK \cdkversion{}. CXSMILES provides a powerful means of including auxiliary 
 information in a SMILES string such as 2D/3D coordinates, atom values, generic labels, 
 repeat units, and positional variation. CXSMILES is achieving by placing additional
 information between pipe characters (`\texttt{|}') in the SMILES title field. Information
