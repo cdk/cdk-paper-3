@@ -898,7 +898,7 @@ of explicitly referencing those implementations. This way, any algorithm
 implementation in the CDK can use any of the data model interface
 implementations.
 
-The CDK 1.0 and 1.2 implementations of the \texttt{IChemObjectBuilder} had,
+The CDK v1.0 and v1.2 implementations of the \texttt{IChemObjectBuilder} had,
 however, one method for each data object constructor, resulting in a very large
 interface. Moreover, this interface API had to be updated each time a new class
 was introduced, and when existing methods changed and constructors were updated.
@@ -1339,20 +1339,20 @@ Java runtime version 1.7.0\_101.
                              & Bit version  & Count version & CDK version & Default Size    \\
   CircularFingerprinter~\cite{rogers2010extended, Clark2014}      & $\checkmark$ & $\checkmark$  & \cdkversion{}     & $1\,024$ / $2^{32}$%
 \footnote[1]{For the CircularFingerprinter the bit version is folded to 1024 whereas the count version is unfolded.} \\
-  EStateFingerprinter~\cite{Hall1995}       & $\checkmark$ &               & 1.2.0       & $79$            \\
-  ExtendedFingerprinter      & $\checkmark$ &               & 1.0         & $1\,024$        \\
-  Fingerprinter              & $\checkmark$ &               & 1.0         & $1\,024$        \\
-  GraphOnlyFingerprinter     & $\checkmark$ &               & 1.0         & $1\,024$        \\
-  HybridizationFingerprinter & $\checkmark$ &               & 1.4.0       & $1\,024$        \\
-  KlekotaRothFingerprinter~\cite{Klekota2008}   & $\checkmark$ &               & 1.4.6       & $4\,860$        \\
+  EStateFingerprinter~\cite{Hall1995}       & $\checkmark$ &               & v1.2.0       & $79$            \\
+  ExtendedFingerprinter      & $\checkmark$ &               & v1.0         & $1\,024$        \\
+  Fingerprinter              & $\checkmark$ &               & v1.0         & $1\,024$        \\
+  GraphOnlyFingerprinter     & $\checkmark$ &               & v1.0         & $1\,024$        \\
+  HybridizationFingerprinter & $\checkmark$ &               & v1.4.0       & $1\,024$        \\
+  KlekotaRothFingerprinter~\cite{Klekota2008}   & $\checkmark$ &               & v1.4.6       & $4\,860$        \\
   LingoFingerprinter~\cite{vidal2005lingo}         & $\checkmark$ &               & \cdkversion{}     & NA%
 \footnote[2]{The LingoFingerprinter does not have a default size.}
                                                                                              \\
-  MACCSFingerprinter         & $\checkmark$ &               & 1.2.0       & $166$           \\
-  PubchemFingerprinter~\cite{pubchemFP}       & $\checkmark$ &               & 1.4.0       & $881$            \\
+  MACCSFingerprinter         & $\checkmark$ &               & v1.2.0       & $166$           \\
+  PubchemFingerprinter~\cite{pubchemFP}       & $\checkmark$ &               & v1.4.0       & $881$            \\
   ShortestPathFingerprinter  & $\checkmark$ &               & \cdkversion{}     & $1\,024$        \\
   SignatureFingerprinter~\cite{signaturefingerprints}     & $\checkmark$ & $\checkmark$  & \cdkversion{}     & $2^{32}$         \\
-  SubstructureFingerprinter  & $\checkmark$ &               & 1.0         & $307$           \\
+  SubstructureFingerprinter  & $\checkmark$ &               & v1.0         & $307$           \\
 
     \end{tabular}
     \end{minipage}
