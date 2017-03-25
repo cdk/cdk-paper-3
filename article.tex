@@ -394,7 +394,7 @@ two previous publications in 2003 and 2006~\cite{Steinbeck2003,Steinbeck2006}.
   A reference implementation, \texttt{CDKAtomTypeMatcher}, has been
   written that perceives these atom types, and validates the
   perception automatically against the properties defined by the
-  ontology.  This class handles a variety in types of missing
+  ontology.  This class handles a variety of types of missing
   information, as commonly resulting from various (file) formats; for
   example, it can handle undefined hydrogen counts and undefined
   double bond positions if hybridization information is provided
@@ -454,7 +454,7 @@ types = matcher.findMatchingAtomTypes(molecule);
   The perception from coordinates and wedge assignment algorithms are fundamental for conversion
   between formats that store stereochemistry implicitly based on coordinates (e.g. molfile, CML) and 
   explicitly (e.g. SMILES, CML, InChI). Perception from 2D coordinates can optionally identify
-  perspective projects, specifically: Fischer, Haworth, and Chair projections. With the perception of 
+  perspective projections, specifically: Fischer, Haworth, and Chair projections. With the perception of 
   perspective projections enabled, database entries currently consider distinct can be merged
   (Figure~\ref{fig:stereoprojections}).  The perception is based on an  algorithm briefly  
   described by~\cite{Karapetyan2015}.
@@ -464,7 +464,7 @@ types = matcher.findMatchingAtomTypes(molecule);
   Graph matching of stereochemistry with the described representation is straight forward. Given
   the atom-atom mapping from a query structure to a target molecule, the focus and carriers of 
   the query stereochemistry are mapped to the target. Using the permutation parity of this mapping
-  the configurations compared. SMARTS matching requires some special handling for complex cases 
+  the configurations were compared. SMARTS matching requires some special handling for complex cases 
   \cite{May2014_SMARTS}. For canonicalization, a partial canonical ordering is used to assign an 
   absolute label which can then be integrated into the ordering. More detailed descriptions of 
   these algorithms are described in detail in Chapter~6 of~\cite{May2015}.
