@@ -411,8 +411,8 @@ types = matcher.findMatchingAtomTypes(molecule);
 
   \subsubsection*{Stereochemistry}
 
-  Previous versions of the API represented stereochemistry in different ways, this hindered
-  interconversion between and within file formats CDK \cdkversion{} standardizes
+  Previous versions of the API represented stereochemistry in different ways. This hindered
+  interconversion between and within file formats. CDK \cdkversion{} standardizes
   upon a new core representation and procedures have been updated or added to
   enable duplicate checking, pattern matching, and interconversion.
 
@@ -501,10 +501,10 @@ String signature = new MoleculeSignature(molecule).toCanonicalString();
   Therefore, the rendering API was modularized to allow splitting up rendering
   functionality into modules, with varying CDK dependencies.
 
-  Rendering is split up into several generation steps, previous versions split
-  up bond from atom rendering, heteroatom symbols were simply drawn over lines
+  Rendering is split up into several generation steps: previous versions split
+  up bond from atom rendering. Heteroatom symbols were simply drawn over lines
   representing bonds using a white rectangle to mask. A new \texttt{StandardGenerator}
-  has been introduced that does bond and atom rendering at the same time, it incorporates
+  has been introduced that does bond and atom rendering at the same time. It incorporates
   many ideas described by Alex Clark~\cite{Clark10,Clark13}. The depictions generated are of much
   higher quality and suitable for publication.
 
