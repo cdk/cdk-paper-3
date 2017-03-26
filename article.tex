@@ -1044,6 +1044,16 @@ that the code uses \texttt{IAtom} instead of \texttt{Atom}. However, these tests
 few false positives, as the tests check the class name only, and not the
 Java package the class is in.
 
+\subsubsection*{Continuous integration}
+
+The CDK has had an automated build system for many years now. Originally,
+Nightly integrated various tools (building, testing, JavaDoc, etc)~\cite{Guha2006}.
+After the move to Maven, running various steps could be done with Maven,
+and Jenkins was used to execute the steps (one instance is still running
+at \url{https://jenkins.bigcat.unimaas.nl/job/cdk/}. The online Travis-CI
+service is used to build all branches, including pull requests, to ensure
+everything properly compiles: \url{https://travis-ci.org/cdk/cdk}.
+
 \subsubsection*{Git, branching, and patches}
 
 Older versions of the CDK employed Subversion for version control. A
