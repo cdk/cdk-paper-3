@@ -995,6 +995,40 @@ steps as outlined below.
 The next sections describe some approaches the project have adopted that allows
 us to maintain the CDK library as it is today. 
 
+\subsubsection*{Stability and Version Identifier}
+
+Prior to CDK \cdkversion{}, the parity of the version identifier's second digit 
+indicated stability. Even numbers (v1.2.x, v1.4.x) indicating API stability and
+odd numbers (v1.3.x, v1.5.x) indicating potential API instability. Versions 
+v1.4.x and v1.5.x were developed in parallel, where possible patches were
+applied to both. As the APIs diverged the amount of effort to port patches
+from the development but more robust v1.5.x to v1.4.x 
+became unmanageable for the core development team. This even-odd version scheme
+was adopted from old Linux kernal versioning that was subsequently
+abandoned in 2004 for time-based releases~\cite{LinuxKernalVersionNumbering}.
+
+At the time of writing the development branch is more than 3000 commits ahead
+of v1.4.x. As the the v1.5.x API has become stable it became time to release 
+v1.6.x. Due to significant API changes in 2011\footnote{https://github.com/cdk/cdk/commit/2fc6b61972af834c1fea7fcb64287363ecbcb188}
+it was felt a larger digit increment was needed. This provided the 
+opportunity to change to a more manageable and intuitive version identifier.
+
+From CDK \cdkversion{} a new sequence based version scheme will be used. The
+version identifier indicates change significance as follows:
+
+\begin{verbatim}
+{MAJOR}.{MINOR}.{PATCH}
+
+MAJOR: API change/removed
+MINOR: New feature (API added)
+PATCH: Bug fix
+\end{verbatim}
+
+Due to limited developer resources we envision that releases will primarily 
+increment the minor version with the occasional patch release. As per Maven 
+convention, development versions are suffixed with \texttt{-SNAPSHOT}. 
+There are no API changes from v1.5.x and v2.0.
+
 \subsubsection*{Modularization}
 
 One of the central approaches we have adopted, is to make the CDK more modular. The CDK assigns
