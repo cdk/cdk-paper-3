@@ -1,0 +1,54 @@
+#!/bin/bash
+
+TIME="/usr/bin/time"
+CDK="./cdk"
+RESULT_DIR="./results"
+DATA_DIR="../data/"
+DATA_SET="chebi"
+BENCHMARKS=("countheavy"
+						"rings -mark"
+					  "rings -sssr"
+					  "rings -all"
+					  "cansmi"
+					  "convert -ofmt smi"
+					  "convert -ofmt sdf"
+					  "convert --gen2d -ofmt sdf"
+					  "fpgen -type=maccs"
+					  "fpgen -type=circ"
+					  "fpgen -type=path")
+UUID=1
+
+if [[ -e $RESULT_DIR ]]; then
+	echo "Moved result to backup"
+	rm -rf results_backup
+	mv $RESULT_DIR results_backup
+fi
+mkdir -p $RESULT_DIR
+
+for d in $DATA_SET; do
+    SMI_FILE="${DATA_DIR}$d*.smi"
+    SDF_FILE="${DATA_DIR}$d*.sdf"
+
+    if [ ! -e $SMI_FILE ]; then
+    	echo "No SMILES for ${d}";
+    fi
+    if [ ! -e $SDF_FILE ]; then
+    	echo "No SDfile for ${d}";
+    fi
+
+
+	for exec in "${BENCHMARKS[@]}"; do
+		echo "Running Benchmark '$exec'"
+    if [ -e $SMI_FILE ]; then
+	    $TIME $CDK ${exec} -ifmt=smi $SMI_FILE \
+	    		> $RESULT_DIR/${d}_smi_${UUID}.txt \
+	    		2> $RESULT_DIR/${d}_smi_${UUID}.err
+	  fi
+    if [ -e $SDF_FILE ]; then
+	    $TIME $CDK ${exec} -ifmt=sdf $SDF_FILE \
+	    		> $RESULT_DIR/${d}_sdf_${UUID}.txt \
+	    		2> $RESULT_DIR/${d}_sdf_${UUID}.err
+	  fi
+	  UUID=$((UUID+1))
+	done	
+done
