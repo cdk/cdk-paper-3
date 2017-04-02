@@ -5,14 +5,14 @@ task can be run with input from either an SDfile or SMILES.
 
 ## Prerequisites
 
- * CDK
- * ``mvn``
+ * ``java`` Java v1.7+
+ * ``mvn`` Maven build tool
  * ``curl`` to download data sets
  * ``perl`` (to extract ChEBI SMILES)
 
 ## The ``cdk`` Executable
 
-A ``cdk`` executable is included for both v1.4.19 and v2.0. To build the executable:
+A ``cdk`` executable is provided for both v1.4.19 and v2.0. To build the executable:
 
 ```
 $ cd cdk-2.0
@@ -29,24 +29,24 @@ $ ./cdk
 
 There are several tasks that can be run:
 
-	* ``./cdk countheavy`` counts heavy atoms in a record
-	* ``./cdk rings`` reports ring info, requires one of the following
-	  * ``.cdk rings --mark`` report number of ring bonds
-	  * ``.cdk rings --sssr`` report number of SSSR rings (circuit rank)
-	  * ``.cdk rings --all`` report number of rings (all) size ≤ 12
-	* ``./cdk cansmi`` create a unique SMILES
-	* ``./cdk fpgen`` generate fingerprints in [chemfp FPS1 format](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3606241/)
-		* ``./cdk fpgen -type=maccs`` generate CDK's MACCS 166 keys (MDL)
-		* ``./cdk fpgen -type=path`` generate path fingerprint (Daylight)
-		* ``./cdk fpgen -type=circ`` generate circular fingerprint (ECFP4)
-	* ``./cdk convert`` convert one format to another (or to it's self)
-	  * ``./cdk -ofmt=smi`` convert to non-canonical SMILES
-	  * ``./cdk -ofmt=sdf`` convert to SDfile
-	  * ``./cdk -gen2d -ofmt=sdf`` convert to SDfile and generate 2D coordinates
+- ``./cdk countheavy`` counts heavy atoms in a record
+- ``./cdk rings`` reports ring info, requires one of the following
+  - ``.cdk rings --mark`` report number of ring bonds
+  - ``.cdk rings --sssr`` report number of SSSR rings (circuit rank)
+  - ``.cdk rings --all`` report number of rings (all) size ≤ 12
+- ``./cdk cansmi`` create a unique SMILES
+- ``./cdk fpgen`` generate fingerprints in [chemfp FPS1 format](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3606241/)
+	- ``./cdk fpgen -type=maccs`` generate CDK's MACCS 166 keys (MDL)
+	- ``./cdk fpgen -type=path`` generate path fingerprint (Daylight)
+	- ``./cdk fpgen -type=circ`` generate circular fingerprint (ECFP4)
+- ``./cdk convert`` convert one format to another (or to it's self)
+  - ``./cdk -ofmt=smi`` convert to non-canonical SMILES
+  - ``./cdk -ofmt=sdf`` convert to SDfile
+  - ``./cdk -gen2d -ofmt=sdf`` convert to SDfile and generate 2D coordinates
 
 ### General Options
 
-The input format is detected from file extension, or if specified the ``-ifmt`` option overrides this. Processing STDIN requires the ``-ifmt`` is specified:
+The input format is detected from the file extension, or if specified the ``-ifmt`` option overrides this. Processing STDIN requires the ``-ifmt`` is specified:
 
 ```
 $ echo "CCO" | ./cdk cansmi -ifmt=smi
@@ -70,7 +70,7 @@ $ ./cdk countheavy ../data/chebi_149.sdf -title-tag='ChEBI ID' | head -n 5
 10 CHEBI:943
 ```
 
-The output location is specified by ``-o`` or ``--out``. Only the ``convert`` module uses the name of the output to determine the format. As with the ``-ifmt`` the ``-ofmt`` for this module overrides the output type.
+The output location is specified by ``-o`` or ``--out``. Only the ``convert`` module uses the name of the output to determine the format. As with the ``-ifmt`` option the ``-ofmt`` for this module overrides the output type.
 
 ```
 $ echo "CCO" | ./cdk convert -ifmt=smi -out=ethanol.sdf
@@ -88,7 +88,7 @@ $ ./cdk cansmi ../data/chembl_22_1.smi -o chembl_22_1.csmi -p
 
 The ``data/`` directory includes a make file to download and create SDF and SMI
 input for two data sets **ChEBI 149** and **ChEMBL 22.1**. In the directory
-a Makefile allows the inputs for the benchmark to build.
+a Makefile generates all input for the benchmark.
 
 ```
 $ cd data
@@ -105,7 +105,7 @@ $ make chembl_22_1.smi
 
 To run all the tasks in the benchmark the utility script ``run-benchmark`` is
 provided. You can modify the script to only test one (or a different) dataset.
-The script generate a ``results/`` directory that can be inspected
+The script generates a ``results/`` directory that can be inspected
 
 ```
 # ensure everything is built
