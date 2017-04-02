@@ -6,18 +6,19 @@ package org.openscience.cdk;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
 public class Main {
 
-  private static final Map<String, CliExecutable> map = new HashMap<>();
+  private static final Map<String, CliExecutable> map = new LinkedHashMap<>();
 
   static {
-    add(new Cansmi());
-    add(new FpGen());
     add(new HeavyAtomCount());
     add(new Rings());
+    add(new Cansmi());
+    add(new FpGen());
     add(new Convert());
   }
 
@@ -28,7 +29,7 @@ public class Main {
   public static void main(String[] args)
   {
     if (args.length == 0) {
-      System.err.println("Usage: java -jar cdk-1.4-demo.jar " + map.keySet() + " {input} -out {output}");
+      System.err.println("Usage: ./cdk " + map.keySet() + " {input} -out {output}");
       return;
     }
 
