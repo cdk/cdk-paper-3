@@ -55,6 +55,7 @@ public final class FpGen extends CliExecutable {
         break;
       default:
         System.err.println("FATAL - Unknown fp type: " + fpkey);
+        System.exit(1);
         return;
     }
 
