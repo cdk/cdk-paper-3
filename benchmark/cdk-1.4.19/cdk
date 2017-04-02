@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ -e /usr/libexec/java_home ]]; then
+	JAVA_HOME=$(/usr/libexec/java_home -v 1.7+)
+fi
+CLASSPATH=lib/cdk-1.4.19.jar:target/cdk-paper-bmark-1.4.jar
+${JAVA_HOME}/bin/java -cp ${CLASSPATH} org.openscience.cdk.Main "$@"
+
