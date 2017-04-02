@@ -1425,106 +1425,104 @@ Benchmark  & Data Set & Input Format & \multicolumn{2}{c}{CDK 1.4.19} & \multico
            &          &              & Skipped & Elapsed Time         & Skipped  & Elapsed Time \\
 \hline
 \multirow{4}{*}{countheavy} & \multirow{2}{*}{ChEBI 149}   & 
-    SMILES & 2112           & 37.14s  & 9    & 3.32s & x11.18 \\
+    SMILES & 2112           & 37.14s   & 9    & 3.32s & x11.18 \\
                             &                            & 
-    SDfile & 0              & 15.97s  & 25   & 10.45s & x1.52 \\
+    SDfile & 0              & 15.97s   & 25   & 10.45s & x1.52 \\
                             & \multirow{2}{*}{ChEMBL 22.1} & 
-    SMILES &                &         & 9    & 14.75s \\
+    SMILES & 0              & 9m8.75s  & 9    & 14.75s & x37.20 \\
                             &                              & 
-    SDfile &                &         & 0    & 1m12.08s \\
+    SDfile & 0              & 4m33.91s & 0    & 1m12.08s & x3.80 \\
 \hline
-\multirow{4}{*}{rings --mark} & \multirow{2}{*}{ChEBI 149}   & 
-    SMILES & 2112           & 37.53s  & 9    & 4.42s & x8.49 \\
+\multirow{4}{*}{rings -mark} & \multirow{2}{*}{ChEBI 149}   & 
+    SMILES & 2112           & 37.53s   & 9    & 4.42s & x8.49 \\
                             &                            & 
-    SDfile & 0              & 18.64s  & 25   & 12.26s & x1.52 \\
+    SDfile & 0              & 18.64s   & 25   & 12.26s & x1.52 \\
                             & \multirow{2}{*}{ChEMBL 22.1} & 
-    SMILES &                &         & 9    & 34.48s \\
+    SMILES & 0              & 9m11.54s    & 9    & 34.48s & x15.99 \\
                             &                              & 
-    SDfile &                &         & 0    & 1m24.59s \\
+    SDfile & 0              & 4m28.61s & 0    & 1m24.59s & x3.17 \\
 \hline
-\multirow{4}{*}{rings --sssr} & \multirow{2}{*}{ChEBI 149}   & 
-    SMILES & 2112           & 48.83s  & 9    & 5.17s & x9.44 \\
+\multirow{4}{*}{rings -sssr} & \multirow{2}{*}{ChEBI 149}   & 
+    SMILES & 2112           & 48.83s    & 9    & 5.17s & x9.44 \\
                             &                            & 
-    SDfile & 0              & 28.24s  & 25   & 12.54s & x2.25 \\
+    SDfile & 0              & 28.24s    & 25   & 12.54s & x2.25 \\
                             & \multirow{2}{*}{ChEMBL 22.1} & 
-    SMILES &                &         & 9    & 32.91s \\
+    SMILES & 0              & 12m42.34s & 9    & 32.91s & x23.16 \\
                             &                              & 
-    SDfile &                &         & 0    & 1m28.02s \\
+    SDfile & 0              & 7m50.57s  & 0    & 1m28.02s & x5.34 \\
 \hline
-\multirow{4}{*}{rings --all} & \multirow{2}{*}{ChEBI 149}   & 
+\multirow{4}{*}{rings -all} & \multirow{2}{*}{ChEBI 149}   & 
     SMILES & 2126           & 1m5.74s  & 26    & 12.96s & x5.07 \\
                             &                            & 
     SDfile & 16             & 49.91s  & 40   & 4.53s & x11.01 \\
                             & \multirow{2}{*}{ChEMBL 22.1} & 
-    SMILES &                &         & 9    & 30.03s \\
+    SMILES & 88             & 13m20.86s & 9    & 30.03s & x26.66 \\
                             &                              & 
-    SDfile &                &         & 0    & 1m28.65s \\
+    SDfile & 90             & 8m43.27s  & 0    & 1m28.65s & x5.90 \\
 \hline
 \multirow{4}{*}{cansmi} & \multirow{2}{*}{ChEBI 149}   & 
     SMILES & 2112           & 58.43s  & 9    & 6.00s & x9.74 \\
                             &                            & 
     SDfile & 0              & 37.28s  & 26   & 13.82s & x2.69 \\
                             & \multirow{2}{*}{ChEMBL 22.1} & 
-    SMILES &                &         & 9    & 46.43s \\
+    SMILES & 14             & 15m11.87s & 9    & 46.43s & x19.63 \\
                             &                              & 
-    SDfile &                &         & 0    & 1m48.43s \\
+    SDfile & 0              & 9m40.35s & 0    & 1m48.43s & x5.35 \\
 \hline
 \multirow{4}{*}{convert -ofmt=smi} & \multirow{2}{*}{ChEBI 149}   & 
-    SMILES & 2112           & 54.96s  & 9    & 4.85s \\
+    SMILES & 2112           & 54.96s  & 9    & 4.85s & x11.33 \\
                             &                            & 
-    SDfile & 35             & 47.05s  & 29   & 11.70s \\
+    SDfile & 35             & 47.05s  & 29   & 11.70s & x4.02 \\
                             & \multirow{2}{*}{ChEMBL 22.1} & 
-    SMILES &                &         & 9    & 35.42s \\
+    SMILES & 14             & 15m3.39s & 9    & 35.42s & x25.5 \\
                             &                              & 
-    SDfile &                &         & 0    & 1m38.08s \\
+    SDfile & 0              & 9m35.94s & 0    & 1m38.08s & x5.87 \\
 \hline
 \multirow{4}{*}{convert -ofmt=sdf} & \multirow{2}{*}{ChEBI 149}   & 
     SMILES & 2112           & 53.61s  & 9    & 19.47s & x2.82 \\
                             &                            & 
     SDfile & 13             & 38.31s  & 29   & 35.08s & x1.09 \\
                             & \multirow{2}{*}{ChEMBL 22.1} & 
-    SMILES &                &         & 9    & 5m44.59s \\
+    SMILES & 0              & 15m2.88s & 9    & 5m44.59s & x2.62 \\
                             &                              & 
-    SDfile &                &         & 0    & 7m0.96s \\
+    SDfile & 1              & 9m20.11s & 0    & 7m0.96s & x1.33 \\
 \hline
-\multirow{4}{*}{convert --gen2d -ofmt=sdf} & \multirow{2}{*}{ChEBI 149}   & 
+\multirow{4}{*}{convert -gen2d -ofmt=sdf} & \multirow{2}{*}{ChEBI 149}   & 
     SMILES & 2112           & 36m49.59s  & 9    & 1m9.82s & x31.64 \\
                             &                            & 
     SDfile & 13             & 25m39.99s  & 29   & 1m29.09s & x17.28 \\
                             & \multirow{2}{*}{ChEMBL 22.1} & 
-    SMILES &                &         & 9    & 18m55.64s & \\
+    SMILES & 0              & 211m11.50s  & 9    & 18m55.64s & x11.15 \\
                             &                              & 
-    SDfile &                &         & 0    & 20m55.64s \\
+    SDfile & 1              & 366m7.36s   & 0    & 20m55.64s & x17.49 \\
 \hline
-\multirow{4}{*}{genfp --type=maccs} & \multirow{2}{*}{ChEBI 149}   & 
+\multirow{4}{*}{fpgen -type=maccs} & \multirow{2}{*}{ChEBI 149}   & 
     SMILES & 2150           & 100m1.61s  & 9    & 26.53s & x226 \\
                             &                            & 
-    SDfile & ?              & ??.??s     & 25   & 35.46s \\
+    SDfile & 48             & 106m59.87s & 25   & 35.46s & x181 \\
                             & \multirow{2}{*}{ChEMBL 22.1} & 
     SMILES &                &         & 9    & 13m48.73s \\
                             &                              & 
     SDfile &                &         & 0    & 14m4.49s \\
 \hline
-\multirow{4}{*}{genfp --type=path} & \multirow{2}{*}{ChEBI 149}   & 
-    SMILES & 2150           & ??.??s     & 9    & 3.32s \\
+\multirow{4}{*}{fpgen -type=path} & \multirow{2}{*}{ChEBI 149}   & 
+    SMILES & 2112           & 1m39.15s   & 26    & 50.12s & x1.97\\
                             &                            & 
-    SDfile & ?              & ??.??s     & 25   & 10.45s \\
-                            & \multirow{2}{*}{ChEMBL 22.1} & 
-    SMILES &                &         & 9    & 50.12s \\
-                            &                              & 
-    SDfile &                &         & 0    & 57.71s \\
-\hline
-\multirow{4}{*}{genfp --type=ecfp4} & \multirow{2}{*}{ChEBI 149}   & 
-    SMILES & 2150           & ??.??s     & 26    & 50.12s \\
-                            &                            & 
-    SDfile & ?              & ??.??s     & 40   & 57.71s \\
+    SDfile & 0              & 2m21.36s   & 40    & 57.71s & x2.44 \\
                             & \multirow{2}{*}{ChEMBL 22.1} & 
     SMILES &                &         & 9    & 22m50.2s \\
                             &                              & 
-    SDfile &                &         & 0    & 23m58.27s \\\hline
-
-
-
+    SDfile &                &         & 0    & 23m58.27s \\
+\hline
+\multirow{4}{*}{fpgen -type=ecfp4} & \multirow{2}{*}{ChEBI 149}   & 
+    SMILES & -              &  N/A        & 9    & 3.32s \\
+                            &                            & 
+    SDfile & -              &  N/A        & 25   & 10.45s \\
+                            & \multirow{2}{*}{ChEMBL 22.1} & 
+    SMILES & -              &  N/A        & 9    & 50.12s \\
+                            &                              & 
+    SDfile & -              &  N/A        & 0    & 57.71s \\
+\hline
 \end{tabular}
 
 
