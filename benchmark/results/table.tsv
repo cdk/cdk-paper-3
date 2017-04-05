@@ -1,0 +1,45 @@
+benchmark	ifmt	dataset	v1.4_skipped	v1.4_tElap	v1.4_mpm	v2.0_skipped	v2.0_tElap	v2.0_mpm	improve
+cansmi  	sdf	chebi_149	35	0:21.15	121146	26	0:04.77	537157	4.43
+cansmi  	sdf	chembl_22_1	0	8:59.82	186550	0	1:44.86	960362	5.15
+cansmi  	smi	chebi_149	2112	0:36.58	70045	9	0:01.83	1400131	19.99
+cansmi  	smi	chembl_22_1	14	14:33.86	115240	9	0:42.41	2374524	20.61
+convert --gen2d -ofmt sdf  	sdf	chebi_149	13	35:12.03	1213	29	0:42.08	60890	50.19
+convert --gen2d -ofmt sdf  	sdf	chembl_22_1	1	5:58:30	4682	0	19:54.12	84333	18.01
+convert --gen2d -ofmt sdf  	smi	chebi_149	2112	24:28.02	1745	9	0:35.70	71771	41.12
+convert --gen2d -ofmt sdf  	smi	chembl_22_1	0	3:27:07	8104	9	18:02.59	93021	11.48
+convert -ofmt sdf  	sdf	chebi_149	13	0:17.00	150720	29	0:14.49	176828	1.17
+convert -ofmt sdf  	sdf	chembl_22_1	1	8:51.33	189531	0	6:50.92	245069	1.29
+convert -ofmt sdf  	smi	chebi_149	2112	0:32.42	79033	9	0:10.33	248039	3.14
+convert -ofmt sdf  	smi	chembl_22_1	0	14:25.82	116310	9	5:30.66	304553	2.62
+convert -ofmt smi  	sdf	chebi_149	35	0:20.91	122537	29	0:04.21	608608	4.97
+convert -ofmt smi  	sdf	chembl_22_1	0	8:59.38	186702	4	1:27.35	1152874	6.17
+convert -ofmt smi  	smi	chebi_149	2112	0:35.63	71912	16	0:01.37	1870248	26.01
+convert -ofmt smi  	smi	chembl_22_1	14	14:26.02	116283	34	0:28.65	3514959	30.23
+countheavy  	sdf	chebi_149	0	0:07.21	355373	25	0:03.75	683264	1.92
+countheavy  	sdf	chembl_22_1	0	3:17.29	510434	0	1:07.23	1497896	2.93
+countheavy  	smi	chebi_149	2112	0:22.51	113827	9	0:00.97	2641485	23.21
+countheavy  	smi	chembl_22_1	0	8:39.30	193922	9	0:12.17	8274740	42.67
+fpgen -type=circ  	sdf	chebi_149	0	NA	Inf	25	0:07.04	363955	0
+fpgen -type=circ  	sdf	chembl_22_1	0	NA	Inf	0	3:59.23	420949	0
+fpgen -type=circ  	smi	chebi_149	0	NA	Inf	9	0:04.47	573208	0
+fpgen -type=circ  	smi	chembl_22_1	0	NA	Inf	9	2:45.68	607820	0
+fpgen -type=maccs  	sdf	chebi_149	48	1:44:17	409	25	0:22.33	114744	280.21
+fpgen -type=maccs  	sdf	chembl_22_1	225	24:41:46	1133	0	13:41.83	122536	108.18
+fpgen -type=maccs  	smi	chebi_149	2150	1:37:35	438	9	0:19.80	129406	295.71
+fpgen -type=maccs  	smi	chembl_22_1	214	20:24:57	1370	9	13:27.11	124771	91.06
+fpgen -type=path  	sdf	chebi_149	0	1:52.17	22842	40	0:38.79	66054	2.89
+fpgen -type=path  	sdf	chembl_22_1	0	38:51.73	43188	0	23:08.95	72503	1.68
+fpgen -type=path  	smi	chebi_149	2112	1:14.50	34392	26	0:35.27	72646	2.11
+fpgen -type=path  	smi	chembl_22_1	0	35:02.80	47890	9	22:07.34	75869	1.58
+rings -all  	sdf	chebi_149	16	0:36.56	70083	40	0:04.13	620397	8.85
+rings -all  	sdf	chembl_22_1	90	8:05.64	207363	0	1:18.99	1274890	6.15
+rings -all  	smi	chebi_149	2126	0:45.28	56587	26	0:01.27	2017512	35.65
+rings -all  	smi	chembl_22_1	88	12:40.20	132470	9	0:26.48	3803005	28.71
+rings -mark  	sdf	chebi_149	0	0:09.36	273744	25	0:04.37	586325	2.14
+rings -mark  	sdf	chembl_22_1	0	4:09.82	403105	0	1:20.60	1249424	3.1
+rings -mark  	smi	chebi_149	2112	0:22.68	112974	9	0:01.42	1804394	15.97
+rings -mark  	smi	chembl_22_1	0	8:41.57	193078	9	0:30.58	3293119	17.06
+rings -sssr  	sdf	chebi_149	0	0:11.84	216405	25	0:04.08	628000	2.9
+rings -sssr  	sdf	chembl_22_1	0	7:09.58	234423	0	1:24.16	1196573	5.1
+rings -sssr  	smi	chebi_149	2112	0:27.40	93512	9	0:01.48	1731243	18.51
+rings -sssr  	smi	chembl_22_1	0	12:04.62	138974	9	0:28.07	3587587	25.81

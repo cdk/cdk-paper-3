@@ -31,9 +31,9 @@ There are several tasks that can be run:
 
 - ``./cdk countheavy`` counts heavy atoms in a record
 - ``./cdk rings`` reports ring info, requires one of the following
-  - ``.cdk rings --mark`` report number of ring bonds
-  - ``.cdk rings --sssr`` report number of SSSR rings (circuit rank)
-  - ``.cdk rings --all`` report number of rings (all) size ≤ 12
+  - ``./cdk rings --mark`` report number of ring bonds
+  - ``./cdk rings --sssr`` report number of SSSR rings (circuit rank)
+  - ``./cdk rings --all`` report number of rings (all) size ≤ 12
 - ``./cdk cansmi`` create a unique SMILES
 - ``./cdk fpgen`` generate fingerprints in [chemfp FPS1 format](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3606241/)
 	- ``./cdk fpgen -type=maccs`` generate CDK's MACCS 166 keys (MDL)
