@@ -30,10 +30,10 @@ rings-all	sdf	chebi_149	16	0:36.56	36.56
 rings-all	sdf	chembl_22_1	90	8:05.64	485.64
 rings-all	smi	chebi_149	2126	0:45.28	45.28
 rings-all	smi	chembl_22_1	88	12:40.20	760.2
-rings-mark	sdf	chebi_149	0	0:09.36	9.36
-rings-mark	sdf	chembl_22_1	0	4:09.82	249.82
-rings-mark	smi	chebi_149	2112	0:22.68	22.68
-rings-mark	smi	chembl_22_1	0	8:41.57	521.57
+rings-mark	sdf	chebi_149	0	0:08.71	8.71
+rings-mark	smi	chebi_149	2112	0:22.91	22.91
+rings-mark	sdf	chembl_22_1	0	4:12.01	252.01
+rings-mark	smi	chembl_22_1	0	8:45.78	525.78
 rings-sssr	sdf	chebi_149	0	0:11.84	11.84
 rings-sssr	sdf	chembl_22_1	0	7:09.58	429.58
 rings-sssr	smi	chebi_149	2112	0:27.40	27.4
