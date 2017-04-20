@@ -69,7 +69,8 @@ public class Rings extends CliExecutable {
     switch (rset) {
       case MARK:
         SpanningTree spanningtree = new SpanningTree(mol);
-        out.write(Integer.toString(spanningtree.getBondsAcyclicCount()));
+        // spanningtree.getBondsCyclicCount() wrong answer?
+        out.write(Integer.toString(spanningtree.getCyclicFragmentsContainer().getBondCount()));
         break;
       case SSSR:
         SSSRFinder finder = new SSSRFinder(mol);

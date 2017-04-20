@@ -8,8 +8,10 @@ import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.graph.Cycles;
+import org.openscience.cdk.graph.GraphUtil;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IBond;
+import org.openscience.cdk.ringsearch.RingSearch;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesParser;
 
@@ -76,11 +78,17 @@ public class Rings extends CliExecutable {
   {
     switch (rset) {
       case MARK:
-        Cycles.markRingAtomsAndBonds(mol);
+        int[][] adjlist = GraphUtil.toAdjList(mol);
+        RingSearch ringSearch = new RingSearch(mol, adjlist);
         int count = 0;
-        for (IBond bond : mol.bonds())
-          if (bond.isInRing())
-            count++;
+        for (int beg = 0; beg < adjlist.length; beg++) {
+          if (ringSearch.cyclic(beg)) {
+            for (int end : adjlist[beg]) {
+              if (end < beg && ringSearch.cyclic(beg, end))
+                count++;
+            }
+          }
+        }
         out.write(Integer.toString(count));
         break;
       case SSSR:
