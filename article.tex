@@ -1142,7 +1142,168 @@ OSGi jar. The bundle is available from \url{http://pele.farmbio.uu.se/bioclipse/
 This Java package and bundle incompatibilities are currently being explored and
 constitutes an area where improvements can be done on modularization.
 
+\subsection*{Systematic Benchmark}
 
+A systematic benchmark was performed to evaluate and quantify 
+performance improvements from v1.4.19 to \cdkversion{}. The benchmark is 
+divided into several cheminformatics tasks for common use cases. Each task 
+was evaluated on input from ChEBI 149 \cite{ChEBI13} and ChEMBL 22.1 
+\cite{ChEMBL14} as both SMILES and SDF.
+
+The benchmark was run on Java SE 8, Cent OS 7, Intel Core i7-4790 CPU @ 
+3.60GHz with 16 GB of RAM. The code to run the benchmark is available in 
+the supplementary material allowing numbers to be recorded on the
+reader's system.
+
+The results of benchmark are summarised in Table 6 and 7. The total elapsed
+times are reported in Table 6, Table 7 subtracts the first tasks results 
+(Count Heavy Atoms) to provide a comparable measure without the overhead of
+input read time. The throughput as molecules per minute is reported but is less
+accurate for v. fast running tasks.
+
+\subsubsection*{Count Heavy Atoms}
+
+This task highlights improvements in raw read performance. Each record is read
+in to a resident memory connection table and the number of heavy (non-hydrogen)
+atoms counted by iterating over the atoms sequentially.
+
+The improvement on this task is most noticeable for SMILES input, previously
+it would take more than 8 minutes to read ChEMBL 22.1 but this is reduced
+to only 12 seconds. On top of this improvement SMILES input is now validated 
+and assigned a Kekul$\mathrm{\acute{e}}$ structure. This identifies 9 invalid
+entries in ChEBI and another 9 in ChEMBL. Most of these rejected SMILES
+are due to the wrong encoding of Cis/Trans double bond stereochemistry at ring 
+closures. The ChEBI 149 SMILES input has 2107 empty records that v1.4.19 skip,
+\cdkversion{} simply reads these as empty molecules. Input from SDF also 
+improved from $\sim$3 minutes to $\sim$1 minute for ChEMBL. The SDF input in
+\cdkversion{} now includes perception of stereochemistry and reading CTfile 
+Sgroups. There are 9 entries from ChEBI's SDF that are rejected because they 
+contain CTfile query features (e.g. any bond order).
+
+\subsubsection*{Rings}
+
+Ring perception is a fundamental step in many other algorithms. 
+The rings task is divided as three subtasks: mark, sssr, and all.
+
+\textbf{-mark}, The first subtask measures the performance in marking 
+ring membership and reporting the number of ring bonds in each record.
+This requires a linear algorithm based on a depth first search. 
+The original code used a weighted spanning tree to compute the membership in 
+linearithmic time. The run times are similar for these datasets (Table
+7), larger differences are seen for more complex cage molecules such fullerenes
+\cite{May2014}.
+
+\textbf{-sssr}, The second subtask computes the Smallest Set of Smallest Rings 
+(SSSR) and reports the size of the SSSR (circuit rank) for each record. Although 
+circuit rank can be computed more efficiently 
+with a linear traversal (counting DFS back-edges) or with Euler's 
+polyhedron formula we are testing the time to enumerate the SSSR set. In general
+SSSR is considered unfavourable due to the 
+non-uniqueness of the set and need for Gaussian matrix elimination (cubic 
+runtime). With some bookkeeping the time spent in the matrix elimination has been
+reduced~\cite{May2014}. For ChEMBL we see the time to generate the SSSR is now
+$\sim$16 seconds when it previously took around $\sim$3.5 minutes (Table 7).
+
+\textbf{-all}, The third subtask counts the number of all rings up to or equal
+to size 12. This includes rings that encompass other smaller rings, for 
+example, 1H-indole has rings of size 5, 6, and 9. In general this problem is 
+exponential and so an adjustable threshold or timeout is used to avoid problematic 
+molecules. CDK v1.4.19 used a timeout based threshold (default 5 seconds) 
+whilst \cdkversion{} uses a 
+counter based on properties of algorithm~\cite{May2014}. In \cdkversion{} there
+were 15/17\footnote{2 records from SDF use query bond features and are skipped
+when read} records skipped from ChEBI that have complex cage-like ring systems 
+(e.g. CHEBI:33611), no records in ChEMBL reached the threshold. By comparison in
+v1.4.19 there were 14/16 records skipped from ChEBI and 88/90 in ChEMBL due to
+reaching the time out. The number fluctuates here as a timeout based threshold 
+depends on external factors such as CPU load.
+
+The speed-up in \cdkversion{} is slightly better than the SSSR task. ChEMBL 
+previously spent 4-5 minutes and now takes only $\sim$14 seconds (Table 7).
+In \cdkversion{} finding all rings ($\leq$ 12 bonds) runs faster than the 
+non-unique SSSR computation.
+
+\subsection*{Canonical SMILES}
+
+This task measures the generation of a Unique SMILES string. These can be
+used to compare dataset intersection and exact lookup. From SMILES input
+\cdkversion{} the total elapsed time is $\sim$20 times faster for both ChEBI
+and ChEMBL. For ChEMBL it now takes just under 43 seconds to read, reorder, 
+and write the SMILES compared to more than 14 minutes previously.
+
+\subsection*{Convert}
+
+This tasks tests the non-canonical conversion between SDF and SMILES input.
+
+\textbf{-ofmt smi}: SMILES is a very compact means of storing connection tables, v1.4.19 could 
+only write canonical SMILES, \cdkversion{} allows different SMILES flavours 
+to be generated including a non-canonical variant. This task outputs
+CXSMILES that includes additional fields such as repeat groups (used by some 
+ChEBI entries). As
+expected the v1.4.19 execution time is the same as for the Canonical SMILES 
+task but \cdkversion{} can generate the non-canonical SMILES faster taking less
+than 30 seconds for ChEMBL. 
+
+Assigning double-bond configurations in SMILES is 
+non-trivial and \cdkversion{} has some safety checks, since the SMILES output is 
+Keklu$\mathrm{\acute{e}}$ but input was aromatic, when the bond orders are 
+assigned an extra double-bond may be accidental encoded in the SMILES output, 
+this is sometimes acceptable but will currently report an error. A few errors (4
+in ChEBI, 3 in ChEMBl) occur from Sgroup processing that have now been addressed.
+
+\textbf{-ofmt sdf}: For writing SDF output there is minimal improvement from v1.14.19, when 
+discounting improvements in read performance the SDF generation for ChEBI 
+actually runs slightly slower than v1.4.19 (Table 7). This can be partially 
+explained by the more comprehensive SDF generation that now writes Sgroups 
+as well as computing values for atom parity and valence columns.
+
+\textbf{-gen2d -ofmt sdf}: When writing SDF the only portable way to store stereochemistry is with the 
+inclusion of coordinates, this is specified with the \texttt{-gen2d} option. 
+The overhaul in layout generation discussed early provides better layouts but 
+also included performance tweaks, in CDK v1.4.19 generating coordinates and 
+writing an SDF for ChEMBL took almost 3.5 hours but now only takes just over
+18 minutes.
+
+\subsection*{Fingerprint Generation}
+
+This task tests the generation of fingerprints for similarity and substructure
+screening. Three different types of fingerprints were tested, a Daylight-like 
+Hashed Path Fingerprint, MACCS-like 166 Keys, and Pipeline Pilot-like Hashed 
+Circular Fingerprint (ECFP4). The task generates a hexadecimal FPS file that
+can be used with chemfp~\cite{Dalke2013}.
+
+\textbf{-type path}: Path based fingerprints encode paths of length 1...n. n was
+choose to be 6 for this benchmark. Path based fingerprints can be used for both
+substructure and similarity screening. The algorithm was
+tweaked for \cdkversion{} to hash the paths without pre-computing all paths
+upfront and without needing to generate character strings before hashing. An
+abort threshold was also placed to catch pathological molecules (shown as 
+skipped in ChEBI) that previously took a long time - this will be optimized and 
+removed in future. The time to encode ChEMBL previously took 26-35 minutes now 
+only takes $\sim$5 minutes.
+
+\textbf{-type maccs}: The CDK MACCS fingerprint uses 166 keys to encode
+features of a structure and can be used for similarity searching. This encoding
+uses different aspects of the library including ring perception and the new
+aromaticity perception but the speed is primarily dependant on SMARTS matching 
+performance. Generating the fingerprint previously took almost 1 day for ChEMBL 
+and 2 hours for ChEBI. This has been reduced to less than 
+15 minutes for ChEMBL and less than 30 seconds for ChEBI. 
+
+\textbf{-type circ}: Circular fingerprints can only be used for similarity and
+could not be generated in v1.4.19. However, the fingerprints are known to perform
+well for retrieval performance~\cite{OBoyle2016}. The times are included here 
+to show they are faster to calculate than path or MACCS-like keys and therefore
+recommended. CDK includes two implementations based on signatures or extended 
+connectivity~\cite{Clark2014}.
+
+\subsubsection*{Benchmark Summary}
+
+In all tasks, the total elapsed time is better in \cdkversion{} compared to 
+v1.4.19. On many tasks the improvement is more than ten times faster.
+Not only is the execution time improved but improvements in robustness and 
+correctness means \cdkversion{} is often doing much more work than the 
+equivalent procedures in v1.4.19.
 
 %%%%%%%%%%%%%%%%%%%%%%
 \section*{Conclusions}
@@ -1453,20 +1614,15 @@ RDKit 2016.3.4            & 378  & 62,402  \\
 \end{tabular}
 
 
-\subsection*{Table ? - Summary of systematic benchmark comparing v1.4.19 to \cdkversion{}.}\label{tab:benchmark}
-  The total elapsed real time was measured with the GNU time utility. The 
-  throughput is reported in molecules per minute (k=thousand, m=million) as a 
+\subsection*{Table 6 - Summary of systematic benchmark comparing v1.4.19 to \cdkversion{}.}\label{tab:benchmark}
+  The total elapsed \textit{real} time was measured with the unix time utility. The 
+  throughput is reported in molecules per minute (K=thousand, M=million) as a 
   relatable metric.
   This throughput was calculated by taking the total elapsed
   time and dividing it by the number of molecule in the dataset (42704 for 
-  ChEBI 149, and 1678393 for ChEMBL 22.1). Nine records skipped for SMILES input for
-  \cdkversion{} is because the parser now validates on read and both ChEBI/
-  ChEMBL contain invalid SMILES (9 each, they are different records). The SDfile skips
-  were molecules in ChEBI with query bonds. The ChEBI SMILES input contains 
+  ChEBI 149, and 1678393 for ChEMBL 22.1). The ChEBI SMILES input contains 
   2107 blank (but valid) inputs, this accounts for the majority skipped 
-  in v1.4.19. Additional skipped records were due to failures somewhere else,
-  ChEBI contains some exotic molecules causing a few skipped records where
-  ChEMBL has none.
+  in v1.4.19. The throughput calculation was adjust to account for this.
 
 \begin{tabular}{lllrclrclc}
 Benchmark  & \multicolumn{2}{c}{Data Set} & \multicolumn{3}{c}{CDK 1.4.19} & \multicolumn{3}{c}{CDK \cdkversion{}} & Improvement \\
@@ -1477,17 +1633,17 @@ Benchmark  & \multicolumn{2}{c}{Data Set} & \multicolumn{3}{c}{CDK 1.4.19} & \mu
  & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 8m39.3s & 193.9K & 9 & 12.17s & 8.3M & 42.67\\
  &  & sdf & 0 & 3m17.29s & 510.4K & 0 & 1m7.23s & 1.5M & 2.93\\
 \hline
-\multirow{4}{*}{rings-mark} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 22.91s & 106.3K & 9 & 1.03s & 2.4M & 22.24\\
+\multirow{4}{*}{\shortstack[l]{rings \\ -mark}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 22.91s & 106.3K & 9 & 1.03s & 2.4M & 22.24\\
  &  & sdf & 0 & 8.71s & 294.2K & 25 & 3.93s & 652K & 2.22\\
  & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 8m45.78s & 191.5K & 9 & 17.98s & 5.6M & 29.24\\
  &  & sdf & 0 & 4m12.01s & 399.6K & 0 & 1m14.95s & 1.3M & 3.36\\
 \hline
-\multirow{4}{*}{rings-sssr} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 27.4s & 88.9K & 9 & 1.48s & 1.6M & 18.51\\
+\multirow{4}{*}{\shortstack[l]{rings \\ -sssr}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 27.4s & 88.9K & 9 & 1.48s & 1.6M & 18.51\\
  &  & sdf & 0 & 11.84s & 216.4K & 25 & 4.08s & 628K & 2.9\\
  & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 12m4.62s & 139K & 9 & 28.07s & 3.6M & 25.81\\
  &  & sdf & 0 & 7m9.58s & 234.4K & 0 & 1m24.16s & 1.2M & 5.1\\
 \hline
-\multirow{4}{*}{rings-all} & \multirow{2}{*}{ChEBI 149} & smi & 2126 & 45.28s & 53.8K & 26 & 1.27s & 1.9M & 35.65\\
+\multirow{4}{*}{\shortstack[l]{rings \\ -all}} & \multirow{2}{*}{ChEBI 149} & smi & 2126 & 45.28s & 53.8K & 26 & 1.27s & 1.9M & 35.65\\
  &  & sdf & 16 & 36.56s & 70.1K & 40 & 4.13s & 620.4K & 8.85\\
  & \multirow{2}{*}{ChEMBL 22.1} & smi & 88 & 12m40.2s & 132.5K & 9 & 26.48s & 3.8M & 28.71\\
  &  & sdf & 90 & 8m5.64s & 207.4K & 0 & 1m18.99s & 1.3M & 6.15\\
@@ -1497,38 +1653,41 @@ Benchmark  & \multicolumn{2}{c}{Data Set} & \multicolumn{3}{c}{CDK 1.4.19} & \mu
  & \multirow{2}{*}{ChEMBL 22.1} & smi & 14 & 14m33.86s & 115.2K & 9 & 42.41s & 2.4M & 20.61\\
  &  & sdf & 0 & 8m59.82s & 186.6K & 0 & 1m44.86s & 960.4K & 5.15\\
 \hline
-\multirow{4}{*}{convert-ofmtsmi} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 35.63s & 68.4K & 16 & 1.37s & 1.8M & 26.01\\
+\multirow{4}{*}{\shortstack[l]{convert \\ -ofmt smi}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 35.63s & 68.4K & 16 & 1.37s & 1.8M & 26.01\\
  &  & sdf & 35 & 20.91s & 122.5K & 29 & 4.21s & 608.6K & 4.97\\
  & \multirow{2}{*}{ChEMBL 22.1} & smi & 14 & 14m26.02s & 116.3K & 34 & 28.65s & 3.5M & 30.23\\
  &  & sdf & 0 & 8m59.38s & 186.7K & 4 & 1m27.35s & 1.2M & 6.17\\
 \hline
-\multirow{4}{*}{convert-ofmtsdf} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 32.42s & 75.1K & 9 & 10.33s & 235.8K & 3.14\\
+\multirow{4}{*}{\shortstack[l]{convert \\ -ofmt sdf}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 32.42s & 75.1K & 9 & 10.33s & 235.8K & 3.14\\
  &  & sdf & 13 & 17s & 150.7K & 29 & 14.49s & 176.8K & 1.17\\
  & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 14m25.82s & 116.3K & 9 & 5m30.66s & 304.6K & 2.62\\
  &  & sdf & 1 & 8m51.33s & 189.5K & 0 & 6m50.92s & 245.1K & 1.29\\
 \hline
-\multirow{4}{*}{convert--gen2d-ofmtsdf} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 24m28.02s & 1.7K & 9 & 35.7s & 68.2K & 41.12\\
+\multirow{4}{*}{\shortstack[l]{convert \\ -gen2d \\ -ofmt smi}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 24m28.02s & 1.7K & 9 & 35.7s & 68.2K & 41.12\\
  &  & sdf & 13 & 35m12.03s & 1.2K & 29 & 42.08s & 60.9K & 50.19\\
  & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 3h27m7s & 8.1K & 9 & 18m2.59s & 93K & 11.48\\
  &  & sdf & 1 & 5h58m30s & 4.7K & 0 & 19m54.12s & 84.3K & 18.01\\
 \hline
-\multirow{4}{*}{fpgen-type=path} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 1m14.5s & 32.7K & 26 & 8.22s & 296.3K & 9.06\\
+\multirow{4}{*}{\shortstack[l]{fpgen \\ -type path}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 1m14.5s & 32.7K & 26 & 8.22s & 296.3K & 9.06\\
  &  & sdf & 0 & 1m52.17s & 22.8K & 40 & 11.67s & 219.6K & 9.61\\
  & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 35m2.8s & 47.9K & 9 & 5m35.25s & 300.4K & 6.27\\
  &  & sdf & 0 & 38m51.73s & 43.2K & 0 & 6m7.04s & 274.4K & 6.35\\
 \hline
-\multirow{4}{*}{fpgen-type=maccs} & \multirow{2}{*}{ChEBI 149} & smi & 2150 & 1h37m35s & 416 & 9 & 19.8s & 123K & 295.71\\
+\multirow{4}{*}{\shortstack[l]{fpgen \\ -type maccs}} & \multirow{2}{*}{ChEBI 149} & smi & 2150 & 1h37m35s & 416 & 9 & 19.8s & 123K & 295.71\\
  &  & sdf & 48 & 1h44m17s & 409 & 25 & 22.33s & 114.7K & 280.21\\
  & \multirow{2}{*}{ChEMBL 22.1} & smi & 214 & 20h24m57s & 1.4K & 9 & 13m27.11s & 124.8K & 91.06\\
  &  & sdf & 225 & 24h41m46s & 1.1K & 0 & 13m41.83s & 122.5K & 108.18\\
 \hline
-\multirow{4}{*}{fpgen-type=circ} & \multirow{2}{*}{ChEBI 149} & smi & 0 & NA & - & 9 & 4.47s & 544.9K & 0\\
+\multirow{4}{*}{\shortstack[l]{fpgen \\ -type circ}} & \multirow{2}{*}{ChEBI 149} & smi & 0 & NA & - & 9 & 4.47s & 544.9K & 0\\
  &  & sdf & 0 & NA & - & 25 & 7.04s & 364K & 0\\
  & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & NA & - & 9 & 2m45.68s & 607.8K & 0\\
  &  & sdf & 0 & NA & - & 0 & 3m59.23s & 420.9K & 0\\
 
 \end{tabular}
 
+\subsection*{Table 7 - Summary of systematic benchmark comparing v1.4.19 to \cdkversion{} without read times.}
+\label{tab:benchmark-delta}
+The number of records skipped and time to run the countheavy benchmark has been subtracted from Table 6. The remaining results provides a relative comparison without accounting for the overhead of reading the input.
 
 \begin{tabular}{lllrclrcll}
 Benchmark  & \multicolumn{2}{c}{Data Set} & \multicolumn{3}{c}{CDK 1.4.19} & \multicolumn{3}{c}{CDK \cdkversion{}} & Improvement \\
@@ -1539,17 +1698,17 @@ Benchmark  & \multicolumn{2}{c}{Data Set} & \multicolumn{3}{c}{CDK 1.4.19} & \mu
  & \multirow{2}{*}{ChEMBL 22.1}  & smi & 0 & 0s & - & 0 & 0s & - & \\
  &  & sdf & 0 & 0s & - & 0 & 0s & - & \\
 \hline
-\multirow{4}{*}{rings-mark}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 0.4s & 6.1M & 0 & 0.06s & 40.6M & 6.7\\
+\multirow{4}{*}{\shortstack[l]{rings \\ -mark}}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 0.4s & 6.1M & 0 & 0.06s & 40.6M & 6.7\\
  &  & sdf & 0 & 1.5s & 1.7M & 0 & 0.18s & 14.2M & 8.3\\
  & \multirow{2}{*}{ChEMBL 22.1}  & smi & 0 & 6.48s & 15.5M & 0 & 5.81s & 17.3M & 1.1\\
  &  & sdf & 0 & 54.72s & 1.8M & 0 & 7.72s & 13M & 7.1\\
 \hline
-\multirow{4}{*}{rings-sssr}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 4.89s & 498.1K & 0 & 0.51s & 4.8M & 9.6\\
+\multirow{4}{*}{\shortstack[l]{rings \\ -sssr}}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 4.89s & 498.1K & 0 & 0.51s & 4.8M & 9.6\\
  &  & sdf & 0 & 4.63s & 553.4K & 0 & 0.33s & 7.8M & 14\\
  & \multirow{2}{*}{ChEMBL 22.1}  & smi & 0 & 3m25.32s & 490.5K & 0 & 15.9s & 6.3M & 12.9\\
  &  & sdf & 0 & 3m52.29s & 433.5K & 0 & 16.93s & 5.9M & 13.7\\
 \hline
-\multirow{4}{*}{rings-all}  & \multirow{2}{*}{ChEBI 149}  & smi & 14 & 22.77s & 107K & 17 & 0.3s & 8.1M & 75.9\\
+\multirow{4}{*}{\shortstack[l]{rings \\ -all}}  & \multirow{2}{*}{ChEBI 149}  & smi & 14 & 22.77s & 107K & 17 & 0.3s & 8.1M & 75.9\\
  &  & sdf & 16 & 29.35s & 87.3K & 15 & 0.38s & 6.7M & 77.2\\
  & \multirow{2}{*}{ChEMBL 22.1}  & smi & 88 & 4m0.9s & 418K & 0 & 14.31s & 7M & 16.8\\
  &  & sdf & 90 & 4m48.35s & 349.2K & 0 & 11.76s & 8.6M & 24.5\\
@@ -1559,32 +1718,32 @@ Benchmark  & \multicolumn{2}{c}{Data Set} & \multicolumn{3}{c}{CDK 1.4.19} & \mu
  & \multirow{2}{*}{ChEMBL 22.1}  & smi & 14 & 5m54.56s & 284K & 0 & 30.24s & 3.3M & 11.7\\
  &  & sdf & 0 & 5m42.53s & 294K & 0 & 37.63s & 2.7M & 9.1\\
 \hline
-\multirow{4}{*}{convert-ofmtsmi}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 13.12s & 185.7K & 7 & 0.4s & 6.1M & 32.8\\
+\multirow{4}{*}{\shortstack[l]{convert \\ -ofmt smi}}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 13.12s & 185.7K & 7 & 0.4s & 6.1M & 32.8\\
  &  & sdf & 35 & 13.7s & 187K & 4 & 0.46s & 5.6M & 29.8\\
  & \multirow{2}{*}{ChEMBL 22.1}  & smi & 14 & 5m46.72s & 290.4K & 25 & 16.48s & 6.1M & 21\\
  &  & sdf & 0 & 5m42.09s & 294.4K & 4 & 20.12s & 5M & 17\\
 \hline
-\multirow{4}{*}{convert-ofmtsdf}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 9.91s & 245.8K & 0 & 9.36s & 260.2K & 1.1\\
+\multirow{4}{*}{\shortstack[l]{convert \\ -ofmt sdf}}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 9.91s & 245.8K & 0 & 9.36s & 260.2K & 1.1\\
  &  & sdf & 13 & 9.79s & 261.7K & 4 & 10.74s & 238.6K & 0.9\\
  & \multirow{2}{*}{ChEMBL 22.1}  & smi & 0 & 5m46.52s & 290.6K & 0 & 5m18.49s & 316.2K & 1.1\\
  &  & sdf & 1 & 5m34.04s & 301.5K & 0 & 5m43.69s & 293K & 1\\
 \hline
-\multirow{4}{*}{convert--gen2d-ofmtsdf}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 24m5.51s & 1.7K & 0 & 34.73s & 70.1K & 41.6\\
+\multirow{4}{*}{\shortstack[l]{convert \\ -gen2d \\ -ofmt smi}}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 24m5.51s & 1.7K & 0 & 34.73s & 70.1K & 41.6\\
  &  & sdf & 13 & 35m4.82s & 1.2K & 4 & 38.33s & 66.8K & 54.9\\
  & \multirow{2}{*}{ChEMBL 22.1}  & smi & 0 & 3h18m28s & 8.5K & 0 & 17m50.42s & 94.1K & 11.1\\
  &  & sdf & 1 & 5h55m13s & 4.7K & 0 & 18m46.89s & 89.4K & 18.9\\
 \hline
-\multirow{4}{*}{fpgen-type=path}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 51.99s & 46.9K & 17 & 7.25s & 336K & 7.2\\
+\multirow{4}{*}{\shortstack[l]{fpgen \\ -type path}}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 51.99s & 46.9K & 17 & 7.25s & 336K & 7.2\\
  &  & sdf & 0 & 1m44.96s & 24.4K & 15 & 7.92s & 323.5K & 13.3\\
  & \multirow{2}{*}{ChEMBL 22.1}  & smi & 0 & 26m23.5s & 63.6K & 0 & 5m23.08s & 311.7K & 4.9\\
  &  & sdf & 0 & 35m34.44s & 47.2K & 0 & 4m59.81s & 335.9K & 7.1\\
 \hline
-\multirow{4}{*}{fpgen-type=maccs}  & \multirow{2}{*}{ChEBI 149}  & smi & 38 & 1h37m12s & 418 & 0 & 18.83s & 129.4K & 309.7\\
+\multirow{4}{*}{\shortstack[l]{fpgen \\ -type maccs}}  & \multirow{2}{*}{ChEBI 149}  & smi & 38 & 1h37m12s & 418 & 0 & 18.83s & 129.4K & 309.7\\
  &  & sdf & 48 & 1h44m10s & 410 & 0 & 18.58s & 137.9K & 336.4\\
  & \multirow{2}{*}{ChEMBL 22.1}  & smi & 214 & 20h16m18s & 1.4K & 0 & 13m14.94s & 126.7K & 91.8\\
  &  & sdf & 225 & 24h38m29s & 1.1K & 0 & 12m34.6s & 133.5K & 117.6\\
 \hline
-\multirow{4}{*}{fpgen-type=circ}  & \multirow{2}{*}{ChEBI 149}  & smi & -2112 &  & - & 0 & 3.5s & 695.9K & \\
+\multirow{4}{*}{\shortstack[l]{fpgen \\ -type circ}}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 &  & - & 0 & 3.5s & 695.9K & \\
  &  & sdf & 0 &  & - & 0 & 3.29s & 778.8K & \\
  & \multirow{2}{*}{ChEMBL 22.1}  & smi & 0 &  & - & 0 & 2m33.51s & 656K & \\
  &  & sdf & 0 &  & - & 0 & 2m52s & 585.5K & \\
