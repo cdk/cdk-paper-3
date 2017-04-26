@@ -441,8 +441,12 @@ types = matcher.findMatchingAtomTypes(molecule);
 \vspace{0.2cm}
 
   The perception from coordinates and wedge assignment algorithms are fundamental for conversion
-  between formats that store stereochemistry implicitly based on coordinates (e.g. molfile, CML) and 
-  explicitly (e.g. SMILES, CML, InChI). Perception from 2D coordinates can optionally identify
+  between formats that store stereochemistry implicitly based on coordinates (e.g. molfile\footnote{Molfiles 
+  can also store tetrahedral stereochemistry as a parity value, this is read if no coordinates are specified.
+  In general there is no guarantee the parity value is read and the only portable way to store
+  stereochemistry in a molfile is with coordinates.}, CML) and 
+  explicitly (e.g. SMILES, CML, InChI). Perception from 2D coordinates 
+  can optionally identify
   perspective projections, specifically: Fischer, Haworth, and Chair projections. With the perception of 
   perspective projections enabled, database entries currently considered distinct can be merged
   (Figure~\ref{fig:stereoprojections}).  The perception is based on an  algorithm briefly  
