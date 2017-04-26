@@ -752,10 +752,9 @@ either queries or targets.
 \vspace{0.2cm}
 
 CDK \cdkversion{} includes large improvements to algorithm
-efficiency. A simple benchmark experiment demonstrates the relative
-improvements between recent CDK versions and other open source
-toolkits (Table~5\ref{tab:smigrep}). The efficiency improvements are a
-combination of optimising data structures and key molecule processing
+efficiency. This is emphasised in the systematic benchmark
+of MACCS-like 166 key generation (Table~5). The efficiency improvements
+are a combination of optimising data structures and key molecule processing
 algorithms (e.g. kekulisation and aromaticity) needed before a SMARTS
 match can be run.
   
@@ -1159,8 +1158,8 @@ The benchmark was run on Java SE 8, Cent OS 7, Intel Core i7-4790 CPU @
 the supplementary material allowing numbers to be recorded on the
 reader's system.
 
-The results of benchmark are summarised in Table 6 and 7. The total elapsed
-times are reported in Table 6, Table 7 subtracts the first tasks results 
+The results of benchmark are summarised in Table 5 and 6. The total elapsed
+times are reported in Table 5, Table 6 subtracts the first tasks results 
 (Count Heavy Atoms) to provide a comparable measure without the overhead of
 input read time. The throughput as molecules per minute is reported but is less
 accurate for v. fast running tasks.
@@ -1206,7 +1205,7 @@ SSSR is considered unfavourable due to the
 non-uniqueness of the set and need for Gaussian matrix elimination (cubic 
 runtime). With some bookkeeping the time spent in the matrix elimination has been
 reduced~\cite{May2014}. For ChEMBL we see the time to generate the SSSR is now
-$\sim$16 seconds when it previously took around $\sim$3.5 minutes (Table 7).
+$\sim$16 seconds when it previously took around $\sim$3.5 minutes (Table 6).
 
 \textbf{-all}, The third subtask counts the number of all rings up to or equal
 to size 12. This includes rings that encompass other smaller rings, for 
@@ -1223,7 +1222,7 @@ reaching the time out. The number fluctuates here as a timeout based threshold
 depends on external factors such as CPU load.
 
 The speed-up in \cdkversion{} is slightly better than the SSSR task. ChEMBL 
-previously spent 4-5 minutes and now takes only $\sim$14 seconds (Table 7).
+previously spent 4-5 minutes and now takes only $\sim$14 seconds (Table 6).
 In \cdkversion{} finding all rings ($\leq$ 12 bonds) runs faster than the 
 non-unique SSSR computation.
 
@@ -1256,7 +1255,7 @@ this is sometimes acceptable but will currently report an error.
 
 \textbf{-ofmt sdf}: For writing SDF output there is minimal improvement from v1.14.19, when 
 discounting improvements in read performance the SDF generation for ChEBI 
-actually runs slightly slower than v1.4.19 (Table 7). This can be partially 
+actually runs slightly slower than v1.4.19 (Table 6). This can be partially 
 explained by the more comprehensive SDF generation that now writes Sgroups 
 as well as computing values for atom parity and valence columns.
 
@@ -1600,22 +1599,7 @@ Java runtime version 1.7.0\_101.
     \end{minipage}
 
 
-\subsection*{Table 5 - SMARTS matching performance.}\label{tab:smigrep}
-  Total time taken to match the SMARTS \texttt{O=[C,N]aa[N,O;!H0]} against $\sim$1.5 million SMILES from
-  ChEMBL 21. The reported time is for single core execution, measure with the Unix time utility (Cent OS 7, Intel Core i7-4790 CPU @ 3.60GHz). The times for recent versions of Open Babel~\cite{OBoyle2011} and RDKit~\cite{rdkit} are included for reference but this is not intended to be a systematic comparison. The difference in number found is due to variations in valence and aromaticity models.
-  \vskip \baselineskip
-
-\begin{tabular}{lll}
-Toolkit                   & Time (s)   & Matched \\
-\hline
-CDK v1.4.9                 & 3,843  & 69,782  \\
-CDK \cdkversion{}         & 67   & 62,518  \\
-Open Babel 2.3.90         & 835 & 61,906  \\
-RDKit 2016.3.4            & 378  & 62,402  \\
-\end{tabular}
-
-
-\subsection*{Table 6 - Summary of systematic benchmark comparing v1.4.19 to \cdkversion{}.}\label{tab:benchmark}
+\subsection*{Table 5 - Summary of systematic benchmark comparing v1.4.19 to \cdkversion{}.}\label{tab:benchmark}
   The total elapsed \textit{real} time was measured with the unix time utility. The 
   throughput is reported in molecules per minute (K=thousand, M=million) as a 
   relatable metric.
@@ -1686,7 +1670,7 @@ Benchmark  & \multicolumn{2}{c}{Data Set} & \multicolumn{3}{c}{CDK 1.4.19} & \mu
 
 \end{tabular}
 
-\subsection*{Table 7 - Summary of systematic benchmark comparing v1.4.19 to \cdkversion{} without read times.}
+\subsection*{Table 6 - Summary of systematic benchmark comparing v1.4.19 to \cdkversion{} without read times.}
 \label{tab:benchmark-delta}
 The number of records skipped and time to run the countheavy benchmark has been subtracted from Table 6. The remaining results provides a relative comparison without accounting for the overhead of reading the input.
 
