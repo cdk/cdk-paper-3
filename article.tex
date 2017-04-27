@@ -449,19 +449,18 @@ types = matcher.findMatchingAtomTypes(molecule);
   can optionally identify
   perspective projections, specifically: Fischer, Haworth, and Chair projections. With the perception of 
   perspective projections enabled, database entries currently considered distinct can be merged
-  (Figure~\ref{fig:stereoprojections}).  The perception from projections is based on an  algorithm briefly  
-  described by~\cite{Karapetyan2015}. Other aspects of stereochemistry handling
-  are detailed thoroughly in Chapter 6 of ~\cite{May2015}.
+  (Figure~\ref{fig:stereoprojections}).
 
   % ChEMBL 21 ~2281 structures (~11454 TH center) drawn in perspective
 
-  Graph matching of stereochemistry with the described representation is straight forward. Given
+  Pattern matching of stereochemistry with the described representation is straight forward. Given
   the atom-atom mapping from a query structure to a target molecule, the focus and carriers of 
   the query stereochemistry are mapped to the target. Using the permutation parity of this mapping
   the configurations were compared. SMARTS matching requires some special handling for complex cases 
   \cite{May2014_SMARTS}. For canonicalization, a partial canonical ordering is used to assign an 
-  absolute label which can then be integrated into the ordering. More detailed descriptions of 
-  these algorithms are described in detail in Chapter~6 of~\cite{May2015}.
+  absolute label which can then be integrated into the ordering. The algorithms used
+  for stereochemistry are thoroughly detailed in Chapter~6 of~\cite{May2015}. The perception
+  from projections is based on an algorithm briefly described by~\cite{Karapetyan2015}.
 
   \subsubsection*{Atomic and Molecular Signatures}
 
