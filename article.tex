@@ -449,18 +449,18 @@ types = matcher.findMatchingAtomTypes(molecule);
   can optionally identify
   perspective projections, specifically: Fischer, Haworth, and Chair projections. With the perception of 
   perspective projections enabled, database entries currently considered distinct can be merged
-  (Figure~\ref{fig:stereoprojections}).  The perception is based on an  algorithm briefly  
-  described by~\cite{Karapetyan2015}.
+  (Figure~\ref{fig:stereoprojections}).
 
   % ChEMBL 21 ~2281 structures (~11454 TH center) drawn in perspective
 
-  Graph matching of stereochemistry with the described representation is straight forward. Given
+  Pattern matching of stereochemistry with the described representation is straight forward. Given
   the atom-atom mapping from a query structure to a target molecule, the focus and carriers of 
   the query stereochemistry are mapped to the target. Using the permutation parity of this mapping
   the configurations were compared. SMARTS matching requires some special handling for complex cases 
   \cite{May2014_SMARTS}. For canonicalization, a partial canonical ordering is used to assign an 
-  absolute label which can then be integrated into the ordering. More detailed descriptions of 
-  these algorithms are described in detail in Chapter~6 of~\cite{May2015}.
+  absolute label which can then be integrated into the ordering. The algorithms used
+  for stereochemistry are thoroughly detailed in Chapter~6 of~\cite{May2015}. The perception
+  from projections is based on an algorithm briefly described by~\cite{Karapetyan2015}.
 
   \subsubsection*{Atomic and Molecular Signatures}
 
@@ -757,11 +757,6 @@ of MACCS-like 166 key generation (Table~5). The efficiency improvements
 are a combination of optimising data structures and key molecule processing
 algorithms (e.g. kekulisation and aromaticity) needed before a SMARTS
 match can be run~\cite{MayBlog2013a,MayBlog2013b,May2015}.
-  
-  % More on performance?
-  % http://efficientbits.blogspot.co.uk/2013_10_01_archive.html
-  % http://efficientbits.blogspot.co.uk/2013_11_01_archive.html
-
 
 \subsubsection*{Ring finding}
 
@@ -843,6 +838,10 @@ Aromaticity aromaticity = new Aromaticity(
 \end{verbatim}
 \vspace{0.2cm}
 
+The aromaticity algorithm is straight forward, the potential electron donation
+is calculated for each atom as -1 (not aromatic), 0, 1, 2. The set of cycles
+provided in the constructor is then generated and each is checked for H{\"u}ckel's 
+rule ($4n+2$).
 
 \subsubsection*{CTfile Format Improvements}
 
