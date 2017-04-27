@@ -673,11 +673,11 @@ Beam API is hidden by this class. Basic usage is as follows:
 \end{verbatim}
 \vspace{0.2cm}
 
-The most significant functional change here is that the SMILES parser automatically 
-locates the positions of double bonds in de-localised aromatic systems (Kekulisation).
-If this invariant cannot be met the SMILES is rejected as invalid. It is 
-possible to override this check but this is strongly discouraged as rejected
-molecules do not have a fixed formula or tautomer.
+The most significant functional change here is that the SMILES parser 
+automatically locates the positions of double bonds in de-localised aromatic 
+systems (Kekulisation). If this invariant cannot be met the SMILES is rejected 
+as invalid. It is possible to override this check but this is strongly 
+discouraged as rejected molecules do not have a fixed formula or tautomer~\cite{May2015}.
 
 The SMILES generation API has also been simplified and made more flexible able 
 to produce several different flavours. The \texttt{SmiFlavor} flags are used
@@ -756,7 +756,7 @@ efficiency. This is emphasised in the systematic benchmark
 of MACCS-like 166 key generation (Table~5). The efficiency improvements
 are a combination of optimising data structures and key molecule processing
 algorithms (e.g. kekulisation and aromaticity) needed before a SMARTS
-match can be run.
+match can be run~\cite{MayBlog2013a,MayBlog2013b,May2015}.
   
   % More on performance?
   % http://efficientbits.blogspot.co.uk/2013_10_01_archive.html
