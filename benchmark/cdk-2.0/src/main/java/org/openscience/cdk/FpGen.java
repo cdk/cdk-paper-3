@@ -62,8 +62,8 @@ public final class FpGen extends CliExecutable {
       case "path":
       case "daylight":
       case "dy":
-        fptype = "path/length=6";
-        fpr = new Fingerprinter(1024, 6);
+        fptype = "path/length=7";
+        fpr = new Fingerprinter(1024, 7);
         // FP does it's own arom
         break;
       case "circ":
