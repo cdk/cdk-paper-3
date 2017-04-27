@@ -1274,13 +1274,12 @@ Hashed Path Fingerprint, MACCS-like 166 Keys, and Pipeline Pilot-like Hashed
 Circular Fingerprint (ECFP4). The task generates a hexadecimal FPS file that
 can be used with chemfp~\cite{Dalke2013}.
 
-\textbf{-type path}: Path based fingerprints encode paths of length 1...n. n was
-choose to be 6 for this benchmark. Path based fingerprints can be used for both
-substructure and similarity screening. The algorithm was
-tweaked for \cdkversion{} to hash the paths without pre-computing all paths
-upfront and without needing to generate character strings before hashing. The 
-time to encode ChEMBL previously took 26-35 minutes now only takes $\sim$5 
-minutes.
+\textbf{-type path}: Path based fingerprints encode paths of length 0 to 7. Path
+based fingerprints can be used for both substructure and similarity screening. 
+The algorithm was tweaked for \cdkversion{} to hash the paths without 
+pre-computing all paths upfront and without needing to generate character 
+strings before hashing. The time to encode ChEMBL previously took 26-35 minutes 
+now only takes $\sim$5 minutes.
 
 \textbf{-type maccs}: The CDK MACCS fingerprint uses 166 keys to encode
 features of a structure and can be used for similarity searching. This encoding
@@ -1653,10 +1652,10 @@ Benchmark  & \multicolumn{2}{c}{Data Set} & \multicolumn{3}{c}{CDK 1.4.19} & \mu
  & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 3h27m7s & 8.1K & 9 & 18m2.59s & 93K & 11.48\\
  &  & sdf & 1 & 5h58m30s & 4.7K & 0 & 19m54.12s & 84.3K & 18.01\\
 \hline
-\multirow{4}{*}{\shortstack[l]{fpgen \\ -type path}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 1m14.5s & 32.7K & 9 & 8.67s & 280.9K & 8.59 \\
- &  & sdf & 0 & 1m52.17s & 22.8K & 25 & 12.15s & 210.9K & 9.23 \\
- & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 35m2.8s & 47.9K & 9 & 5m31.52s & 303.8K & 6.34 \\
- &  & sdf & 0 & 38m51.73s & 43.2K & 0 & 6m19.63s & 265.3K & 6.14 \\
+\multirow{4}{*}{\shortstack[l]{fpgen \\ -type path}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 1m38s & 24.9K & 9 & 10.4s & 234.2K & 9.42 \\
+ &  & sdf & 0 & 2m11.03s & 19.6K & 25 & 14.22s & 180.2K & 9.21 \\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 42m56.15s & 39.1K & 9 & 6m38.67s & 252.6K & 6.46 \\
+ &  & sdf & 0 & 47m5.58s & 35.6K & 0 & 7m46.85s & 215.7K & 6.05 \\
 \hline
 \multirow{4}{*}{\shortstack[l]{fpgen \\ -type maccs}} & \multirow{2}{*}{ChEBI 149} & smi & 2150 & 1h37m35s & 416 & 9 & 19.8s & 123K & 295.71\\
  &  & sdf & 48 & 1h44m17s & 409 & 25 & 22.33s & 114.7K & 280.21\\
@@ -1718,10 +1717,10 @@ Benchmark  & \multicolumn{2}{c}{Data Set} & \multicolumn{3}{c}{CDK 1.4.19} & \mu
  & \multirow{2}{*}{ChEMBL 22.1}  & smi & 0 & 3h18m28s & 8.5K & 0 & 17m50.42s & 94.1K & 11.1\\
  &  & sdf & 1 & 5h55m13s & 4.7K & 0 & 18m46.89s & 89.4K & 18.9\\
 \hline
-\multirow{4}{*}{\shortstack[l]{fpgen \\ -type path}}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 51.99s & 46.9K & 0 & 7.7s & 316.3K & 6.8 \\
- &  & sdf & 0 & 1m44.96s & 24.4K & 0 & 8.4s & 305K & 12.5 \\
- & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 26m23.5s & 63.6K & 0 & 5m19.35s & 315.3K & 5 \\
- &  & sdf & 0 & 35m34.44s & 47.2K & 0 & 5m12.4s & 322.4K & 6.8 \\
+\multirow{4}{*}{\shortstack[l]{fpgen \\ -type path}}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 1m15.49s & 32.3K & 0 & 9.43s & 258.3K & 8 \\
+ &  & sdf & 0 & 2m3.82s & 20.7K & 0 & 10.47s & 244.7K & 11.8 \\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 34m16.85s & 49K & 0 & 6m26.5s & 260.6K & 5.3 \\
+ &  & sdf & 0 & 43m48.29s & 38.3K & 0 & 6m39.62s & 252K & 6.6 \\
 \hline
 \multirow{4}{*}{\shortstack[l]{fpgen \\ -type maccs}}  & \multirow{2}{*}{ChEBI 149}  & smi & 38 & 1h37m12s & 418 & 0 & 18.83s & 129.4K & 309.7\\
  &  & sdf & 48 & 1h44m10s & 410 & 0 & 18.58s & 137.9K & 336.4\\

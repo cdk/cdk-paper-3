@@ -26,10 +26,10 @@ fpgen-type=maccs	sdf	chebi_149	25	0:22.33	22.33
 fpgen-type=maccs	sdf	chembl_22_1	0	13:41.83	821.83
 fpgen-type=maccs	smi	chebi_149	9	0:19.80	19.8
 fpgen-type=maccs	smi	chembl_22_1	9	13:27.11	807.11
-fpgen-type=path	sdf	chebi_149	25	0:12.15	12.15
-fpgen-type=path	smi	chebi_149	9	0:08.67	8.67
-fpgen-type=path	sdf	chembl_22_1	0	6:19.63	379.63
-fpgen-type=path	smi	chembl_22_1	9	5:31.52	331.52
+fpgen-type=path	sdf	chebi_149	25	0:14.22	14.22
+fpgen-type=path	smi	chebi_149	9	0:10.40	10.4
+fpgen-type=path	sdf	chembl_22_1	0	7:46.85	466.85
+fpgen-type=path	smi	chembl_22_1	9	6:38.67	398.67
 rings-all	sdf	chebi_149	40	0:04.13	4.13
 rings-all	sdf	chembl_22_1	0	1:18.99	78.99
 rings-all	smi	chebi_149	26	0:01.27	1.27

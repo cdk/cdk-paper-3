@@ -31,10 +31,10 @@ convert--gen2d-ofmtsdf	chebi_149	smi	0	24m5.51s	1.7K	0	34.73s	70.1K	41.6
 convert--gen2d-ofmtsdf	chebi_149	sdf	13	35m4.82s	1.2K	4	38.33s	66.8K	54.9
 convert--gen2d-ofmtsdf	chembl_22_1	smi	0	3h18m28s	8.5K	0	17m50.42s	94.1K	11.1
 convert--gen2d-ofmtsdf	chembl_22_1	sdf	1	5h55m13s	4.7K	0	18m46.89s	89.4K	18.9
-fpgen-type=path	chebi_149	smi	0	51.99s	46.9K	0	7.7s	316.3K	6.8
-fpgen-type=path	chebi_149	sdf	0	1m44.96s	24.4K	0	8.4s	305K	12.5
-fpgen-type=path	chembl_22_1	smi	0	26m23.5s	63.6K	0	5m19.35s	315.3K	5
-fpgen-type=path	chembl_22_1	sdf	0	35m34.44s	47.2K	0	5m12.4s	322.4K	6.8
+fpgen-type=path	chebi_149	smi	0	1m15.49s	32.3K	0	9.43s	258.3K	8
+fpgen-type=path	chebi_149	sdf	0	2m3.82s	20.7K	0	10.47s	244.7K	11.8
+fpgen-type=path	chembl_22_1	smi	0	34m16.85s	49K	0	6m26.5s	260.6K	5.3
+fpgen-type=path	chembl_22_1	sdf	0	43m48.29s	38.3K	0	6m39.62s	252K	6.6
 fpgen-type=maccs	chebi_149	smi	38	1h37m12s	418	0	18.83s	129.4K	309.7
 fpgen-type=maccs	chebi_149	sdf	48	1h44m10s	410	0	18.58s	137.9K	336.4
 fpgen-type=maccs	chembl_22_1	smi	214	20h16m18s	1.4K	0	13m14.94s	126.7K	91.8
