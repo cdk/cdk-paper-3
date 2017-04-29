@@ -25,6 +25,13 @@ You should now be able to run the command
 $ ./cdk
 ```
 
+If not, set the JAVA_HOME env variable, e.g. as in:
+
+
+```
+$ JAVA_HOME=/usr/lib/jvm/java-8-openjdk-i386 ./cdk
+```
+
 ## Runnable Modules
 
 There are several tasks that can be run:
