@@ -13,3 +13,6 @@ chebi_149.sdf:
 
 chebi_149.smi: chebi_149.sdf
 	LC_ALL=C perl get_chebi_smi.pl chebi_149.sdf > chebi_149.smi
+
+chembl_22_1.sdf:
+	LC_ALL=C curl ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/releases/chembl_22_1/chembl_22_1.sdf.gz | gunzip -c > chembl_22_1.sdf
