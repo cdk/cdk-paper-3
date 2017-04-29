@@ -11,3 +11,4 @@ bmc_template/
 *article.bcf
 *article.fls
 article.fdb_latexmk
+*.xcf
