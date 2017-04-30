@@ -219,7 +219,7 @@ library implements a wide variety of cheminformatics algorithms
 ranging from chemical structure canonicalization to molecular
 descriptor calculations and pharmacophore perception. It is used
 in drug discovery, metabolomics, and toxicology. Over the
-last ten years, the code base has grown significantly resulting in
+last ten years, the code base has grown significantly, however, resulting in
 many complex interdependencies among components and poor
 performance of many algorithms. 
 \parttitle{Results}
@@ -425,7 +425,7 @@ types = matcher.findMatchingAtomTypes(molecule);
    given sufficient demand from the community.
 
 
-  Along with the new stereochemistry representation, algorithms were required in several areas. Generally
+  Along with the new stereochemistry representation, algorithms were required in several areas. Generally,
   a user does not need to invoke these procedures explicitly as they are called as needed within existing
   APIs:
 
@@ -657,7 +657,7 @@ applications in high-resolution mass spectrometry.
 
 \subsubsection*{SMILES parser and generator}
 
-The SMILES parsing has been replaced by code from the external Beam project~\cite{Beam}.
+The SMILES parsing has been replaced by code from the external Beam project~\cite{Beam,Weininger1988}.
 This BSD-licensed SMILES parser is a complete implementation of the SMILES
 and OpenSMILES (\url{http://opensmiles.org/}) specifications by one of the
 authors (including stereochemistry), and is independent of
@@ -687,8 +687,9 @@ supported.
 
 \vspace{0.2cm}
 \begin{verbatim}
-  SmilesGenerator smigen = new SmilesGenerator(SmiFlavor.Canonical |
-                                               SmiFlavor.StereoTetrahedral)
+  SmilesGenerator smigen
+    = new SmilesGenerator(SmiFlavor.Canonical |
+                          SmiFlavor.StereoTetrahedral)
 \end{verbatim}
 \vspace{0.2cm}
 
@@ -846,7 +847,7 @@ rule ($4n+2$).
 \subsubsection*{CTfile Format Improvements}
 
 The molfile format is still very popular and despite it being a proprietary
-format it has become a de facto standard. The format forms the core of the larger
+format, it has become a de facto standard. The format forms the core of the larger
 CTfile family which was originally developed by MDL Information Systems~\cite{Dalby92}. The
 current format specification is published by BIOVIA and available on 
 request~\cite{ctfilespec}.
@@ -923,7 +924,7 @@ implementation of the \texttt{IChemObjectBuilder}, allowing the user of the
 CDK to select a builder suitable to their software. Therefore, if software
 depends on event passing, then the \texttt{DefaultChemObjectBuilder} can be
 used, in most cases this isn't needed and the \texttt{SilentChemObjectBuilder} 
-is preferred resulting in a typical speed up of 10\%-20\%:
+is preferred resulting in a typical speed up of 10\% to 20\%:
 
 \vspace{0.2cm}
 \begin{verbatim}
@@ -1152,7 +1153,7 @@ divided into several cheminformatics tasks for common use cases. Each task
 was evaluated on input from ChEBI 149 \cite{ChEBI13} and ChEMBL 22.1 
 \cite{ChEMBL14} as both SMILES and SDF.
 
-The benchmark was run on Java SE 8, Cent OS 7, Intel Core i7-4790 CPU @ 
+The benchmark was run on Java SE 8, CentOS 7, Intel Core i7-4790 CPU @ 
 3.60GHz with 16 GB of RAM. The code to run the benchmark is available in 
 the supplementary material allowing numbers to be recorded on the
 reader's system.
