@@ -1172,7 +1172,7 @@ atoms counted by iterating over the atoms sequentially.
 
 The improvement on this task is most noticeable for SMILES input, previously
 it would take more than 8 minutes to read ChEMBL 22.1 but this is reduced
-to only 12 seconds. On top of this improvement SMILES input is now validated 
+to less than 11 seconds. On top of this improvement SMILES input is now validated 
 and assigned a Kekul$\mathrm{\acute{e}}$ structure. This identifies 9 invalid
 entries in ChEBI and another 9 in ChEMBL. Most of these rejected SMILES
 are due to the wrong encoding of Cis/Trans double bond stereochemistry at ring 
@@ -1193,8 +1193,8 @@ ring membership and reporting the number of ring bonds in each record.
 This requires a linear algorithm based on a depth first search. 
 The original code used a weighted spanning tree to compute the membership in 
 linearithmic time. The run times are similar for these datasets (Table
-7), larger differences are seen for more complex cage molecules such fullerenes
-\cite{May2014}.
+7), larger differences are only seen for more complex cage molecules such 
+fullerenes~\cite{May2014}.
 
 \textbf{-sssr}, The second subtask computes the Smallest Set of Smallest Rings 
 (SSSR) and reports the size of the SSSR (circuit rank) for each record. Although 
@@ -1218,11 +1218,10 @@ were 15/17\footnote{2 records from SDF use query bond features and are skipped
 when read} records skipped from ChEBI that have complex cage-like ring systems 
 (e.g. CHEBI:33611), no records in ChEMBL reached the threshold. By comparison in
 v1.4.19 there were 14/16 records skipped from ChEBI and 88/90 in ChEMBL due to
-reaching the time out. The number fluctuates here as a timeout based threshold 
-depends on external factors such as CPU load.
+reaching the time out.
 
 The speed-up in \cdkversion{} is slightly better than the SSSR task. ChEMBL 
-previously spent 4-5 minutes and now takes only $\sim$14 seconds (Table 6).
+previously spent 4-5 minutes and now takes only $\sim$12-14 seconds (Table 6).
 In \cdkversion{} finding all rings ($\leq$ 12 bonds) runs faster than the 
 non-unique SSSR computation.
 
@@ -1231,7 +1230,7 @@ non-unique SSSR computation.
 This task measures the generation of a Unique SMILES string. These can be
 used to compare dataset intersection and exact lookup. From SMILES input
 \cdkversion{} the total elapsed time is $\sim$20 times faster for both ChEBI
-and ChEMBL. For ChEMBL it now takes just under 43 seconds to read, reorder, 
+and ChEMBL. For ChEMBL it now takes just under 41 seconds to read, reorder, 
 and write the SMILES compared to more than 14 minutes previously.
 
 \subsection*{Convert}
@@ -1245,7 +1244,7 @@ CXSMILES that includes additional fields such as repeat groups (used by some
 ChEBI entries). As
 expected the v1.4.19 execution time is the same as for the Canonical SMILES 
 task but \cdkversion{} can generate the non-canonical SMILES faster taking less
-than 30 seconds for ChEMBL. 
+than 30 seconds for SMILES from ChEMBL. 
 
 Assigning double-bond configurations in SMILES is 
 non-trivial and \cdkversion{} has some safety checks, since the SMILES output is 
@@ -1259,12 +1258,12 @@ actually runs slightly slower than v1.4.19 (Table 6). This can be partially
 explained by the more comprehensive SDF generation that now writes Sgroups 
 as well as computing values for atom parity and valence columns.
 
-\textbf{-gen2d -ofmt sdf}: When writing SDF the only portable way to store stereochemistry is with the 
-inclusion of coordinates, this is specified with the \texttt{-gen2d} option. 
-The overhaul in layout generation discussed early provides better layouts but 
-also included performance tweaks, in CDK v1.4.19 generating coordinates and 
-writing an SDF for ChEMBL took almost 3.5 hours but now only takes just over
-18 minutes.
+\textbf{-gen2d -ofmt sdf}: When writing SDF the only portable way to store 
+stereochemistry is with the inclusion of coordinates, this is specified with 
+the \texttt{-gen2d} option. The overhaul in layout generation discussed early 
+provides better layouts but also included performance tweaks, in CDK v1.4.19 
+generating coordinates and writing an SDF for ChEMBL took almost 3.5 hours but
+now only takes $\sim$18 minutes.
 
 \subsection*{Fingerprint Generation}
 
@@ -1279,15 +1278,15 @@ based fingerprints can be used for both substructure and similarity screening.
 The algorithm was tweaked for \cdkversion{} to hash the paths without 
 pre-computing all paths upfront and without needing to generate character 
 strings before hashing. The time to encode ChEMBL previously took 42-47 minutes 
-now only takes 6-7 minutes.
+now only takes 6-8 minutes.
 
 \textbf{-type maccs}: The CDK MACCS fingerprint uses 166 keys to encode
 features of a structure and can be used for similarity searching. This encoding
 uses different aspects of the library including ring perception and the new
 aromaticity perception but the speed is primarily dependent on SMARTS matching 
-performance. Generating the fingerprint previously took almost 1 day for ChEMBL 
-and 2 hours for ChEBI. This has been reduced to less than 
-15 minutes for ChEMBL and less than 30 seconds for ChEBI. 
+performance. Generating the fingerprint previously took $\sim$1 day for ChEMBL 
+and $\sim$1.75 hours for ChEBI. This has been reduced to less than 
+13.5 minutes for ChEMBL and $\sim$20 seconds for ChEBI. 
 
 \textbf{-type circ}: Circular fingerprints can only be used for similarity and
 could not be generated in v1.4.19. However, the fingerprints are known to perform
