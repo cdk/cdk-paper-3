@@ -40,11 +40,13 @@ for d in $DATA_SET; do
 	for exec in "${BENCHMARKS[@]}"; do
 		echo "Running Benchmark '$exec'"
     if [ -e $SMI_FILE ]; then
+    	wc -c $SMI_FILE # page in
 	    $TIME $CDK ${exec} -ifmt=smi $SMI_FILE \
 	    		> $RESULT_DIR/${d}_smi_${UUID}.txt \
 	    		2> $RESULT_DIR/${d}_smi_${UUID}.err
 	  fi
     if [ -e $SDF_FILE ]; then
+    	wc -c $SMI_FILE # page in
 	    $TIME $CDK ${exec} -ifmt=sdf $SDF_FILE \
 	    		> $RESULT_DIR/${d}_sdf_${UUID}.txt \
 	    		2> $RESULT_DIR/${d}_sdf_${UUID}.err

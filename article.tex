@@ -1612,61 +1612,60 @@ Java runtime version 1.7.0\_101.
 Benchmark  & \multicolumn{2}{c}{Data Set} & \multicolumn{3}{c}{CDK 1.4.19} & \multicolumn{3}{c}{CDK \cdkversion{}} & Improvement \\
            &          &              & Skip & Time & Per Min & Skip  & Time  & Per Min \\
 \hline
-\multirow{4}{*}{countheavy} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 22.51s & 108.2K & 9 & 0.97s & 2.5M & 23.21\\
- &  & sdf & 0 & 7.21s & 355.4K & 25 & 3.75s & 683.3K & 1.92\\
- & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 8m39.3s & 193.9K & 9 & 12.17s & 8.3M & 42.67\\
- &  & sdf & 0 & 3m17.29s & 510.4K & 0 & 1m7.23s & 1.5M & 2.93\\
+\multirow{4}{*}{countheavy} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 22.51s & 108.2K & 9 & 0.85s & 2.9M & 26.48\\
+ &  & sdf & 0 & 7.21s & 355.4K & 25 & 3s & 854.1K & 2.4\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 8m39.3s & 193.9K & 9 & 10.74s & 9.4M & 48.35\\
+ &  & sdf & 0 & 3m17.29s & 510.4K & 0 & 53.27s & 1.9M & 3.7\\
 \hline
-\multirow{4}{*}{\shortstack[l]{rings \\ -mark}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 22.91s & 106.3K & 9 & 1.03s & 2.4M & 22.24\\
- &  & sdf & 0 & 8.71s & 294.2K & 25 & 3.93s & 652K & 2.22\\
- & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 8m45.78s & 191.5K & 9 & 17.98s & 5.6M & 29.24\\
- &  & sdf & 0 & 4m12.01s & 399.6K & 0 & 1m14.95s & 1.3M & 3.36\\
+\multirow{4}{*}{\shortstack[l]{rings \\-mark}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 22.91s & 106.3K & 9 & 1.06s & 2.3M & 21.61\\
+ &  & sdf & 0 & 8.71s & 294.2K & 25 & 3.11s & 823.9K & 2.8\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 8m45.78s & 191.5K & 9 & 17.09s & 5.9M & 30.77\\
+ &  & sdf & 0 & 4m12.01s & 399.6K & 0 & 1m6.54s & 1.5M & 3.79\\
 \hline
-\multirow{4}{*}{\shortstack[l]{rings \\ -sssr}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 27.4s & 88.9K & 9 & 1.48s & 1.6M & 18.51\\
- &  & sdf & 0 & 11.84s & 216.4K & 25 & 4.08s & 628K & 2.9\\
- & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 12m4.62s & 139K & 9 & 28.07s & 3.6M & 25.81\\
- &  & sdf & 0 & 7m9.58s & 234.4K & 0 & 1m24.16s & 1.2M & 5.1\\
+\multirow{4}{*}{\shortstack[l]{rings \\-sssr}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 27.4s & 88.9K & 9 & 1.43s & 1.7M & 19.16\\
+ &  & sdf & 0 & 11.84s & 216.4K & 25 & 3.78s & 677.8K & 3.13\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 12m4.62s & 139K & 9 & 27.16s & 3.7M & 26.68\\
+ &  & sdf & 0 & 7m9.58s & 234.4K & 0 & 1m8.17s & 1.5M & 6.3\\
 \hline
-\multirow{4}{*}{\shortstack[l]{rings \\ -all}} & \multirow{2}{*}{ChEBI 149} & smi & 2126 & 45.28s & 53.8K & 26 & 1.27s & 1.9M & 35.65\\
- &  & sdf & 16 & 36.56s & 70.1K & 40 & 4.13s & 620.4K & 8.85\\
- & \multirow{2}{*}{ChEMBL 22.1} & smi & 88 & 12m40.2s & 132.5K & 9 & 26.48s & 3.8M & 28.71\\
- &  & sdf & 90 & 8m5.64s & 207.4K & 0 & 1m18.99s & 1.3M & 6.15\\
+\multirow{4}{*}{\shortstack[l]{rings \\-all}} & \multirow{2}{*}{ChEBI 149} & smi & 2126 & 45.28s & 53.8K & 26 & 1.26s & 1.9M & 35.94\\
+ &  & sdf & 16 & 36.56s & 70.1K & 40 & 3.51s & 730K & 10.42\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 88 & 12m40.2s & 132.5K & 9 & 24.97s & 4M & 30.44\\
+ &  & sdf & 90 & 8m5.64s & 207.4K & 0 & 1m5.68s & 1.5M & 7.39\\
 \hline
-\multirow{4}{*}{cansmi} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 36.58s & 66.6K & 9 & 1.83s & 1.3M & 19.99\\
- &  & sdf & 35 & 21.15s & 121.1K & 26 & 4.77s & 537.2K & 4.43\\
- & \multirow{2}{*}{ChEMBL 22.1} & smi & 14 & 14m33.86s & 115.2K & 9 & 42.41s & 2.4M & 20.61\\
- &  & sdf & 0 & 8m59.82s & 186.6K & 0 & 1m44.86s & 960.4K & 5.15\\
+\multirow{4}{*}{cansmi} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 36.58s & 66.6K & 9 & 1.91s & 1.3M & 19.15\\
+ &  & sdf & 35 & 21.15s & 121.1K & 26 & 4.37s & 586.3K & 4.84\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 14 & 14m33.86s & 115.2K & 9 & 40.84s & 2.5M & 21.4\\
+ &  & sdf & 0 & 8m59.82s & 186.6K & 0 & 1m29.33s & 1.1M & 6.04\\
 \hline
-\multirow{4}{*}{\shortstack[l]{convert \\ -ofmt smi}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 35.63s & 68.4K & 16 & 1.6s & 1.5M & 22.27 \\
- &  & sdf & 35 & 20.91s & 122.5K & 25 & 4.47s & 573.2K & 4.68 \\
- & \multirow{2}{*}{ChEMBL 22.1} & smi & 14 & 14m26.02s & 116.3K & 34 & 28.14s & 3.6M & 30.78 \\
- &  & sdf & 0 & 8m59.38s & 186.7K & 1 & 1m19.86s & 1.3M & 6.75 \\
+\multirow{4}{*}{\shortstack[l]{convert \\-ofmt smi}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 35.63s & 68.4K & 16 & 1.47s & 1.7M & 24.24\\
+ &  & sdf & 35 & 20.91s & 122.5K & 25 & 4.55s & 563.1K & 4.6\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 14 & 14m26.02s & 116.3K & 37 & 26.2s & 3.8M & 33.05\\
+ &  & sdf & 0 & 8m59.38s & 186.7K & 1 & 1m12.49s & 1.4M & 7.44\\
 \hline
-\multirow{4}{*}{\shortstack[l]{convert \\ -ofmt sdf}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 32.42s & 75.1K & 9 & 10.33s & 235.8K & 3.14\\
- &  & sdf & 13 & 17s & 150.7K & 29 & 14.49s & 176.8K & 1.17\\
- & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 14m25.82s & 116.3K & 9 & 5m30.66s & 304.6K & 2.62\\
- &  & sdf & 1 & 8m51.33s & 189.5K & 0 & 6m50.92s & 245.1K & 1.29\\
+\multirow{4}{*}{\shortstack[l]{convert \\-ofmt sdf}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 32.42s & 75.1K & 9 & 10.39s & 234.4K & 3.12\\
+ &  & sdf & 13 & 17s & 150.7K & 25 & 13.96s & 183.5K & 1.22\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 14m25.82s & 116.3K & 9 & 5m26.29s & 308.6K & 2.65\\
+ &  & sdf & 1 & 8m51.33s & 189.5K & 0 & 6m34.5s & 255.3K & 1.35\\
 \hline
-\multirow{4}{*}{\shortstack[l]{convert \\ -gen2d \\ -ofmt smi}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 24m28.02s & 1.7K & 9 & 35.7s & 68.2K & 41.12\\
- &  & sdf & 13 & 35m12.03s & 1.2K & 29 & 42.08s & 60.9K & 50.19\\
- & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 3h27m7s & 8.1K & 9 & 18m2.59s & 93K & 11.48\\
- &  & sdf & 1 & 5h58m30s & 4.7K & 0 & 19m54.12s & 84.3K & 18.01\\
+\multirow{4}{*}{\shortstack[l]{convert \\-gen2d \\-ofmt sdf}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 24m28.02s & 1.7K & 9 & 35.86s & 67.9K & 40.94\\
+ &  & sdf & 13 & 35m12.03s & 1.2K & 25 & 42.43s & 60.4K & 49.78\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 3h27m7s & 8.1K & 9 & 17m44.64s & 94.6K & 11.67\\
+ &  & sdf & 1 & 5h58m30s & 4.7K & 0 & 19m42.77s & 85.1K & 18.19\\
 \hline
-\multirow{4}{*}{\shortstack[l]{fpgen \\ -type path}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 1m38s & 24.9K & 9 & 10.4s & 234.2K & 9.42 \\
- &  & sdf & 0 & 2m11.03s & 19.6K & 25 & 14.22s & 180.2K & 9.21 \\
- & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 42m56.15s & 39.1K & 9 & 6m38.67s & 252.6K & 6.46 \\
- &  & sdf & 0 & 47m5.58s & 35.6K & 0 & 7m46.85s & 215.7K & 6.05 \\
+\multirow{4}{*}{\shortstack[l]{fpgen \\-type path}} & \multirow{2}{*}{ChEBI 149} & smi & 2112 & 1m38s & 24.9K & 9 & 10.28s & 236.9K & 9.53\\
+ &  & sdf & 0 & 2m11.03s & 19.6K & 25 & 13.03s & 196.6K & 10.06\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 42m56.15s & 39.1K & 9 & 6m34.67s & 255.2K & 6.53\\
+ &  & sdf & 0 & 47m5.58s & 35.6K & 0 & 7m52.32s & 213.2K & 5.98\\
 \hline
-\multirow{4}{*}{\shortstack[l]{fpgen \\ -type maccs}} & \multirow{2}{*}{ChEBI 149} & smi & 2150 & 1h37m35s & 416 & 9 & 19.8s & 123K & 295.71\\
- &  & sdf & 48 & 1h44m17s & 409 & 25 & 22.33s & 114.7K & 280.21\\
- & \multirow{2}{*}{ChEMBL 22.1} & smi & 214 & 20h24m57s & 1.4K & 9 & 13m27.11s & 124.8K & 91.06\\
- &  & sdf & 225 & 24h41m46s & 1.1K & 0 & 13m41.83s & 122.5K & 108.18\\
+\multirow{4}{*}{\shortstack[l]{fpgen \\-type maccs}} & \multirow{2}{*}{ChEBI 149} & smi & 2150 & 1h37m35s & 416 & 9 & 19.51s & 124.8K & 300.1\\
+ &  & sdf & 48 & 1h44m17s & 409 & 25 & 21.25s & 120.6K & 294.45\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 214 & 20h24m57s & 1.4K & 9 & 13m31.21s & 124.1K & 90.6\\
+ &  & sdf & 225 & 24h41m46s & 1.1K & 0 & 13m26.41s & 124.9K & 110.25\\
 \hline
-\multirow{4}{*}{\shortstack[l]{fpgen \\ -type circ}} & \multirow{2}{*}{ChEBI 149} & smi & 0 & NA & - & 9 & 4.47s & 544.9K & 0\\
- &  & sdf & 0 & NA & - & 25 & 7.04s & 364K & 0\\
- & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & NA & - & 9 & 2m45.68s & 607.8K & 0\\
- &  & sdf & 0 & NA & - & 0 & 3m59.23s & 420.9K & 0\\
-
+\multirow{4}{*}{\shortstack[l]{fpgen \\-type circ}} & \multirow{2}{*}{ChEBI 149} & smi & 0 &  & - & 9 & 4.37s & 557.4K & 0\\
+ &  & sdf & 0 &  & - & 25 & 6.81s & 376.2K & 0\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 &  & - & 9 & 2m43.45s & 616.1K & 0\\
+ &  & sdf & 0 &  & - & 0 & 3m42.01s & 453.6K & 0\\
 \end{tabular}
 
 \subsection*{Table 6 - Summary of systematic benchmark comparing v1.4.19 to \cdkversion{} without read times.}
@@ -1677,61 +1676,60 @@ The number of records skipped and time to run the countheavy benchmark has been 
 Benchmark  & \multicolumn{2}{c}{Data Set} & \multicolumn{3}{c}{CDK 1.4.19} & \multicolumn{3}{c}{CDK \cdkversion{}} & Improvement \\
            &          &              & Skip & Time & Per Min & Skip  & Time  & Per Min \\
 \hline
-\multirow{4}{*}{countheavy}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 0s & - & 0 & 0s & - & \\
+\multirow{4}{*}{countheavy} & \multirow{2}{*}{ChEBI 149} & smi & 0 & 0s & - & 0 & 0s & - & \\
  &  & sdf & 0 & 0s & - & 0 & 0s & - & \\
- & \multirow{2}{*}{ChEMBL 22.1}  & smi & 0 & 0s & - & 0 & 0s & - & \\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 0s & - & 0 & 0s & - & \\
  &  & sdf & 0 & 0s & - & 0 & 0s & - & \\
 \hline
-\multirow{4}{*}{\shortstack[l]{rings \\ -mark}}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 0.4s & 6.1M & 0 & 0.06s & 40.6M & 6.7\\
- &  & sdf & 0 & 1.5s & 1.7M & 0 & 0.18s & 14.2M & 8.3\\
- & \multirow{2}{*}{ChEMBL 22.1}  & smi & 0 & 6.48s & 15.5M & 0 & 5.81s & 17.3M & 1.1\\
- &  & sdf & 0 & 54.72s & 1.8M & 0 & 7.72s & 13M & 7.1\\
+\multirow{4}{*}{\shortstack[l]{rings \\-mark}} & \multirow{2}{*}{ChEBI 149} & smi & 0 & 0.4s & 6.1M & 0 & 0.21s & 11.6M & 1.9\\
+ &  & sdf & 0 & 1.5s & 1.7M & 0 & 0.11s & 23.3M & 13.6\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 6.48s & 15.5M & 0 & 6.35s & 15.9M & 1\\
+ &  & sdf & 0 & 54.72s & 1.8M & 0 & 13.27s & 7.6M & 4.1\\
 \hline
-\multirow{4}{*}{\shortstack[l]{rings \\ -sssr}}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 4.89s & 498.1K & 0 & 0.51s & 4.8M & 9.6\\
- &  & sdf & 0 & 4.63s & 553.4K & 0 & 0.33s & 7.8M & 14\\
- & \multirow{2}{*}{ChEMBL 22.1}  & smi & 0 & 3m25.32s & 490.5K & 0 & 15.9s & 6.3M & 12.9\\
- &  & sdf & 0 & 3m52.29s & 433.5K & 0 & 16.93s & 5.9M & 13.7\\
+\multirow{4}{*}{\shortstack[l]{rings \\-sssr}} & \multirow{2}{*}{ChEBI 149} & smi & 0 & 4.89s & 498.1K & 0 & 0.58s & 4.2M & 8.4\\
+ &  & sdf & 0 & 4.63s & 553.4K & 0 & 0.78s & 3.3M & 5.9\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 3m25.32s & 490.5K & 0 & 16.42s & 6.1M & 12.5\\
+ &  & sdf & 0 & 3m52.29s & 433.5K & 0 & 14.9s & 6.8M & 15.6\\
 \hline
-\multirow{4}{*}{\shortstack[l]{rings \\ -all}}  & \multirow{2}{*}{ChEBI 149}  & smi & 14 & 22.77s & 107K & 17 & 0.3s & 8.1M & 75.9\\
- &  & sdf & 16 & 29.35s & 87.3K & 15 & 0.38s & 6.7M & 77.2\\
- & \multirow{2}{*}{ChEMBL 22.1}  & smi & 88 & 4m0.9s & 418K & 0 & 14.31s & 7M & 16.8\\
- &  & sdf & 90 & 4m48.35s & 349.2K & 0 & 11.76s & 8.6M & 24.5\\
+\multirow{4}{*}{\shortstack[l]{rings \\-all}} & \multirow{2}{*}{ChEBI 149} & smi & 14 & 22.77s & 107K & 17 & 0.41s & 5.9M & 55.5\\
+ &  & sdf & 16 & 29.35s & 87.3K & 15 & 0.51s & 5M & 57.5\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 88 & 4m0.9s & 418K & 0 & 14.23s & 7.1M & 16.9\\
+ &  & sdf & 90 & 4m48.35s & 349.2K & 0 & 12.41s & 8.1M & 23.2\\
 \hline
-\multirow{4}{*}{cansmi}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 14.07s & 173.1K & 0 & 0.86s & 2.8M & 16.4\\
- &  & sdf & 35 & 13.94s & 183.8K & 1 & 1.02s & 2.5M & 13.7\\
- & \multirow{2}{*}{ChEMBL 22.1}  & smi & 14 & 5m54.56s & 284K & 0 & 30.24s & 3.3M & 11.7\\
- &  & sdf & 0 & 5m42.53s & 294K & 0 & 37.63s & 2.7M & 9.1\\
+\multirow{4}{*}{cansmi} & \multirow{2}{*}{ChEBI 149} & smi & 0 & 14.07s & 173.1K & 0 & 1.06s & 2.3M & 13.3\\
+ &  & sdf & 35 & 13.94s & 183.8K & 1 & 1.37s & 1.9M & 10.2\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 14 & 5m54.56s & 284K & 0 & 30.1s & 3.3M & 11.8\\
+ &  & sdf & 0 & 5m42.53s & 294K & 0 & 36.06s & 2.8M & 9.5\\
 \hline
-\multirow{4}{*}{\shortstack[l]{convert \\ -ofmt smi}}  & \multirow{2}{*}{ChEBI 149} & smi & 0 & 13.12s & 185.7K & 7 & 0.63s & 3.9M & 20.8 \\
- &  & sdf & 35 & 13.7s & 187K & 0 & 0.72s & 3.6M & 19 \\
- & \multirow{2}{*}{ChEMBL 22.1} & smi & 14 & 5m46.72s & 290.4K & 25 & 15.97s & 6.3M & 21.7 \\
- &  & sdf & 0 & 5m42.09s & 294.4K & 1 & 12.63s & 8M & 27.1 \\
+\multirow{4}{*}{\shortstack[l]{convert \\-ofmt smi}} & \multirow{2}{*}{ChEBI 149} & smi & 0 & 13.12s & 185.7K & 7 & 0.62s & 3.9M & 21.2\\
+ &  & sdf & 35 & 13.7s & 187K & 0 & 1.55s & 1.7M & 8.8\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 14 & 5m46.72s & 290.4K & 28 & 15.46s & 6.5M & 22.4\\
+ &  & sdf & 0 & 5m42.09s & 294.4K & 1 & 19.22s & 5.2M & 17.8\\
 \hline
-\multirow{4}{*}{\shortstack[l]{convert \\ -ofmt sdf}}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 9.91s & 245.8K & 0 & 9.36s & 260.2K & 1.1\\
- &  & sdf & 13 & 9.79s & 261.7K & 4 & 10.74s & 238.6K & 0.9\\
- & \multirow{2}{*}{ChEMBL 22.1}  & smi & 0 & 5m46.52s & 290.6K & 0 & 5m18.49s & 316.2K & 1.1\\
- &  & sdf & 1 & 5m34.04s & 301.5K & 0 & 5m43.69s & 293K & 1\\
+\multirow{4}{*}{\shortstack[l]{convert \\-ofmt sdf}} & \multirow{2}{*}{ChEBI 149} & smi & 0 & 9.91s & 245.8K & 0 & 9.54s & 255.3K & 1\\
+ &  & sdf & 13 & 9.79s & 261.7K & 0 & 10.96s & 233.8K & 0.9\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 5m46.52s & 290.6K & 0 & 5m15.55s & 319.1K & 1.1\\
+ &  & sdf & 1 & 5m34.04s & 301.5K & 0 & 5m41.23s & 295.1K & 1\\
 \hline
-\multirow{4}{*}{\shortstack[l]{convert \\ -gen2d \\ -ofmt smi}}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 24m5.51s & 1.7K & 0 & 34.73s & 70.1K & 41.6\\
- &  & sdf & 13 & 35m4.82s & 1.2K & 4 & 38.33s & 66.8K & 54.9\\
- & \multirow{2}{*}{ChEMBL 22.1}  & smi & 0 & 3h18m28s & 8.5K & 0 & 17m50.42s & 94.1K & 11.1\\
- &  & sdf & 1 & 5h55m13s & 4.7K & 0 & 18m46.89s & 89.4K & 18.9\\
+\multirow{4}{*}{\shortstack[l]{convert \\-gen2d \\-ofmt sdf}} & \multirow{2}{*}{ChEBI 149} & smi & 0 & 24m5.51s & 1.7K & 0 & 35.01s & 69.6K & 41.3\\
+ &  & sdf & 13 & 35m4.82s & 1.2K & 0 & 39.43s & 65K & 53.4\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 3h18m28s & 8.5K & 0 & 17m33.9s & 95.6K & 11.3\\
+ &  & sdf & 1 & 5h55m13s & 4.7K & 0 & 18m49.5s & 89.2K & 18.9\\
 \hline
-\multirow{4}{*}{\shortstack[l]{fpgen \\ -type path}}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 & 1m15.49s & 32.3K & 0 & 9.43s & 258.3K & 8 \\
- &  & sdf & 0 & 2m3.82s & 20.7K & 0 & 10.47s & 244.7K & 11.8 \\
- & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 34m16.85s & 49K & 0 & 6m26.5s & 260.6K & 5.3 \\
- &  & sdf & 0 & 43m48.29s & 38.3K & 0 & 6m39.62s & 252K & 6.6 \\
+\multirow{4}{*}{\shortstack[l]{fpgen \\-type path}} & \multirow{2}{*}{ChEBI 149} & smi & 0 & 1m15.49s & 32.3K & 0 & 9.43s & 258.3K & 8\\
+ &  & sdf & 0 & 2m3.82s & 20.7K & 0 & 10.03s & 255.5K & 12.3\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 & 34m16.85s & 49K & 0 & 6m23.93s & 262.3K & 5.4\\
+ &  & sdf & 0 & 43m48.29s & 38.3K & 0 & 6m59.05s & 240.3K & 6.3\\
 \hline
-\multirow{4}{*}{\shortstack[l]{fpgen \\ -type maccs}}  & \multirow{2}{*}{ChEBI 149}  & smi & 38 & 1h37m12s & 418 & 0 & 18.83s & 129.4K & 309.7\\
- &  & sdf & 48 & 1h44m10s & 410 & 0 & 18.58s & 137.9K & 336.4\\
- & \multirow{2}{*}{ChEMBL 22.1}  & smi & 214 & 20h16m18s & 1.4K & 0 & 13m14.94s & 126.7K & 91.8\\
- &  & sdf & 225 & 24h38m29s & 1.1K & 0 & 12m34.6s & 133.5K & 117.6\\
+\multirow{4}{*}{\shortstack[l]{fpgen \\-type maccs}} & \multirow{2}{*}{ChEBI 149} & smi & 38 & 1h37m12s & 418 & 0 & 18.66s & 130.5K & 312.6\\
+ &  & sdf & 48 & 1h44m10s & 410 & 0 & 18.25s & 140.4K & 342.5\\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 214 & 20h16m18s & 1.4K & 0 & 13m20.47s & 125.8K & 91.2\\
+ &  & sdf & 225 & 24h38m29s & 1.1K & 0 & 12m33.14s & 133.7K & 117.8\\
 \hline
-\multirow{4}{*}{\shortstack[l]{fpgen \\ -type circ}}  & \multirow{2}{*}{ChEBI 149}  & smi & 0 &  & - & 0 & 3.5s & 695.9K & \\
- &  & sdf & 0 &  & - & 0 & 3.29s & 778.8K & \\
- & \multirow{2}{*}{ChEMBL 22.1}  & smi & 0 &  & - & 0 & 2m33.51s & 656K & \\
- &  & sdf & 0 &  & - & 0 & 2m52s & 585.5K & \\
-\hline
+\multirow{4}{*}{\shortstack[l]{fpgen \\-type circ}} & \multirow{2}{*}{ChEBI 149} & smi & 0 &  & - & 0 & 3.52s & 692K & \\
+ &  & sdf & 0 &  & - & 0 & 3.81s & 672.5K & \\
+ & \multirow{2}{*}{ChEMBL 22.1} & smi & 0 &  & - & 0 & 2m32.71s & 659.4K & \\
+ &  & sdf & 0 &  & - & 0 & 2m48.74s & 596.8K & \\
 \end{tabular}
 
 \end{backmatter}
