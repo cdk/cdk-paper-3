@@ -381,7 +381,7 @@ two previous publications in 2003 and 2006~\cite{Steinbeck2003,Steinbeck2006}.
   for example, for Gasteiger $\pi$-charges.
 
   A reference implementation, \texttt{CDKAtomTypeMatcher}, has been
-  written that perceives these atom types, and validates the
+  written in such a way that perceives these atom types, and validates the
   perception automatically against the properties defined by the
   ontology.  This class handles a variety of types of missing
   information, as commonly resulting from various (file) formats; for
@@ -919,7 +919,7 @@ IAtom atom = builder.newInstance(IAtom.class, "C");
 \end{verbatim}
 \vspace{0.2cm}
 
-The CDK library is now mostly written that it no longer depends on a specific
+The CDK library is now mostly refactored and no longer depends on a specific
 implementation of the \texttt{IChemObjectBuilder}, allowing the user of the
 CDK to select a builder suitable to their software. Therefore, if software
 depends on event passing, then the \texttt{DefaultChemObjectBuilder} can be
