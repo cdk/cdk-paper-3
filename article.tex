@@ -557,12 +557,12 @@ sdg.generateCoordinates(mol);
   internals have been revamped. In addition to improved overlap
   resolution noted above, the engine appropriately handles large ring
   systems, maintains input stereochemistry, and makes use of a large
-  template library. Templates are useful for laying out substructure
+  template library. Templates are useful for laying out substructure.
   While previous CDK versions partially supported 
   double bond stereochemistry the new engine is more efficient in
-  using this information when generate 2D layouts. Furthermore, the
+  using this information when generating 2D layouts. Furthermore, the
   engine assigns wedge bond information based on tetrahedral
-  stereochemistry. These features are exemplified by the following
+  ste\-reo\-chem\-is\-try. These features are exemplified by the following
   code and the resulting layout depiction in
   Figure~\ref{fig:sdgstereo}:
 
@@ -881,7 +881,7 @@ Originally, the CDK was developed as a shared library between
 JChemPaint~\cite{krause2000jchempaint} and
 Jmol~\cite{Willighagen2007jmol,Hanson2010}.  JChemPaint used a MVC
 approach with an event-passing mechanism to update the view when the
-model was changed. This can cause an cascade of change events being
+model was changed. This can cause a cascade of change events being
 passed around. This was not always a desirable feature, especially for
 non-UI code. To address this, interfaces were introduced allowing
 multiple implementations of the core interfaces. With much code of the CDK
