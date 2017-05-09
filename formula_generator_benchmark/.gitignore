@@ -1,0 +1,7 @@
+out*.sorted
+out*.txt
+*.class
+*.o
+*.exe
+HR2
+PFG
