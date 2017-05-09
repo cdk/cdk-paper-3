@@ -1,6 +1,7 @@
 out*.sorted
 out*.txt
 *.class
+*.jar
 *.o
 *.exe
 HR2
